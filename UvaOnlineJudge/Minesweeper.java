@@ -1,3 +1,4 @@
+package UvaOnlineJudge;
 import java.util.Scanner;
 
 /**
