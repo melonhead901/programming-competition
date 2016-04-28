@@ -24,4 +24,10 @@ public abstract class Solver<T> {
     public boolean isReady() {
         return scanner.hasNext();
     }
+
+    public void solveUntilDone() {
+        while (isReady()) {
+            System.out.println(processCase());
+        }
+    }
 }
