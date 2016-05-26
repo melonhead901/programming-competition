@@ -1,9 +1,9 @@
 package adventofcode;
 
+import com.google.common.collect.ImmutableSet;
+
 import java.util.Scanner;
 import java.util.Set;
-
-import com.google.common.collect.ImmutableSet;
 
 public class NiceString {
     public static void main(String[] args) {

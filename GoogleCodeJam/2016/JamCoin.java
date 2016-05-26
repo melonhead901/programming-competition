@@ -1,11 +1,10 @@
+import com.google.common.base.Strings;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigInteger;
 import java.util.Scanner;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.google.common.base.Strings;
 
 public class JamCoin {
 
