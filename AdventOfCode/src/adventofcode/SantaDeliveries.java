@@ -71,7 +71,7 @@ public class SantaDeliveries {
 
     }
 
-    static class Coord {
+    private static class Coord {
         final int x, y;
 
         public Coord(int x, int y) {
@@ -121,13 +121,7 @@ public class SantaDeliveries {
                 return false;
             }
             Coord other = (Coord) obj;
-            if (x != other.x) {
-                return false;
-            }
-            if (y != other.y) {
-                return false;
-            }
-            return true;
+            return x == other.x && y == other.y;
         }
     }
 

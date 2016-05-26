@@ -18,7 +18,7 @@ public class StockingStuffer {
 
     private static void processCase(MessageDigest messageDigest, String str) throws UnsupportedEncodingException {
         int num = 0;
-        String result = "";
+        String result;
         do {
             final String strToHash = str + String.valueOf(num);
             byte[] bytes = messageDigest.digest(strToHash.getBytes("UTF-8"));
