@@ -7,9 +7,9 @@ import java.util.Scanner;
  */
 public class ChristmasLights {
     public static void main(String[] args) {
-        boolean[][] lights = new boolean[1000][];
+        int[][] lights = new int[1000][];
         for (int i = 0; i < lights.length; i++) {
-            lights[i] = new boolean[1000];
+            lights[i] = new int[1000];
         }
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
@@ -20,29 +20,27 @@ public class ChristmasLights {
 
     }
 
-    private static int countLights(boolean[][] lights) {
+    private static int countLights(int[][] lights) {
        int count = 0;
-        for (boolean[] lightArray : lights) {
-            for (boolean light : lightArray) {
-                if (light) {
-                    count++;
-                }
+        for (int[] lightArray : lights) {
+            for (int light : lightArray) {
+                    count+=light;
             }
         }
         return count;
     }
 
-    private static void processLine(boolean[][] lights, String line) {
+    private static void processLine(int[][] lights, String line) {
         String[] split = line.split(" ");
         switch (split[0]) {
             case "turn":
-                boolean action;
+                int delta;
                 switch (split[1]) {
                     case "on":
-                        action = true;
+                        delta = 1;
                         break;
                     case "off":
-                        action = false;
+                        delta = -1;
                         break;
                     default:
                         throw new IllegalStateException("Invalid instruction turn " + split[1]);
@@ -51,7 +49,8 @@ public class ChristmasLights {
                 Coord end = new Coord(split[4]);
                 for (int x = start.getX(); x <= end.getX(); x++) {
                     for (int y = start.getY(); y <= end.getY(); y++) {
-                        lights[x][y] = action;
+                        lights[x][y] += delta;
+                        lights[x][y] = Math.max(0, lights[x][y]);
                     }
                 }
 
@@ -61,7 +60,7 @@ public class ChristmasLights {
                 end = new Coord(split[3]);
                 for (int x = start.getX(); x <= end.getX(); x++) {
                     for (int y = start.getY(); y <= end.getY(); y++) {
-                        lights[x][y] = !lights[x][y];
+                        lights[x][y] += 2;
                     }
                 }
                 break;
