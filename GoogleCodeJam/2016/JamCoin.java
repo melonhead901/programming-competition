@@ -1,11 +1,10 @@
+import com.google.common.base.Strings;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigInteger;
 import java.util.Scanner;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.google.common.base.Strings;
 
 public class JamCoin {
 
@@ -41,7 +40,7 @@ public class JamCoin {
         return builder.toString();
     }
 
-    static final BigInteger[] bases = {
+    private static final BigInteger[] bases = {
             TWO,
             new BigInteger("3"),
             new BigInteger("4"),
@@ -62,13 +61,13 @@ public class JamCoin {
             boolean success = false;
 
             for (BigInteger bi : bases) {
-                if (bi.mod(new BigInteger("100000000")) == BigInteger.ZERO) {
+                if (bi.mod(new BigInteger("100000000")).equals(BigInteger.ZERO)) {
                     System.out.println("Skipping...");
                     return "";
                 }
-                if (numInBase.mod(bi) == BigInteger.ZERO) {
+                if (numInBase.mod(bi).equals(BigInteger.ZERO)) {
 //                    System.out.println("Found factor " + bi);
-                    builder.append(" " + bi.toString());
+                    builder.append(" ").append(bi.toString());
                     success = true;
                     break;
                 }

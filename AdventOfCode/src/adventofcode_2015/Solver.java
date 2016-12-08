@@ -9,6 +9,7 @@ public abstract class Solver<T> {
         this.scanner = scanner;
     }
 
+    @SuppressWarnings("unused")
     public String getLine() {
         return scanner.nextLine();
     }
@@ -25,6 +26,7 @@ public abstract class Solver<T> {
         return scanner.hasNext();
     }
 
+    @SuppressWarnings("unused")
     public void solveUntilDone() {
         while (isReady()) {
             System.out.println(processCase());

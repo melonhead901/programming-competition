@@ -1,9 +1,9 @@
 package adventofcode;
 
+import com.google.common.collect.ImmutableSet;
+
 import java.util.Scanner;
 import java.util.Set;
-
-import com.google.common.collect.ImmutableSet;
 
 public class NiceString {
     public static void main(String[] args) {
@@ -45,11 +45,13 @@ public class NiceString {
         return false;
     }
 
+    @SuppressWarnings("unused")
     private static boolean noIllegalSubstr(String nextLine) {
         return !nextLine.contains("ab") && !nextLine.contains("cd") && !nextLine.contains("pq")
                 && !nextLine.contains("xy");
     }
 
+    @SuppressWarnings("unused")
     private static boolean hasTwoConsecutiveLetters(String nextLine) {
         for (int i = 1; i < nextLine.length(); i++) {
             if (nextLine.charAt(i) == nextLine.charAt(i - 1)) {
@@ -59,6 +61,7 @@ public class NiceString {
         return false;
     }
 
+    @SuppressWarnings("unused")
     private static boolean hasThreeVowels(String nextLine) {
         int count = 0;
         Set<Character> vowels = ImmutableSet.of('a', 'e', 'i', 'o', 'u');
