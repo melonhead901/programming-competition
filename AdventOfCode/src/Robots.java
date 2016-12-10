@@ -1,14 +1,11 @@
 
 import java.util.*;
 
-/**
- * Created by kdonohue on 12/9/16.
- */
 public class Robots {
-    private List<Robot> robots;
-    private List<GiveInstruction> giveInstructions;
+    private final List<Robot> robots;
+    private final List<GiveInstruction> giveInstructions;
 
-    public Robots() {
+    private Robots() {
         robots = new ArrayList<>();
         giveInstructions = new ArrayList<>();
     }
@@ -46,24 +43,25 @@ public class Robots {
     private void addLine(String s) {
         if (s.startsWith("value")) {
             String[] words = s.split(" ");
-            Chip chip = new Chip(Integer.valueOf(words[1]));
-            Robot robot = getOrCreate(Integer.valueOf(words[5]));
+            Chip chip = new Chip(words[1]);
+            Robot robot = getOrCreate(words[5]);
             robot.takeChip(chip);
         } else {
             String[] words = s.split(" ");
-            Robot giver = getOrCreate(Integer.valueOf(words[1]));
-            Robot lowRecip = getOrCreate(Integer.valueOf(words[6]));
-            Robot highRecip = getOrCreate(Integer.valueOf(words[11]));
+            Robot giver = getOrCreate(words[1]);
+            Robot lowRecip = getOrCreate(words[6]);
+            Robot highRecip = getOrCreate(words[11]);
             GiveInstruction giveInstruction = new GiveInstruction(giver, highRecip, lowRecip);
             giveInstructions.add(giveInstruction);
         }
     }
 
-    private Robot getOrCreate(int number) {
+    private Robot getOrCreate(String str) {
+        int number = Integer.valueOf(str);
         if (robots.stream().anyMatch(x -> x.number == number)) {
             return robots.stream().filter(x -> x.number == number).findFirst().get();
         } else {
-            Robot robot = new Robot(number);
+            Robot robot = new Robot(str);
             robots.add(robot);
             return robot;
         }
@@ -105,8 +103,8 @@ class GiveInstruction {
 }
 
 class Robot {
-    Chip chip1;
-    Chip chip2;
+    private Chip chip1;
+    private Chip chip2;
     final int number;
 
     @Override
@@ -129,10 +127,10 @@ class Robot {
         return result;
     }
 
-    public Robot(int number) {
+    public Robot(String number) {
         this.chip1 = null;
         this.chip2 = null;
-        this.number = number;
+        this.number = Integer.valueOf(number);
     }
 
     public void takeChip(Chip chip) {
@@ -159,7 +157,7 @@ class Robot {
     public void processInstruction(GiveInstruction giveInstruction) {
         giveInstruction.lowRecip.takeChip(this.lowerChip());
         giveInstruction.highRecip.takeChip(this.higherChip());
-        if (this.lowerChip().val == 17 && this.higherChip().val == 61) {
+        if ((this.lowerChip().val == 17) && (this.higherChip().val == 61)) {
             System.out.println(this.number);
             System.exit(1);
         }
@@ -177,8 +175,8 @@ class Robot {
 }
 
 class Chip {
-    public Chip(int val) {
-        this.val = val;
+    public Chip(String str) {
+        this.val = Integer.valueOf(str);
     }
 
     final int val;
