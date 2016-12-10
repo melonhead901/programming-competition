@@ -7,12 +7,38 @@ public class BathroomCode {
     private static final Digit SEVEN = new Digit() {
         @Override
         public Digit moveLeft() {
-            return SEVEN;
+            return SIX;
         }
 
         @Override
         public Digit moveRight() {
             return EIGHT;
+        }
+
+        @Override
+        public Digit moveUp() {
+            return THREE;
+        }
+
+        @Override
+        public Digit moveDown() {
+            return B;
+        }
+
+        @Override
+        public String getRepresentation() {
+            return "7";
+        }
+    };
+    private static final Digit EIGHT = new Digit() {
+        @Override
+        public Digit moveLeft() {
+            return SEVEN;
+        }
+
+        @Override
+        public Digit moveRight() {
+            return NINE;
         }
 
         @Override
@@ -22,18 +48,18 @@ public class BathroomCode {
 
         @Override
         public Digit moveDown() {
-            return SEVEN;
+            return C;
         }
 
         @Override
         public String getRepresentation() {
-            return "7";
+            return "8";
         }
     };
-    private static final Digit EIGHT =  new Digit() {
+    private static final Digit NINE = new Digit() {
         @Override
         public Digit moveLeft() {
-            return SEVEN;
+            return EIGHT;
         }
 
         @Override
@@ -43,28 +69,106 @@ public class BathroomCode {
 
         @Override
         public Digit moveUp() {
-            return FIVE;
+            return this;
         }
 
         @Override
         public Digit moveDown() {
-            return EIGHT;
+            return this;
         }
 
         @Override
         public String getRepresentation() {
-            return "8";
+            return "9";
         }
     };
-    private static final Digit NINE =  new Digit() {
+    private static final Digit D = new Digit() {
         @Override
         public Digit moveLeft() {
-            return EIGHT;
+            return this;
         }
 
         @Override
         public Digit moveRight() {
-            return NINE;
+            return this;
+        }
+
+        @Override
+        public Digit moveUp() {
+            return B;
+        }
+
+        @Override
+        public Digit moveDown() {
+            return this;
+        }
+
+        @Override
+        public String getRepresentation() {
+            return "D";
+        }
+    };
+    private static final Digit C = new Digit() {
+        @Override
+        public Digit moveLeft() {
+            return B;
+        }
+
+        @Override
+        public Digit moveRight() {
+            return this;
+        }
+
+        @Override
+        public Digit moveUp() {
+            return EIGHT;
+        }
+
+        @Override
+        public Digit moveDown() {
+            return this;
+        }
+
+        @Override
+        public String getRepresentation() {
+            return "C";
+        }
+    };
+    private static final Digit B = new Digit() {
+        @Override
+        public Digit moveLeft() {
+            return A;
+        }
+
+        @Override
+        public Digit moveRight() {
+            return C;
+        }
+
+        @Override
+        public Digit moveUp() {
+            return SEVEN;
+        }
+
+        @Override
+        public Digit moveDown() {
+            return D;
+        }
+
+        @Override
+        public String getRepresentation() {
+            return "B";
+        }
+    };
+    private static final Digit A = new Digit() {
+        @Override
+        public Digit moveLeft() {
+            return this;
+        }
+
+        @Override
+        public Digit moveRight() {
+            return B;
         }
 
         @Override
@@ -74,12 +178,12 @@ public class BathroomCode {
 
         @Override
         public Digit moveDown() {
-            return NINE;
+            return this;
         }
 
         @Override
         public String getRepresentation() {
-            return "9";
+            return "A";
         }
     };
     private static final Digit SIX = new Digit() {
@@ -90,17 +194,17 @@ public class BathroomCode {
 
         @Override
         public Digit moveRight() {
-            return this;
+            return SEVEN;
         }
 
         @Override
         public Digit moveUp() {
-            return THREE;
+            return TWO;
         }
 
         @Override
         public Digit moveDown() {
-            return NINE;
+            return A;
         }
 
         @Override
@@ -116,17 +220,17 @@ public class BathroomCode {
 
         @Override
         public Digit moveRight() {
-            return this;
+            return FOUR;
         }
 
         @Override
         public Digit moveUp() {
-            return this;
+            return ONE;
         }
 
         @Override
         public Digit moveDown() {
-            return SIX;
+            return SEVEN;
         }
 
         @Override
@@ -137,7 +241,7 @@ public class BathroomCode {
     private static final Digit TWO = new Digit() {
         @Override
         public Digit moveLeft() {
-            return ONE;
+            return this;
         }
 
         @Override
@@ -152,7 +256,7 @@ public class BathroomCode {
 
         @Override
         public Digit moveDown() {
-            return FIVE;
+            return SIX;
         }
 
         @Override
@@ -168,7 +272,7 @@ public class BathroomCode {
 
         @Override
         public Digit moveRight() {
-            return TWO;
+            return this;
         }
 
         @Override
@@ -178,7 +282,7 @@ public class BathroomCode {
 
         @Override
         public Digit moveDown() {
-            return FOUR;
+            return THREE;
         }
 
         @Override
@@ -189,22 +293,22 @@ public class BathroomCode {
     private static final Digit FOUR = new Digit() {
         @Override
         public Digit moveLeft() {
-            return this;
+            return THREE;
         }
 
         @Override
         public Digit moveRight() {
-            return FIVE;
+            return this;
         }
 
         @Override
         public Digit moveUp() {
-            return ONE;
+            return this;
         }
 
         @Override
         public Digit moveDown() {
-            return SEVEN;
+            return EIGHT;
         }
 
         @Override
@@ -215,7 +319,7 @@ public class BathroomCode {
     private static final Digit FIVE = new Digit() {
         @Override
         public Digit moveLeft() {
-            return FOUR;
+            return this;
         }
 
         @Override
@@ -225,12 +329,12 @@ public class BathroomCode {
 
         @Override
         public Digit moveUp() {
-            return TWO;
+            return this;
         }
 
         @Override
         public Digit moveDown() {
-            return EIGHT;
+            return this;
         }
 
         @Override
@@ -259,6 +363,8 @@ public class BathroomCode {
 
     private String processNext(String line) {
         for (Character c : line.toCharArray()) {
+            //System.err.print(String.format("%s", currentDigit.getRepresentation()));
+           // System.err.print(String.format(" move %s", c));
             switch (c) {
                 case 'U':
                     currentDigit = currentDigit.moveUp();
@@ -273,6 +379,7 @@ public class BathroomCode {
                     currentDigit = currentDigit.moveDown();
                     break;
             }
+           // System.err.print(String.format(" to %s\n", currentDigit.getRepresentation()));
         }
         return currentDigit.getRepresentation();
     }
