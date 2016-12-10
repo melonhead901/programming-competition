@@ -19,7 +19,7 @@ public class Robots {
         while (robots.canProceed()) {
             robots.proceed();
         }
-        robots.printSize();
+        //robots.printLefotvers();
     }
 
     private boolean canProceed() {
@@ -44,24 +44,24 @@ public class Robots {
         if (s.startsWith("value")) {
             String[] words = s.split(" ");
             Chip chip = new Chip(words[1]);
-            Robot robot = getOrCreate(words[5]);
+            Robot robot = getOrCreate(words[5], false);
             robot.takeChip(chip);
         } else {
             String[] words = s.split(" ");
-            Robot giver = getOrCreate(words[1]);
-            Robot lowRecip = getOrCreate(words[6]);
-            Robot highRecip = getOrCreate(words[11]);
+            Robot giver = getOrCreate(words[1], false);
+            Robot lowRecip = getOrCreate(words[6], Objects.equals(words[5], "output"));
+            Robot highRecip = getOrCreate(words[11], Objects.equals(words[10], "output"));
             GiveInstruction giveInstruction = new GiveInstruction(giver, highRecip, lowRecip);
             giveInstructions.add(giveInstruction);
         }
     }
 
-    private Robot getOrCreate(String str) {
-        int number = Integer.valueOf(str);
+    private Robot getOrCreate(String str, boolean isOutput) {
+        int number = Integer.valueOf((isOutput ? "10000" : "") + str);
         if (robots.stream().anyMatch(x -> x.number == number)) {
             return robots.stream().filter(x -> x.number == number).findFirst().get();
         } else {
-            Robot robot = new Robot(str);
+            Robot robot = new Robot((isOutput ? "10000" : "") + str);
             robots.add(robot);
             return robot;
         }
@@ -134,6 +134,9 @@ class Robot {
     }
 
     public void takeChip(Chip chip) {
+        if ((this.number > 1000) && (number < 100003)) {
+            System.err.println(this.number + " " + chip.val);
+        }
         if (this.chip1 == null) {
             this.chip1 = chip;
         } else if (this.chip2 == null) {
@@ -157,10 +160,6 @@ class Robot {
     public void processInstruction(GiveInstruction giveInstruction) {
         giveInstruction.lowRecip.takeChip(this.lowerChip());
         giveInstruction.highRecip.takeChip(this.higherChip());
-        if ((this.lowerChip().val == 17) && (this.higherChip().val == 61)) {
-            System.out.println(this.number);
-            System.exit(1);
-        }
         this.chip1 = null;
         this.chip2 = null;
     }
