@@ -3,9 +3,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-/**
- * Created by kdonohue on 12/12/16.
- */
 public class Assembly {
 
     private final List<Instruction> instructions;
@@ -15,7 +12,7 @@ public class Assembly {
     private static final Register registerD = new Register();
 
 
-    public Assembly(List<Instruction> instructions) {
+    private Assembly(List<Instruction> instructions) {
         this.instructions = instructions;
     }
 
@@ -26,15 +23,16 @@ public class Assembly {
             assembly.addInstruction(Instruction.create(in.nextLine()));
         }
         assembly.executeAllInstructions();
-        System.out.println(assembly.getNamedRegister("a").value);
+        System.out.println(getNamedRegister("a").value);
     }
 
     private void executeAllInstructions() {
-        for (int i = 0; i < instructions.size(); ) {
-            Instruction instructionToExecute = instructions.get(i);
+        int instructionLocation = 0;
+        while (instructionLocation < instructions.size()) {
+            Instruction instructionToExecute = instructions.get(instructionLocation);
             instructionToExecute.execute();
             Optional<Integer> newInstruction = instructionToExecute.nextInstructionNumber();
-            i += newInstruction.orElse(1);
+            instructionLocation += newInstruction.orElse(1);
         }
     }
 
@@ -60,8 +58,7 @@ public class Assembly {
 
 abstract class Instruction {
 
-    protected Instruction() {
-    }
+    protected Instruction() { }
 
     abstract void execute();
 
