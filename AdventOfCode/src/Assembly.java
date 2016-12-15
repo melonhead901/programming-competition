@@ -1,7 +1,10 @@
-import java.util.ArrayList;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
 
 public class Assembly {
 
@@ -17,6 +20,12 @@ public class Assembly {
     }
 
     public static void main(String[] args) {
+        LocalDateTime ldt = new LocalDateTime("2016-03-01");
+        String str =  "MMM d yyyy h:mma";
+        DateTimeFormatter format = DateTimeFormat.forPattern(str);
+        System.out.println(new DateTime().toString(format));
+        return;
+        /*
         Assembly assembly = new Assembly(new ArrayList<>());
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
@@ -24,9 +33,11 @@ public class Assembly {
         }
         assembly.executeAllInstructions();
         System.out.println(getNamedRegister("a").value);
+        */
     }
 
     private void executeAllInstructions() {
+        registerC.value = 1;
         int instructionLocation = 0;
         while (instructionLocation < instructions.size()) {
             Instruction instructionToExecute = instructions.get(instructionLocation);
