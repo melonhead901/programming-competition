@@ -2,9 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Created by kdonohue on 12/14/16.
- */
 public class Discs {
     private long position;
     private List<Disc> discs;
@@ -20,11 +17,16 @@ public class Discs {
         while (in.hasNext()) {
             discs.addDisc(in.nextLine());
         }
+        discs.addExtraDisc();
         while (!discs.isDone()) {
             discs.advance();
         }
         discs.printCurrentPosition();
 
+    }
+
+    private void addExtraDisc() {
+        discs.add(new Disc(11, 0, discs.size() + 1));
     }
 
     private void printCurrentPosition() {
