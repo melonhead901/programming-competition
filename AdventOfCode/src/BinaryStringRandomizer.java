@@ -1,18 +1,19 @@
 import java.util.Scanner;
 
-public class BinaryString {
+public class BinaryStringRandomizer {
 
     private DigitString string;
     private final RequiredStringLength requiredLength;
 
-    private BinaryString(String string, int requiredLength) {
-        this.string = new DigitString(string);
-        this.requiredLength = new RequiredStringLength(requiredLength);
+    private BinaryStringRandomizer(DigitString string, RequiredStringLength requiredLength) {
+        this.string = string;
+        this.requiredLength = requiredLength;
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        BinaryString binaryString = new BinaryString(in.nextLine().trim(), 35651584);
+        BinaryStringRandomizer binaryString = new BinaryStringRandomizer(new DigitString(in.nextLine()), new RequiredStringLength
+            (35651584));
         binaryString.randomize();
         binaryString.printChecksumLength();
     }
@@ -21,6 +22,10 @@ public class BinaryString {
         while (!longEnough()) {
             string = string.extend();
         }
+    }
+
+    private boolean longEnough() {
+        return string.satisfiesLength(requiredLength);
     }
 
     private void printChecksumLength() {
@@ -37,13 +42,18 @@ public class BinaryString {
         System.out.println(checkSum);
     }
 
-    private boolean longEnough() {
-        return string.satisfiesLength(requiredLength);
+}
+
+abstract class AbstractDigitString {
+    protected String string;
+
+    public AbstractDigitString(String bareString) {
+        this.string = bareString;
     }
 
 }
 
-class Checksum extends DigitString {
+class Checksum extends AbstractDigitString {
     public Checksum(String bareString) {
         super(bareString);
     }
@@ -68,11 +78,9 @@ class Checksum extends DigitString {
 
 }
 
-class DigitString {
-    protected String string;
-
+class DigitString extends AbstractDigitString {
     public DigitString(String bareString) {
-        this.string = bareString;
+        super(bareString);
     }
 
     public DigitString extend() {
