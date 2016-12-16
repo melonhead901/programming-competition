@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Discs {
     private long position;
-    private List<Disc> discs;
+    private final List<Disc> discs;
 
-    public Discs(List<Disc> discs, long position) {
+    private Discs(List<Disc> discs, long position) {
         this.discs = discs;
         this.position = position;
     }
@@ -22,7 +22,6 @@ public class Discs {
             discs.advance();
         }
         discs.printCurrentPosition();
-
     }
 
     private void addExtraDisc() {
