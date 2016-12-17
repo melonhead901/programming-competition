@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class BinaryStringRandomizer {
@@ -12,8 +15,9 @@ public class BinaryStringRandomizer {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        BinaryStringRandomizer binaryString = new BinaryStringRandomizer(new DigitString(in.nextLine()), new RequiredStringLength
-            (35651584));
+        BinaryStringRandomizer binaryString = new BinaryStringRandomizer(DigitString.createDigitString(in.nextLine()), new
+            RequiredStringLength
+            (272));
         binaryString.randomize();
         binaryString.printChecksumLength();
     }
@@ -39,89 +43,91 @@ public class BinaryStringRandomizer {
             checkSum = checkSum.performSingleChecksumRound();
         }
 
-        System.out.println(checkSum);
+        checkSum.printOut();
     }
 
 }
 
 abstract class AbstractDigitString {
-    protected String string;
+    protected List<BinaryDigit> binaryDigitList;
 
-    public AbstractDigitString(String bareString) {
-        this.string = bareString;
+    public AbstractDigitString(List<BinaryDigit> digits) {
+       this.binaryDigitList = digits;
     }
-
 }
 
 class Checksum extends AbstractDigitString {
-    public Checksum(String bareString) {
-        super(bareString);
+
+    public Checksum(List<BinaryDigit> digits) {
+        super(digits);
     }
 
     public boolean isReady() {
-        return (string.length() % 2) != 0;
+        return (binaryDigitList.size() % 2) != 0;
     }
 
     public Checksum performSingleChecksumRound() {
-        StringBuilder newCheckSum = new StringBuilder();
-        for (int i = 0; i < string.length(); i += 2) {
-            char c1 = string.charAt(i);
-            char c2 = string.charAt(i + 1);
-            if (c1 == c2) {
-                newCheckSum.append("1");
-            } else {
-                newCheckSum.append("0");
-            }
+        List<BinaryDigit> binaryDigits = new ArrayList<>();
+        for (int i = 0; i < binaryDigitList.size(); i += 2) {
+            processSinglePair(binaryDigits, i);
         }
-        return new Checksum(newCheckSum.toString());
+        return new Checksum(binaryDigits);
     }
 
+    private void processSinglePair(List<BinaryDigit> newCheckSum, int i) {
+        BinaryDigit c1 = binaryDigitList.get(i);
+        BinaryDigit c2 = binaryDigitList.get(i + 1);
+        if (c1.getClass() == c2.getClass()) {
+            newCheckSum.add(new DigitOne());
+        } else {
+            newCheckSum.add(new DigitZero());
+        }
+    }
+
+    public void printOut() {
+        for (BinaryDigit bd : binaryDigitList) {
+            bd.printOut();
+        }
+    }
 }
 
 class DigitString extends AbstractDigitString {
-    public DigitString(String bareString) {
-        super(bareString);
+
+    public DigitString(List<BinaryDigit> digits) {
+        super(digits);
+    }
+
+    public static DigitString createDigitString(String bareString) {
+        List<BinaryDigit> binaryDigitList = new ArrayList<>();
+        for (char c : bareString.toCharArray()) {
+            binaryDigitList.add(BinaryDigit.produceForChar(c));
+        }
+        return new DigitString(binaryDigitList);
     }
 
     public DigitString extend() {
-        String copy = string;
-        copy = new StringBuilder(copy).reverse().toString();
-        copy = flipBits(copy);
-        string = string + "0" + copy;
-        return new DigitString(copy);
+        List<BinaryDigit> copy = new ArrayList<>(binaryDigitList);
+        Collections.reverse(copy);
+        flipBits(copy);
+        binaryDigitList.add(new DigitZero());
+        binaryDigitList.addAll(copy);
+        return new DigitString(binaryDigitList);
     }
 
-    private String flipBits(String string) {
-        StringBuilder builder = new StringBuilder();
-        for (char c : string.toCharArray()) {
-            addOppositeCharToBuilder(builder, c);
-        }
-        return builder.toString();
+    private void flipBits(List<BinaryDigit> digits) {
+        digits.replaceAll(BinaryDigit::produceOpposite);
     }
 
-    private void addOppositeCharToBuilder(StringBuilder builder, char c) {
-        switch (c) {
-            case '0':
-                builder.append(1);
-                break;
-            case '1':
-                builder.append(0);
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected char: " + c);
-        }
-    }
-
-    boolean satisfiesLength(RequiredStringLength requiredStringLength) {
-        return string.length() > requiredStringLength.length;
-    }
-
-    public String trimToLength(RequiredStringLength requiredLength) {
-        return string.substring(0, requiredLength.length);
+    public boolean satisfiesLength(RequiredStringLength requiredStringLength) {
+        return binaryDigitList.size() > requiredStringLength.length;
     }
 
     public Checksum createChecksum(RequiredStringLength requiredLength) {
-        return new Checksum(trimToLength(requiredLength));
+        List<BinaryDigit> binaryDigits = new ArrayList<>();
+        for (int i = 0; (i < requiredLength.length) && (i < binaryDigitList.size()); i++) {
+            binaryDigits.add(binaryDigitList.get(i));
+        }
+        return new Checksum(binaryDigits);
     }
 }
 
@@ -132,3 +138,45 @@ class RequiredStringLength {
         this.length = length;
     }
 }
+
+abstract class BinaryDigit {
+    abstract BinaryDigit produceOpposite();
+
+    public static BinaryDigit produceForChar(char c) {
+        switch (c) {
+            case '0':
+                return new DigitZero();
+            case '1':
+                return new DigitOne();
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    public abstract void printOut();
+}
+
+class DigitOne extends BinaryDigit {
+    @Override
+    BinaryDigit produceOpposite() {
+        return new DigitZero();
+    }
+
+    @Override
+    public void printOut() {
+        System.out.print("1");
+    }
+}
+
+class DigitZero extends BinaryDigit {
+    @Override
+    BinaryDigit produceOpposite() {
+        return new DigitOne();
+    }
+
+    @Override
+    public void printOut() {
+        System.out.print("0");
+    }
+}
+
