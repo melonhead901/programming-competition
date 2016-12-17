@@ -41,19 +41,61 @@ public class MazeSolver {
         }
         System.out.print(maxLength);
     }
-
-
 }
 
-class GameState {
-    private GameState(Position position, String initialString, String currentPath) {
-        this.position = position;
+class StringAndPath {
+    private final String initialString;
+    private final String currentPath;
+
+    private StringAndPath(String initialString, String currentPath) {
         this.initialString = initialString;
         this.currentPath = currentPath;
     }
 
+    public static StringAndPath initialState(String initialString) {
+        return new StringAndPath(initialString, "");
+    }
+
+    public StringAndPath moveUp() {
+        return new StringAndPath(initialString, currentPath + 'U');
+    }
+
+    public StringAndPath moveDown() {
+        return new StringAndPath(initialString, currentPath + 'D');
+    }
+
+    public StringAndPath moveLeft() {
+        return new StringAndPath(initialString, currentPath + 'L');
+    }
+
+    public StringAndPath moveRight() {
+        return new StringAndPath(initialString, currentPath + 'R');
+    }
+
+    public void printCurrentPath() {
+        System.out.println(currentPath);
+    }
+
+    public int pathLength() {
+        return currentPath.length();
+    }
+
+    public String getDirectionalHash() {
+        return MazeSolver.calculateHash(initialString + currentPath).substring(0, 4);
+    }
+}
+
+class GameState {
+    private final Position position;
+    private final StringAndPath stringAndPath;
+
+    private GameState(Position position, StringAndPath stringAndPath) {
+        this.position = position;
+        this.stringAndPath = stringAndPath;
+    }
+
     public static GameState initialGameState(String initialString) {
-        return new GameState(new Position(0, 0), initialString, "");
+        return new GameState(new Position(0, 0), StringAndPath.initialState(initialString));
     }
 
     public boolean isGoal() {
@@ -61,9 +103,7 @@ class GameState {
     }
 
     public List<GameState> getSuccessors() {
-        String currentHash = MazeSolver.calculateHash(initialString + currentPath);
-        System.out.println(String.format("Hashing %s to get %s ", initialString + currentPath, currentHash
-            .substring(0, 4)));
+        String currentHash = stringAndPath.getDirectionalHash();
         Collection<Optional<GameState>> successors = new ArrayList<>();
         if (currentHash.charAt(0) >= 'b') {
             successors.add(this.moveUp());
@@ -81,43 +121,34 @@ class GameState {
     }
 
     private Optional<GameState> moveRight() {
-        Optional<Position> position = this.position.moveRight();
-        return position.isPresent() ? Optional.of(new GameState(position.get(), this.initialString, this.currentPath
-            + 'R')) : Optional.empty();
+        return moveInDirectionIfPossible(this.position.moveRight(), stringAndPath.moveRight());
     }
 
-    private  Optional<GameState> moveLeft() {
-        Optional<Position> position = this.position.moveLeft();
-        return position.isPresent() ? Optional.of(new GameState(position.get(), this.initialString, this.currentPath
-            + 'L')) : Optional.empty();
+    private Optional<GameState> moveLeft() {
+        return moveInDirectionIfPossible(this.position.moveLeft(), stringAndPath.moveLeft());
     }
 
     private Optional<GameState> moveDown() {
-        Optional<Position> position = this.position.moveDown();
-        return position.isPresent() ? Optional.of(new GameState(position.get(), this.initialString, this.currentPath
-            + 'D')) : Optional.empty();
+        return moveInDirectionIfPossible(this.position.moveDown(), stringAndPath.moveDown());
     }
 
     private Optional<GameState> moveUp() {
-        Optional<Position> position = this.position.moveUp();
-        return position.isPresent() ? Optional.of(new GameState(position.get(), this.initialString, this.currentPath
-            + 'U')) : Optional.empty();
+        return moveInDirectionIfPossible(this.position.moveUp(), stringAndPath.moveUp());
     }
 
-
-    private final Position position;
-    private final String initialString;
-    private final String currentPath;
+    private Optional<GameState> moveInDirectionIfPossible(Optional<Position> position, StringAndPath
+        nextStringAndPath) {
+        return position.isPresent() ? Optional.of(new GameState(position.get(), nextStringAndPath)) : Optional.empty();
+    }
 
     public void printSolutionPath() {
-        System.out.println(currentPath);
+        stringAndPath.printCurrentPath();
     }
 
     public int solutionPathLength() {
-        return this.currentPath.length();
+        return this.stringAndPath.pathLength();
     }
 }
-
 
 class Position {
     private final int BOUNDARY = 3;
