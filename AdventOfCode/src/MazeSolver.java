@@ -29,15 +29,17 @@ public class MazeSolver {
         GameState initialState = GameState.initialGameState(s);
         Queue<GameState> queue = new LinkedList<>();
         queue.add(initialState);
+        int maxLength = -1;
         while (!queue.isEmpty()) {
             GameState top = queue.poll();
             if (top.isGoal()) {
                 top.printSolutionPath();
-                return;
+                maxLength = Math.max(maxLength, top.solutionPathLength());
+                continue;
             }
             queue.addAll(top.getSuccessors());
         }
-        System.out.print("FAILED TO COMPUTE SOLUTION");
+        System.out.print(maxLength);
     }
 
 
@@ -59,10 +61,10 @@ class GameState {
     }
 
     public List<GameState> getSuccessors() {
-        List<Optional<GameState>> successors = new ArrayList<>();
         String currentHash = MazeSolver.calculateHash(initialString + currentPath);
         System.out.println(String.format("Hashing %s to get %s ", initialString + currentPath, currentHash
             .substring(0, 4)));
+        Collection<Optional<GameState>> successors = new ArrayList<>();
         if (currentHash.charAt(0) >= 'b') {
             successors.add(this.moveUp());
         }
@@ -109,6 +111,10 @@ class GameState {
 
     public void printSolutionPath() {
         System.out.println(currentPath);
+    }
+
+    public int solutionPathLength() {
+        return this.currentPath.length();
     }
 }
 
