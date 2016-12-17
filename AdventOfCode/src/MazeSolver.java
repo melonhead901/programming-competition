@@ -1,6 +1,7 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class MazeSolver {
@@ -106,39 +107,26 @@ class GameState {
         String currentHash = stringAndPath.getDirectionalHash();
         Collection<Optional<GameState>> successors = new ArrayList<>();
         if (currentHash.charAt(0) >= 'b') {
-            successors.add(this.moveUp());
+            successors.add(moveInDirectionIfPossible(Position::moveUp, StringAndPath::moveUp));
         }
         if (currentHash.charAt(1) >= 'b') {
-            successors.add(this.moveDown());
+            successors.add(moveInDirectionIfPossible(Position::moveDown, StringAndPath::moveDown));
         }
         if (currentHash.charAt(2) >= 'b') {
-            successors.add(this.moveLeft());
+            successors.add(moveInDirectionIfPossible(Position::moveLeft, StringAndPath::moveLeft));
         }
         if (currentHash.charAt(3) >= 'b') {
-            successors.add(this.moveRight());
+            successors.add(moveInDirectionIfPossible(Position::moveRight, StringAndPath::moveRight));
         }
         return successors.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
 
-    private Optional<GameState> moveRight() {
-        return moveInDirectionIfPossible(this.position.moveRight(), stringAndPath.moveRight());
-    }
-
-    private Optional<GameState> moveLeft() {
-        return moveInDirectionIfPossible(this.position.moveLeft(), stringAndPath.moveLeft());
-    }
-
-    private Optional<GameState> moveDown() {
-        return moveInDirectionIfPossible(this.position.moveDown(), stringAndPath.moveDown());
-    }
-
-    private Optional<GameState> moveUp() {
-        return moveInDirectionIfPossible(this.position.moveUp(), stringAndPath.moveUp());
-    }
-
-    private Optional<GameState> moveInDirectionIfPossible(Optional<Position> position, StringAndPath
-        nextStringAndPath) {
-        return position.isPresent() ? Optional.of(new GameState(position.get(), nextStringAndPath)) : Optional.empty();
+    private Optional<GameState> moveInDirectionIfPossible(Function<Position, Optional<Position>> translation,
+                                                          Function<StringAndPath, StringAndPath> directionTranslation) {
+        Optional<Position> newPosition = translation.apply(position);
+        return newPosition.isPresent() ?
+            Optional.of(new GameState(newPosition.get(), directionTranslation.apply(stringAndPath))) :
+            Optional.empty();
     }
 
     public void printSolutionPath() {
@@ -149,6 +137,7 @@ class GameState {
         return this.stringAndPath.pathLength();
     }
 }
+
 
 class Position {
     private final int BOUNDARY = 3;
