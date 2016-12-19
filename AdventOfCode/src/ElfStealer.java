@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * Created by kdonohue on 12/18/16.
+ * Day 19.
  */
 public class ElfStealer {
     private ElfNode firstElf;
@@ -10,7 +10,8 @@ public class ElfStealer {
     private ElfStealer(int numElves) {
         elfCount = numElves;
         ElfNode prev = null;
-        for (int i = 0; i < numElves; i++) {
+        // Use 1-based indexing to match problem spec.
+        for (int i = 1; i <= numElves; i++) {
             ElfNode elfNode = new ElfNode(i, prev);
             if (prev != null) {
                 prev.setInitialTarget(elfNode);
@@ -20,24 +21,27 @@ public class ElfStealer {
             prev = elfNode;
         }
         prev.setInitialTarget(firstElf);
-        firstElf.setPrev(prev);
+        firstElf.setInitialPrev(prev);
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         ElfStealer elfStealer = new ElfStealer(in.nextInt());
-        System.out.println(elfStealer.executeGame().getDisplayNumber());
+        elfStealer.executeGame().printDisplayNumber();
     }
 
     private ElfNode executeGame() {
         ElfNode next = firstElf;
         ElfNode target = firstElf;
+        // Move halfway around the circle.
         for (int i = 0; i < (elfCount / 2); i++) {
             target = target.getNext();
         }
         while (!isDone()) {
             elfCount--;
             target = next.consumerOther(target);
+            // Every other time advance one. This makes up for the fact that we picked
+            // the left of two possible choices before (when there were an odd number).
             if ((elfCount % 2) == 0) {
                 target = target.getNext();
             }
@@ -47,7 +51,7 @@ public class ElfStealer {
     }
 
     private boolean isDone() {
-        return (elfCount == 1);
+        return elfCount == 1;
     }
 }
 
@@ -80,7 +84,10 @@ class ElfNode {
         return number;
     }
 
-    public ElfNode consumeNext() {
+    /**
+     * @return the new next
+     */
+    private ElfNode consumeNext() {
         this.next = next.next;
         next.prev = this;
         // System.out.println(this.getDisplayNumber() + " stealing from " + consumedTarget.getDisplayNumber());
@@ -90,7 +97,7 @@ class ElfNode {
     @Override
     public String toString() {
         return "ElfNode{" +
-            "number=" + this.getDisplayNumber() +
+            "number=" + number +
             '}';
     }
 
@@ -106,18 +113,18 @@ class ElfNode {
         this.next = target;
     }
 
-    public int getDisplayNumber() {
-        return number + 1;
+    public void setInitialPrev(ElfNode prev) {
+        if (this.prev != null) {
+            throw  new IllegalStateException();
+        }
+        this.prev = prev;
     }
 
     public ElfNode getNext() {
         return next;
     }
 
-    public void setPrev(ElfNode prev) {
-        if (this.prev != null) {
-            throw  new IllegalStateException();
-        }
-        this.prev = prev;
+    public void printDisplayNumber() {
+        System.out.print(number);
     }
 }
