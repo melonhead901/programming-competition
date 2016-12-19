@@ -1,3 +1,5 @@
+package adventofcode_2015;
+
 import java.util.Scanner;
 
 /**
@@ -6,7 +8,7 @@ import java.util.Scanner;
 public class LookAndSay {
     private String currentString;
 
-    public static final int NUM_ITERATIONS = 40;
+    public static final int NUM_ITERATIONS = 50;
 
     public LookAndSay(String s) {
         this.currentString = s;
