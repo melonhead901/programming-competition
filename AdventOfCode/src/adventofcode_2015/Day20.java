@@ -1,13 +1,18 @@
 package adventofcode_2015;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
-/**
- * Created by kdonohue on 12/19/16.
- */
 public class Day20 {
+    private final List<Event> events;
+
+    private Day20(List<Event> events) {
+        this.events = events;
+    }
+
     public static void main(String[] args) {
-        Day20 day20 = new Day20();
+        Day20 day20 = new Day20(new ArrayList<>());
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
             String line = in.nextLine();
@@ -22,31 +27,35 @@ public class Day20 {
     private void processRestrictions() {
         Collections.sort(events);
         long vals = 0;
+        vals = calculateUnblockedValues(vals);
+
+        vals += events.get(events.size() - 1).distanceFromMaxVal();
+
+        System.out.println(vals);
+    }
+
+    private long calculateUnblockedValues(long vals) {
         int activeRestrictions = 0;
         for (int i = 0; i < (events.size() - 1); i++) {
             Event e = events.get(i);
             if (e instanceof Start) {
                 activeRestrictions++;
-            } else {
+            }
+            if (e instanceof End) {
                 activeRestrictions--;
                 if (activeRestrictions == 0) {
-                    vals += (events.get(i + 1).loc) - (e.loc + 1);
+                    // We know the next one has to be start because there are no open intervals.
+                    vals += Event.valsBetween(events.get(i + 1), e);
                 }
             }
         }
-
-        vals += Math.pow(2, 32) - 1 - events.get(events.size() - 1).loc;
-
-        System.out.println(vals);
-
+        return vals;
     }
 
 
-    List<Event> events = new ArrayList<>();
-
     private void addRestriction(Restriction restriction) {
-        events.add(new Start(restriction.min));
-        events.add(new End(restriction.max));
+        events.add(restriction.createEventFromStart());
+        events.add(restriction.createEventFromEnd());
     }
 }
 
@@ -63,28 +72,56 @@ class End extends Event {
 }
 
 abstract class Event implements Comparable<Event> {
-    long loc;
+    private static final double MAX_VAL = Math.pow(2, 32) - 1;
+
+    private final long loc;
 
     public Event(long loc) {
         this.loc = loc;
     }
 
     @Override
-    public int compareTo(Event o) {
+    public int compareTo(@NotNull Event o) {
         return Long.compare(this.loc, o.loc);
+    }
+
+    public static long valsBetween(Event a, Event b) {
+        return Math.abs(a.loc - (b.loc + 1));
+    }
+
+    public long distanceFromMaxVal() {
+        return (long) (MAX_VAL - loc);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if ((o == null) || (getClass() != o.getClass())) {
+            return false;
+        }
+
+        Event event = (Event) o;
+
+        return loc == event.loc;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (loc ^ (loc >>> 32));
     }
 }
 
 
 class Restriction {
+    private final long min;
+    private final long max;
+
     public Restriction(String min, String max) {
         this.min = Long.valueOf(min);
         this.max = Long.valueOf(max);
     }
-
-
-    long min;
-    long max;
 
     @Override
     public String toString() {
@@ -92,5 +129,13 @@ class Restriction {
             "min=" + min +
             ", max=" + max +
             '}';
+    }
+
+    public Event createEventFromStart() {
+        return new Start(min);
+    }
+
+    public Event createEventFromEnd() {
+        return new End(max);
     }
 }
