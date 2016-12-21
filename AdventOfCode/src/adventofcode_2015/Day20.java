@@ -26,6 +26,7 @@ public class Day20 {
 
     private void processRestrictions() {
         Collections.sort(events);
+
         long vals = 0;
         vals = calculateUnblockedValues(vals);
 
