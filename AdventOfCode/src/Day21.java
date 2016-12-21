@@ -1,5 +1,4 @@
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by kdonohue on 12/20/16.
@@ -12,11 +11,57 @@ public class Day21 {
     }
 
     public static void main(String[] args) {
-        Day21 day21 = Day21.createDefault();
+        List<String> possibleInputs = permuteString("abcdefgh");
+        Map<String, Day21> encodings = new HashMap<>();
+        for (String str : possibleInputs) {
+            encodings.put(str, Day21.createWithInput(str));
+        }
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
-            day21.addInstruction(in.nextLine());
-            day21.printResult();
+            String instruction = in.nextLine();
+            for (Map.Entry<String, Day21> entry : encodings.entrySet()) {
+                Day21 day21 = entry.getValue();
+                day21.addInstruction(instruction);
+            }
+        }
+            for (Map.Entry<String, Day21> entry : encodings.entrySet()) {
+                Day21 day21 = entry.getValue();
+                if (day21.encodedMatches("fbgdceah")) {
+                    System.out.println(entry.getKey());
+                } else {
+                    //System.out.print(entry.getKey() + " hashed to ");
+                    //day21.printResult();
+                }
+            }
+    }
+
+    private boolean encodedMatches(String s) {
+        return password.matches(s);
+    }
+
+    private static Day21 createWithInput(String str) {
+        return new Day21(str);
+    }
+
+    private static List<String> permuteString(String str) {
+        Set<Character> characters = new HashSet<>();
+        for (Character c : str.toCharArray()) {
+            characters.add(c);
+        }
+        List<String> result = new ArrayList<>();
+        permuteStringHelper(result, "", characters);
+        return result;
+    }
+
+    private static void permuteStringHelper(List<String> result, String s, Set<Character> characters) {
+        if (characters.size() == 0) {
+            result.add(s);
+            return;
+        }
+        for (Character c : characters) {
+            Set<Character> newChars = new HashSet<>(characters);
+            newChars.remove(c);
+            permuteStringHelper(result, s + c, newChars);
         }
     }
 
@@ -83,6 +128,10 @@ class Password {
         int xIndex = -1;
         int yIndex = -1;
         for (int i = 0; (xIndex == -1) || (yIndex == -1); i++) {
+            if (i >= chars.length) {
+                System.err.print(String.format("ERR swapping %s with %s in %s", word, word1, new String(chars)));
+
+            }
             if (chars[i] == x) {
                 xIndex = i;
             }
@@ -152,5 +201,9 @@ class Password {
             newArr[i] = chars[(i - loc + newArr.length * 2) % newArr.length];
         }
         chars = newArr;
+    }
+
+    public boolean matches(String s) {
+        return new String(chars).equals(s);
     }
 }
