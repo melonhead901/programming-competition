@@ -1,12 +1,9 @@
 import java.util.*;
 
-/**
- * Created by kdonohue on 12/20/16.
- */
 public class Day21 {
-    private Password password;
+    private final Password password;
 
-    public Day21(String initial) {
+    private Day21(String initial) {
         this.password = new Password(initial);
     }
 
@@ -19,20 +16,15 @@ public class Day21 {
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
             String instruction = in.nextLine();
-            for (Map.Entry<String, Day21> entry : encodings.entrySet()) {
-                Day21 day21 = entry.getValue();
+            for (Day21 day21 : encodings.values()) {
                 day21.addInstruction(instruction);
             }
         }
-            for (Map.Entry<String, Day21> entry : encodings.entrySet()) {
-                Day21 day21 = entry.getValue();
-                if (day21.encodedMatches("fbgdceah")) {
-                    System.out.println(entry.getKey());
-                } else {
-                    //System.out.print(entry.getKey() + " hashed to ");
-                    //day21.printResult();
-                }
+        for (Map.Entry<String, Day21> entry : encodings.entrySet()) {
+            if (entry.getValue().encodedMatches("fbgdceah")) {
+                System.out.println(entry.getKey());
             }
+        }
     }
 
     private boolean encodedMatches(String s) {
@@ -54,7 +46,7 @@ public class Day21 {
     }
 
     private static void permuteStringHelper(List<String> result, String s, Set<Character> characters) {
-        if (characters.size() == 0) {
+        if (characters.isEmpty()) {
             result.add(s);
             return;
         }
@@ -170,11 +162,15 @@ class Password {
 
     public void rotateRight(String word) {
         int dist = Integer.valueOf(word);
+        chars = rotateRightByChars(dist);
+    }
+
+    private char[] rotateRightByChars(int dist) {
         char[] newArr = new char[chars.length];
         for (int i = 0; i < newArr.length; i++) {
-            newArr[i] = chars[(i - dist + newArr.length * 2) % newArr.length];
+            newArr[i] = chars[((i - dist) + (newArr.length * 2)) % newArr.length];
         }
-        chars = newArr;
+        return newArr;
     }
 
     public void rotateLeft(String word) {
@@ -195,15 +191,11 @@ class Password {
         if (loc >= 4) {
             loc++;
         }
-        loc += 1;
-        char[] newArr = new char[chars.length];
-        for (int i = 0; i < newArr.length; i++) {
-            newArr[i] = chars[(i - loc + newArr.length * 2) % newArr.length];
-        }
-        chars = newArr;
+        loc++;
+        chars = rotateRightByChars(loc);
     }
 
     public boolean matches(String s) {
-        return new String(chars).equals(s);
+        return Objects.equals(new String(chars), s);
     }
 }
