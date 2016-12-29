@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Minimax {
 
@@ -19,12 +18,17 @@ public class Minimax {
         //nums.add(nums.size(), q);
         for (int i = 0; i < nums.size() - 1; i++) {
             int diff = nums.get(i + 1) - nums.get(i);
-            possibleSolutions.add(new PossibleSolution(diff/2, (diff / 2) + nums.get(i)));
+            possibleSolutions.add(new PossibleSolution(diff / 2, (diff / 2) + nums.get(i)));
         }
-        nums = nums.stream().filter(x -> (x >= p) && (x <= q)).collect(Collectors.toList());
-        possibleSolutions.add(new PossibleSolution(Math.abs(p - nums.stream().min(Integer::compareTo).get()), p));
-        possibleSolutions.add(new PossibleSolution(Math.abs(q - nums.stream().max(Integer::compareTo).get()), q));
+        //nums = nums.stream().filter(x -> (x >= p) && (x <= q)).collect(Collectors.toList());
+        possibleSolutions.add(new PossibleSolution(diffForNumClosestTo(nums, p), p));
+        possibleSolutions.add(new PossibleSolution(diffForNumClosestTo(nums, q), q));
+        possibleSolutions.forEach(x -> System.err.println(x));
         possibleSolutions.stream().filter(x -> x.isInRange(p, q)).max(PossibleSolution::compareTo).get().printVal();
+    }
+
+    private static int diffForNumClosestTo(Collection<Integer> nums, int p) {
+        return nums.stream().map(x -> Math.abs(x-p)).min(Integer::compareTo).get();
     }
 
     private static void solveDirectly(List<Integer> nums, int p, int q) {
@@ -73,7 +77,15 @@ class PossibleSolution implements Comparable<PossibleSolution> {
     @Override
     public int compareTo(PossibleSolution o) {
         int diffComp = Integer.compare(this.diff, o.diff);
-        return diffComp != 0 ? diffComp : Integer.compare(this.val, o.val);
+        return (diffComp != 0) ? diffComp : Integer.compare(o.val, this.val);
+    }
+
+    @Override
+    public String toString() {
+        return "PossibleSolution{" +
+            "diff=" + diff +
+            ", val=" + val +
+            '}';
     }
 
     public void printVal() {
@@ -81,6 +93,6 @@ class PossibleSolution implements Comparable<PossibleSolution> {
     }
 
     public boolean isInRange(int p, int q) {
-        return this.val >= p && this.val <= q;
+        return (this.val >= p) && (this.val <= q);
     }
 }
