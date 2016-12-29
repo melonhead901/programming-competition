@@ -1,6 +1,12 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
-public class Minimax {
+public final class Minimax {
+
+    private Minimax() { }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -12,23 +18,18 @@ public class Minimax {
         Collections.sort(nums);
         int p = in.nextInt();
         int q = in.nextInt();
-        //nums = nums.stream().filter(x -> (x >= p) && (x <= q)).collect(Collectors.toList());
         Collection<PossibleSolution> possibleSolutions = new ArrayList<>();
-        //nums.add(0, p);
-        //nums.add(nums.size(), q);
-        for (int i = 0; i < nums.size() - 1; i++) {
+        for (int i = 0; i < (nums.size() - 1); i++) {
             int diff = nums.get(i + 1) - nums.get(i);
             possibleSolutions.add(new PossibleSolution(diff / 2, (diff / 2) + nums.get(i)));
         }
-        //nums = nums.stream().filter(x -> (x >= p) && (x <= q)).collect(Collectors.toList());
         possibleSolutions.add(new PossibleSolution(diffForNumClosestTo(nums, p), p));
         possibleSolutions.add(new PossibleSolution(diffForNumClosestTo(nums, q), q));
-        possibleSolutions.forEach(x -> System.err.println(x));
         possibleSolutions.stream().filter(x -> x.isInRange(p, q)).max(PossibleSolution::compareTo).get().printVal();
     }
 
     private static int diffForNumClosestTo(Collection<Integer> nums, int p) {
-        return nums.stream().map(x -> Math.abs(x-p)).min(Integer::compareTo).get();
+        return nums.stream().map(x -> Math.abs(x - p)).min(Integer::compareTo).get();
     }
 
     private static void solveDirectly(List<Integer> nums, int p, int q) {
@@ -36,7 +37,8 @@ public class Minimax {
         int minVal = 0;
         for (int m = p; m <= q; m++) {
             int finalM = m;
-            int diff = nums.stream().map(x -> Math.abs(finalM - x)).reduce(Integer::compareTo).orElseThrow(IllegalStateException::new);
+            int diff = nums.stream().map(x -> Math.abs(finalM - x)).reduce(Integer::compareTo)
+                .orElseThrow(IllegalStateException::new);
             if (diff > minDiff) {
                 minDiff = diff;
                 minVal = m;
@@ -48,6 +50,7 @@ public class Minimax {
 
 class PossibleSolution implements Comparable<PossibleSolution> {
     private final int diff;
+    private final int val;
 
     @Override
     public boolean equals(Object o) {
@@ -67,7 +70,6 @@ class PossibleSolution implements Comparable<PossibleSolution> {
         return result;
     }
 
-    private final int val;
 
     public PossibleSolution(int diff, int val) {
         this.diff = diff;
