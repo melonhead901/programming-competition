@@ -1,4 +1,7 @@
+import com.google.common.collect.Iterables;
+import java.util.Comparator;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 /**
  * Created by kdonohue on 4/8/17.
@@ -19,17 +22,60 @@ public class BathroomStalls {
     static int maxSeenLSRS;
     static int minSeenLSRS;
 
+    private static class SeatVal {
+        private int dl;
+        private int dr;
+        final int val;
+
+
+        public int getVal() {
+            return val;
+        }
+
+        public SeatVal(int val) {
+            this.val = val;
+        }
+
+        public void setDl(int dl) {
+            this.dl = dl;
+        }
+
+        public int maxDlDr() {
+            return Math.max(dl, dr);
+        }
+
+        public int minDlDr() {
+            return Math.min(dl, dr);
+        }
+
+        public void setDr(int dr) {
+            this.dr = dr;
+        }
+
+    }
+
+    static SeatVal[] seatValArray;
+    static TreeSet<SeatVal> seatValSet;
+
     private static String processCase(Scanner in) {
         int n = in.nextInt();
         int k = in.nextInt();
         boolean[] occupied = new boolean[n];
         int[] distL = new int[n];
         int[] distR = new int[n];
+        seatValArray = new SeatVal[distL.length];
+        for (int i = 0; i < distL.length; i++) {
+            seatValArray[i] = new SeatVal(i);
+        }
+        seatValSet = new TreeSet<>(Comparator.comparing(SeatVal::maxDlDr).reversed().thenComparing
+                (SeatVal::minDlDr).reversed().thenComparing(SeatVal::getVal));
+        recalculateDistL(-1, distL, occupied);
+        recalculateDistR(n, distR, occupied);
         for (int i = 0; i < k; i++) {
-            recalculateDistL(distL, occupied);
-            recalculateDistR(distR, occupied);
             int seatToOccupy = chooseSeatToOccupy(occupied, distL, distR);
             occupied[seatToOccupy] = true;
+            recalculateDistL(seatToOccupy, distL, occupied);
+            recalculateDistR(seatToOccupy, distR, occupied);
         }
 
         return String.format("%s %s", maxSeenLSRS, minSeenLSRS);
@@ -37,6 +83,7 @@ public class BathroomStalls {
     }
 
     private static int chooseSeatToOccupy(boolean[] occupied, int[] distL, int[] distR) {
+        /*
         maxSeenLSRS = SMALL;
         minSeenLSRS = SMALL;
         int seat = 0;
@@ -57,23 +104,42 @@ public class BathroomStalls {
                 }
             }
         }
-        return seat;
+        */
+        SeatVal seatVal = Iterables.getFirst(seatValSet, null);
+        seatValSet.remove(seatVal);
+        maxSeenLSRS = seatVal.maxDlDr();
+        minSeenLSRS = seatVal.minDlDr();
+        return seatVal.val;
     }
 
-    private static void recalculateDistR(int[] distR, boolean[] occupied) {
-        for (int i = 0; i < distR.length; i++) {
-            distR[i] = 0;
-            for (int j = i + 1; (j < distR.length) && !occupied[j]; j++) {
-                distR[i]++;
+    private static void recalculateDistR(int start, int[] distR, boolean[] occupied) {
+        int runLength = 0;
+        for (int i = start - 1; i > 0; i--) {
+            distR[i] = runLength;
+            SeatVal seatVal = seatValArray[i];
+            seatValSet.remove(seatVal);
+            seatVal.setDr(runLength);
+            seatValSet.add(seatVal);
+            if (occupied[i]) {
+                break;
+            } else {
+                runLength++;
             }
         }
     }
 
-    private static void recalculateDistL(int[] distL, boolean[] occupied) {
-        for (int i = distL.length - 1; i >= 0; i--) {
-            distL[i] = 0;
-            for (int j = i - 1; (j >= 0) && !occupied[j]; j--) {
-                distL[i]++;
+    private static void recalculateDistL(int start, int[] distL, boolean[] occupied) {
+        int runLength = 0;
+        for (int i = start + 1; i < distL.length; i++) {
+            distL[i] = runLength;
+            SeatVal seatVal = seatValArray[i];
+            seatValSet.remove(seatVal);
+            seatVal.setDl(runLength);
+            seatValSet.add(seatVal);
+            if (occupied[i]) {
+                break;
+            } else {
+                runLength++;
             }
         }
     }
