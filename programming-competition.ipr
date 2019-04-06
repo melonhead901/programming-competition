@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CheckStyle-IDEA">
+    <option name="configuration">
+      <map>
+        <entry key="checkstyle-version" value="8.16" />
+        <entry key="copy-libs" value="false" />
+        <entry key="location-0" value="BUNDLED:(bundled):Sun Checks" />
+        <entry key="location-1" value="BUNDLED:(bundled):Google Checks" />
+        <entry key="scan-before-checkin" value="false" />
+        <entry key="scanscope" value="JavaOnly" />
+        <entry key="suppress-errors" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="Encoding" addBOMForNewFiles="with NO BOM" />
+  <component name="InspectionProjectProfileManager">
+    <profile version="1.0">
+      <option name="myName" value="Project Default" />
+      <inspection_tool class="ArrayEquality" enabled="true" level="TYPO" enabled_by_default="true" />
+      <inspection_tool class="AssignmentToCatchBlockParameter" enabled="true" level="TYPO" enabled_by_default="true" />
+      <inspection_tool class="AssignmentToForLoopParameter" enabled="true" level="TYPO" enabled_by_default="true">
+        <option name="m_checkForeachParameters" value="false" />
+      </inspection_tool>
+      <inspection_tool class="AssignmentToNull" enabled="true" level="TYPO" enabled_by_default="true">
+        <option name="ignoreAssignmentsToFields" value="true" />
+      </inspection_tool>
+      <inspection_tool class="BooleanParameter" enabled="true" level="TYPO" enabled_by_default="true" />
+      <inspection_tool class="ClassComplexity" enabled="true" level="TYPO" enabled_by_default="true">
+        <option name="m_limit" value="80" />
+      </inspection_tool>
+      <inspection_tool class="ClassCoupling" enabled="true" level="TYPO" enabled_by_default="true">
+        <option name="m_includeJavaClasses" value="false" />
+        <option name="m_includeLibraryClasses" value="false" />
+        <option name="m_limit" value="15" />
+      </inspection_tool>
+      <inspection_tool class="ComparableImplementedButEqualsNotOverridden" enabled="true" level="WARNING" enabled_by_default="true" />
+      <inspection_tool class="EqualsAndHashcode" enabled="true" level="ERROR" enabled_by_default="true" />
+      <inspection_tool class="FeatureEnvy" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+        <option name="ignoreTestCases" value="false" />
+      </inspection_tool>
+      <inspection_tool class="FieldMayBeFinal" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+      <inspection_tool class="ForLoopThatDoesntUseLoopVariable" enabled="true" level="TYPO" enabled_by_default="true" />
+      <inspection_tool class="InconsistentLineSeparators" enabled="true" level="WARNING" enabled_by_default="true" />
+      <inspection_tool class="IteratorHasNextCallsIteratorNext" enabled="true" level="TYPO" enabled_by_default="true" />
+      <inspection_tool class="ListIndexOfReplaceableByContains" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+      <inspection_tool class="LongLine" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+      <inspection_tool class="MagicNumber" enabled="true" level="TYPO" enabled_by_default="true" />
+      <inspection_tool class="MissortedModifiers" enabled="true" level="WARNING" enabled_by_default="true">
+        <option name="m_requireAnnotationsFirst" value="true" />
+      </inspection_tool>
+      <inspection_tool class="NestedAssignment" enabled="true" level="TYPO" enabled_by_default="true" />
+      <inspection_tool class="ObjectEquality" enabled="true" level="TYPO" enabled_by_default="true">
+        <option name="m_ignoreEnums" value="true" />
+        <option name="m_ignoreClassObjects" value="false" />
+        <option name="m_ignorePrivateConstructors" value="false" />
+      </inspection_tool>
+      <inspection_tool class="OptionalContainsCollection" enabled="true" level="TYPO" enabled_by_default="true" />
+      <inspection_tool class="RedundantSuppression" enabled="true" level="WARNING" enabled_by_default="true" />
+      <inspection_tool class="SimplifiableAnnotation" enabled="true" level="WARNING" enabled_by_default="true" />
+      <inspection_tool class="SizeReplaceableByIsEmpty" enabled="true" level="WARNING" enabled_by_default="true" />
+      <inspection_tool class="SubtractionInCompareTo" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+      <inspection_tool class="UnclearBinaryExpression" enabled="true" level="TYPO" enabled_by_default="true" />
+      <inspection_tool class="UnnecessaryCallToStringValueOf" enabled="true" level="WARNING" enabled_by_default="true" />
+      <inspection_tool class="UtilityClassWithoutPrivateConstructor" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+        <option name="ignorableAnnotations">
+          <value />
+        </option>
+        <option name="ignoreClassesWithOnlyMain" value="false" />
+      </inspection_tool>
+    </profile>
+    <version value="1.0" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Abstraction issuesJava</id>
+          </State>
+          <State>
+            <id>Assignment issuesJava</id>
+          </State>
+          <State>
+            <id>Bitwise operation issuesJava</id>
+          </State>
+          <State>
+            <id>Class metricsJava</id>
+          </State>
+          <State>
+            <id>Class structureJava</id>
+          </State>
+          <State>
+            <id>Cloning issuesJava</id>
+          </State>
+          <State>
+            <id>Code maturity issuesJava</id>
+          </State>
+          <State>
+            <id>Code style issuesJava</id>
+          </State>
+          <State>
+            <id>Control flow issuesJava</id>
+          </State>
+          <State>
+            <id>Data flow issuesJava</id>
+          </State>
+          <State>
+            <id>Encapsulation issuesJava</id>
+          </State>
+          <State>
+            <id>Error handlingJava</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>GeneralJava</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Pattern Validation</id>
+          </State>
+          <State>
+            <id>Performance issuesJava</id>
+          </State>
+          <State>
+            <id>Probable bugsJava</id>
+          </State>
+          <State>
+            <id>toString() issuesJava</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>NegativelyNamedBooleanVariable</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AdventOfCode/AdventOfCode.iml" filepath="$PROJECT_DIR$/AdventOfCode/AdventOfCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GoogleCodeJam/GoogleCodeJam.iml" filepath="$PROJECT_DIR$/GoogleCodeJam/GoogleCodeJam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HackerCup/HackerCup.iml" filepath="$PROJECT_DIR$/HackerCup/HackerCup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HackerRank/HackerRank.iml" filepath="$PROJECT_DIR$/HackerRank/HackerRank.iml" />
+      <module fileurl="file://$PROJECT_DIR$/programming-competition.iml" filepath="$PROJECT_DIR$/programming-competition.iml" />
+    </modules>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+  </component>
+</project>
