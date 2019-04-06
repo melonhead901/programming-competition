@@ -2,7 +2,10 @@ package adventofcode_2015;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 public class Day20 {
     private final List<Event> events;
