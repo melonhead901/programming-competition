@@ -63,7 +63,7 @@ class VolumeCalculator {
     }
 }
 
-class Solution {
+class TheSolution {
 
     public static void main(String[] args) {
         DoNotTerminate.forbidExit();

@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4040d06a-5a1e-429d-ab99-c18470f40755" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/AdventOfCode/AdventOfCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/AdventOfCode.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/TriangleChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/TriangleChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Day20.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Day20.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NiceString.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NiceString.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NotQuiteLisp.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NotQuiteLisp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/SantaDeliveries.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/SantaDeliveries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Solver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/StockingStuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/StockingStuffer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/WrappingPaper.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/WrappingPaper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HackerRank/src/CalculatingVolume.java" beforeDir="false" afterPath="$PROJECT_DIR$/HackerRank/src/CalculatingVolume.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/programming-competition.iws" beforeDir="false" afterPath="$PROJECT_DIR$/programming-competition.iws" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -22,16 +14,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Solver.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/StockingStuffer.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Day20.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -85,11 +67,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GoogleCodeJam/2019/YouCanGoYourOwnWay.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
               <caret line="19" selection-end-line="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/HackerRank/src/TaumBday.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HackerRank/src/CalculatingVolume.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -125,6 +131,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>solution</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -144,11 +155,15 @@
         <option value="$PROJECT_DIR$/AdventOfCode/src/Assembly.java" />
         <option value="$PROJECT_DIR$/AdventOfCode/src/TriangleChecker.java" />
         <option value="$PROJECT_DIR$/GoogleCodeJam/2019/YouCanGoYourOwnWay.java" />
+        <option value="$PROJECT_DIR$/HackerRank/src/CalculatingVolume.java" />
+        <option value="$PROJECT_DIR$/HackerRank/src/Solution.java" />
+        <option value="$PROJECT_DIR$/HackerRank/src/TaumBday.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="183" />
+    <option name="x" value="350" />
+    <option name="y" value="57" />
     <option name="width" value="1842" />
     <option name="height" value="1257" />
   </component>
@@ -160,7 +175,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -172,36 +186,20 @@
             <path>
               <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
               <item name="programming-competition" type="462c0819:PsiDirectoryNode" />
-              <item name="AdventOfCode" type="462c0819:PsiDirectoryNode" />
+              <item name="HackerRank" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
               <item name="programming-competition" type="462c0819:PsiDirectoryNode" />
-              <item name="AdventOfCode" type="462c0819:PsiDirectoryNode" />
+              <item name="HackerRank" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
               <item name="programming-competition" type="462c0819:PsiDirectoryNode" />
-              <item name="GoogleCodeJam" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
-              <item name="programming-competition" type="462c0819:PsiDirectoryNode" />
-              <item name="GoogleCodeJam" type="462c0819:PsiDirectoryNode" />
-              <item name="2016" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
-              <item name="programming-competition" type="462c0819:PsiDirectoryNode" />
-              <item name="GoogleCodeJam" type="462c0819:PsiDirectoryNode" />
-              <item name="2017" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
-              <item name="programming-competition" type="462c0819:PsiDirectoryNode" />
-              <item name="GoogleCodeJam" type="462c0819:PsiDirectoryNode" />
-              <item name="2019" type="462c0819:PsiDirectoryNode" />
+              <item name="HackerRank" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="CalculatingVolume.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
             </path>
             <path>
               <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
@@ -211,6 +209,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -235,7 +234,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.YouCanGoYourOwnWay">
+  <component name="RunManager" selected="Application.Solution">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -245,6 +244,14 @@
     <configuration name="ForegoneSolution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ForegoneSolution" />
       <module name="GoogleCodeJam" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Solution" />
+      <module name="HackerRank" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -291,6 +298,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Solution" />
         <item itemvalue="Application.YouCanGoYourOwnWay" />
         <item itemvalue="Application.ForegoneSolution" />
       </list>
@@ -310,17 +318,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="183" width="1842" height="1257" extended-state="0" />
+    <frame x="350" y="57" width="1842" height="1257" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25277779" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25555557" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32924694" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32924694" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39929947" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -454,6 +462,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HackerRank/src/CalculatingVolume.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HackerRank/src/TaumBday.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
