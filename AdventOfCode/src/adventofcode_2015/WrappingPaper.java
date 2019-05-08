@@ -1,4 +1,4 @@
-package adventofcode;
+package adventofcode_2015;
 
 import java.util.Arrays;
 import java.util.Scanner;

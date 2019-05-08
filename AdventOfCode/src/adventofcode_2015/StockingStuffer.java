@@ -1,4 +1,4 @@
-package adventofcode;
+package adventofcode_2015;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

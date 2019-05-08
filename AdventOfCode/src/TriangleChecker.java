@@ -1,5 +1,3 @@
-import org.jetbrains.annotations.Contract;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,7 +55,6 @@ public class TriangleChecker {
         System.out.print(numValidTriangles);
     }
 
-    @Contract(pure = true)
     private boolean isValidTriangle(int[] nums) {
         System.out.println("Considering " + Arrays.toString(nums));
         return ((nums[0] + nums[1]) > nums[2]) && ((nums[1] + nums[2]) > nums[0]) && ((nums[0] + nums[2]) > nums[1]);

@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4040d06a-5a1e-429d-ab99-c18470f40755" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/GoogleCodeJam/2019/ForegoneSolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoogleCodeJam/GoogleCodeJam.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GoogleCodeJam/GoogleCodeJam.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdventOfCode/AdventOfCode.iml" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/AdventOfCode.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/TriangleChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/TriangleChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Day20.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Day20.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NiceString.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NiceString.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NotQuiteLisp.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NotQuiteLisp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/SantaDeliveries.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/SantaDeliveries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/StockingStuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/StockingStuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/WrappingPaper.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/WrappingPaper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/programming-competition.iws" beforeDir="false" afterPath="$PROJECT_DIR$/programming-competition.iws" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -14,12 +21,63 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GoogleCodeJam/2017/BathroomStalls.java">
+        <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Solver.java">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/StockingStuffer.java">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Day20.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="13" selection-start-line="13" selection-end-line="13" />
+            <state relative-caret-position="1110">
+              <caret line="87" column="30" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode/WrappingPaper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/WrappingPaper.java">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AdventOfCode/src/Assembly.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="44" column="14" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AdventOfCode/src/TriangleChecker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="750">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -28,11 +86,21 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/GoogleCodeJam/2019/YouCanGoYourOwnWay.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" selection-end-line="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GoogleCodeJam/2019/ForegoneSolution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="46" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
+            <state relative-caret-position="75">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
               <folding>
+                <element signature="e#1295#1296#0" expanded="true" />
                 <element signature="e#1349#1350#0" expanded="true" />
               </folding>
             </state>
@@ -40,35 +108,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GoogleCodeJam/2016/JamCoin.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="20" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GoogleCodeJam/2016/JamCoinTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GoogleCodeJam/2016/CountingSheep.java">
+        <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NiceString.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <caret line="2" column="41" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GoogleCodeJam/GoogleCodeJam.iml">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -88,19 +133,34 @@
       <list>
         <option value="$PROJECT_DIR$/GoogleCodeJam/2017/BathroomStalls.java" />
         <option value="$PROJECT_DIR$/GoogleCodeJam/2019/ForegoneSolution.java" />
+        <option value="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/SantaDeliveries.java" />
+        <option value="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NiceString.java" />
+        <option value="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NotQuiteLisp.java" />
+        <option value="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Solver.java" />
+        <option value="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/StockingStuffer.java" />
+        <option value="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Day20.java" />
+        <option value="$PROJECT_DIR$/AdventOfCode/src/adventofcode/WrappingPaper.java" />
+        <option value="$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/WrappingPaper.java" />
+        <option value="$PROJECT_DIR$/AdventOfCode/src/Assembly.java" />
+        <option value="$PROJECT_DIR$/AdventOfCode/src/TriangleChecker.java" />
+        <option value="$PROJECT_DIR$/GoogleCodeJam/2019/YouCanGoYourOwnWay.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+    <option name="y" value="183" />
     <option name="width" value="1842" />
     <option name="height" value="1257" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -108,6 +168,17 @@
             <path>
               <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
               <item name="programming-competition" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
+              <item name="programming-competition" type="462c0819:PsiDirectoryNode" />
+              <item name="AdventOfCode" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
+              <item name="programming-competition" type="462c0819:PsiDirectoryNode" />
+              <item name="AdventOfCode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="programming-competition" type="b2602c69:ProjectViewProjectNode" />
@@ -140,7 +211,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -165,7 +235,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.YouCanGoYourOwnWay">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -174,6 +244,14 @@
     </configuration>
     <configuration name="ForegoneSolution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ForegoneSolution" />
+      <module name="GoogleCodeJam" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="YouCanGoYourOwnWay" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="YouCanGoYourOwnWay" />
       <module name="GoogleCodeJam" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -213,6 +291,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.YouCanGoYourOwnWay" />
         <item itemvalue="Application.ForegoneSolution" />
       </list>
     </recent_temporary>
@@ -231,32 +310,32 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1842" height="1257" extended-state="0" />
+    <frame x="0" y="183" width="1842" height="1257" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25277779" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="CheckStyle" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" weight="0.32924694" />
+      <window_info id="Designer" order="2" />
+      <window_info id="UI Designer" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32924694" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39929947" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39929947" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="bottom" id="CheckStyle" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32924694" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
     </layout>
   </component>
   <component name="editorHistoryManager">
@@ -294,13 +373,87 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NotQuiteLisp.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/SantaDeliveries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Solver.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/StockingStuffer.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/Day20.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1110">
+          <caret line="87" column="30" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode/WrappingPaper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/WrappingPaper.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdventOfCode/src/Assembly.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="44" column="14" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdventOfCode/src/TriangleChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/GoogleCodeJam/2019/ForegoneSolution.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="46" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
           <folding>
+            <element signature="e#1295#1296#0" expanded="true" />
             <element signature="e#1349#1350#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdventOfCode/src/adventofcode_2015/NiceString.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="41" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GoogleCodeJam/2019/YouCanGoYourOwnWay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
@@ -333,11 +486,11 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
-          <last-edited>org.apache.commons:commons-lang3:3.0</last-edited>
+          <last-edited>joda-time:joda-time:2.9.9</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.20114942" />
               </list>
             </option>
           </splitter-proportions>
