@@ -105,7 +105,7 @@ class TheSolution {
 
 
     } //end of main
-} //end of Solution
+} //end ofEncryptions
 
 /**
  *This class prevents the user form using System.exit(0)
