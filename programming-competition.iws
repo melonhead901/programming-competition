@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4040d06a-5a1e-429d-ab99-c18470f40755" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/HackerRank/HackerRank.iml" beforeDir="false" afterPath="$PROJECT_DIR$/HackerRank/HackerRank.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HackerRank/src/CalculatingVolume.java" beforeDir="false" afterPath="$PROJECT_DIR$/HackerRank/src/CalculatingVolume.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/programming-competition.iws" beforeDir="false" afterPath="$PROJECT_DIR$/programming-competition.iws" afterDir="false" />
-    </list>
+    <list default="true" id="4040d06a-5a1e-429d-ab99-c18470f40755" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -164,10 +160,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="96" />
-    <option name="y" value="24" />
+    <option name="y" value="23" />
     <option name="width" value="1842" />
-    <option name="height" value="1257" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -357,7 +352,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="96" y="24" width="1842" height="1257" extended-state="0" />
+    <frame x="0" y="23" width="1842" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25833333" />
