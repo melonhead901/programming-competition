@@ -16,3 +16,5 @@ Main.java
 
 out/
 .idea/
+
+*.iws
