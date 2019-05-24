@@ -18,3 +18,5 @@ out/
 .idea/
 
 *.iws
+
+result.txt
