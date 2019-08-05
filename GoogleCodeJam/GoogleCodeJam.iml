@@ -9,10 +9,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.3.2" level="project" />
-    <orderEntry type="library" name="com.google.guava:guava:19.0" level="project" />
-    <orderEntry type="library" name="junit:junit:4.12" level="application" />
-    <orderEntry type="library" name="com.google.guava:guava:22.0" level="application" />
     <orderEntry type="module-library">
       <library name="JUnit4">
         <CLASSES>
@@ -23,6 +19,9 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.0" level="application" />
+    <orderEntry type="library" name="com.google.guava:guava:27.1-jre" level="application" />
+    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.3.2" level="application" />
+    <orderEntry type="library" name="joda-time:joda-time:2.10.3" level="application" />
+    <orderEntry type="library" name="junit:junit:4.12" level="application" />
   </component>
 </module>
