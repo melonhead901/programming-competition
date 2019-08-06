@@ -10,5 +10,6 @@
     <orderEntry type="library" name="com.google.guava:guava:27.1-jre" level="application" />
     <orderEntry type="library" name="joda-time:joda-time:2.10.3" level="application" />
     <orderEntry type="library" name="junit:junit:4.12" level="application" />
+    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.3.2" level="application" />
   </component>
 </module>
