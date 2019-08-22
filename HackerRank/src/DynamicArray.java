@@ -42,52 +42,52 @@ class State {
     }
 }
 
-class Result {
-
-    /*
-     * Complete the 'dynamicArray' function below.
-     *
-     * The function is expected to return an INTEGER_ARRAY.
-     * The function accepts following parameters:
-     *  1. INTEGER n
-     *  2. 2D_INTEGER_ARRAY queries
-     */
-
-    public static List<Integer> dynamicArray(int n, List<List<Integer>> queries) {
-        State state = new State(n);
-        for (List<Integer> query : queries) {
-            runQuery(state, query);
-        }
-
-        return state.getAnswers();
-    }
-
-    private static void runQuery(State state, List<Integer> query) {
-        switch (query.get(0)) {
-            case 1:
-                runQuery1(state, query);
-                break;
-            case 2:
-                runQuery2(state, query);
-                break;
-        }
-    }
-
-    private static void runQuery2(State state, List<Integer> query) {
-        System.out.println("Process query " + query);
-        state.process(query.get(1), query.get(2));
-    }
-
-    private static void runQuery1(State state, List<Integer> query) {
-        System.out.println("Insert query " + query);
-        state.insert(query.get(1), query.get(2));
-    }
-
-
-
-}
 
 public class DynamicArray {
+    static class Result {
+
+        /*
+         * Complete the 'dynamicArray' function below.
+         *
+         * The function is expected to return an INTEGER_ARRAY.
+         * The function accepts following parameters:
+         *  1. INTEGER n
+         *  2. 2D_INTEGER_ARRAY queries
+         */
+
+        public static List<Integer> dynamicArray(int n, List<List<Integer>> queries) {
+            State state = new State(n);
+            for (List<Integer> query : queries) {
+                runQuery(state, query);
+            }
+
+            return state.getAnswers();
+        }
+
+        private static void runQuery(State state, List<Integer> query) {
+            switch (query.get(0)) {
+                case 1:
+                    runQuery1(state, query);
+                    break;
+                case 2:
+                    runQuery2(state, query);
+                    break;
+            }
+        }
+
+        private static void runQuery2(State state, List<Integer> query) {
+            System.out.println("Process query " + query);
+            state.process(query.get(1), query.get(2));
+        }
+
+        private static void runQuery1(State state, List<Integer> query) {
+            System.out.println("Insert query " + query);
+            state.insert(query.get(1), query.get(2));
+        }
+
+
+
+    }
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
