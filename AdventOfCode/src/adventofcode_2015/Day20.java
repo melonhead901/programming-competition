@@ -1,7 +1,5 @@
 package adventofcode_2015;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -85,7 +83,7 @@ abstract class Event implements Comparable<Event> {
     }
 
     @Override
-    public int compareTo(@NotNull Event o) {
+    public int compareTo(Event o) {
         return Long.compare(this.loc, o.loc);
     }
 
