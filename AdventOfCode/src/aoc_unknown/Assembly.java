@@ -1,3 +1,5 @@
+package aoc_unknown;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -26,10 +28,10 @@ public class Assembly {
         System.out.println(new DateTime().toString(format));
         return;
         /*
-        Assembly assembly = new Assembly(new ArrayList<>());
+        aoc_unknown.Assembly assembly = new aoc_unknown.Assembly(new ArrayList<>());
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
-            assembly.addInstruction(Instruction.create(in.nextLine()));
+            assembly.addInstruction(aoc_unknown.Instruction.create(in.nextLine()));
         }
         assembly.executeAllInstructions();
         System.out.println(getNamedRegister("a").value);

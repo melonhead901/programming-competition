@@ -1,3 +1,5 @@
+package aoc_unknown;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,7 +25,7 @@ public class CoordTracker {
 
     @Override
     public String toString() {
-        return "CoordTracker{" +
+        return "aoc_unknown.CoordTracker{" +
             "location=" + location +
             '}';
     }

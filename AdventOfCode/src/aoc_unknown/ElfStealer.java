@@ -1,3 +1,5 @@
+package aoc_unknown;
+
 import java.util.Scanner;
 
 /**
@@ -96,7 +98,7 @@ class ElfNode {
 
     @Override
     public String toString() {
-        return "ElfNode{" +
+        return "aoc_unknown.ElfNode{" +
             "number=" + number +
             '}';
     }

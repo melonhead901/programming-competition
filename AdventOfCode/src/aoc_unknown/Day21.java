@@ -1,3 +1,5 @@
+package aoc_unknown;
+
 import java.util.*;
 
 public class Day21 {
@@ -62,7 +64,7 @@ public class Day21 {
     }
 
     private static Day21 createDefault() {
-        //return new Day21("abdec");
+        //return new aoc_unknown.Day21("abdec");
         return new Day21("abcdefgh");
     }
 
