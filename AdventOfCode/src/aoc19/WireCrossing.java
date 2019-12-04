@@ -1,5 +1,7 @@
 package aoc19;
 
+import com.google.common.collect.ImmutableList;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,27 +15,33 @@ import java.util.Set;
 public class WireCrossing {
     public static void main(String[] args) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get("/Users/kdonohue/Downloads/day3.txt"));
-        String line1 = lines.get(0);
-        List<Path> line1Dirs = parseDirs(line1);
-        String line2 = lines.get(1);
-        List<Path> line2Dirs = parseDirs(line2);
+      //  lines = ImmutableList.of( "R8,U5,L5,D3",
+                //"U7,R6,D4,L4");
+        List<Path> line1Dirs = parseDirs(lines.get(0));
         Set<Position> positions = new HashSet<>();
-        Position position = new Position(0, 0);
+        Position position = Position.CENTRAL_PORT;
         for (Path p : line1Dirs) {
+            System.out.println("Starting pos " + position );
+            positions.addAll(position.positionsAlongPath(p));
+            System.out.println(position.positionsAlongPath(p));
             position = position.moveAlongPath(p);
-            positions.add(position);
         }
         List<Position> matchingPositions = new ArrayList<>();
-        position = new Position(0, 0);
+        List<Path> line2Dirs = parseDirs(lines.get(1));
+        positions.remove(Position.CENTRAL_PORT);
+        position = Position.CENTRAL_PORT;
         for (Path p : line2Dirs) {
-            position = position.moveAlongPath(p);
-            if (positions.contains(position)) {
-                matchingPositions.add(position);
+            for (Position pathPos : position.positionsAlongPath(p)) {
+                if (positions.contains(pathPos)) {
+                    matchingPositions.add(pathPos);
+                }
             }
+            position = position.moveAlongPath(p);
         }
 
-        Position bestPos = matchingPositions.stream().min(Comparator.comparingInt(pos -> Math.abs(pos.c) + Math.abs(pos.r))).get();
-        System.out.println(Math.abs(bestPos.c) + Math.abs(bestPos.r));
+        Position bestPos = matchingPositions.stream().min(Comparator.comparingInt(Position::manhattanDistance)).get();
+        System.out.println(bestPos);
+        System.out.println(bestPos.manhattanDistance());
 
     }
 
@@ -50,11 +58,11 @@ public class WireCrossing {
 }
 
 class Path {
-    final Direction d;
+    final Direction direction;
     final int distance;
 
     Path(Direction d, int distance) {
-        this.d = d;
+        this.direction = d;
         this.distance = distance;
     }
 }
@@ -88,6 +96,16 @@ enum Direction {
 }
 
 class Position {
+    static final Position CENTRAL_PORT = new Position(0, 0);
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "r=" + r +
+                ", c=" + c +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,10 +127,24 @@ class Position {
         this.c = c;
     }
 
+    List<Position> positionsAlongPath(Path p) {
+        List<Position> result = new ArrayList<>();
+        for (int i = 0; i < p.distance; i++) {
+            int newR = i * p.direction.dr + r;
+            int newC = i * p.direction.dc + c;
+            result.add(new Position(newR, newC));
+        }
+        return result;
+    }
+
     Position moveAlongPath(Path p) {
-        int newR = p.distance * p.d.dr;
-        int newC = p.distance * p.d.dc;
+        int newR = p.distance * p.direction.dr + r;
+        int newC = p.distance * p.direction.dc + c;
         return new Position(newR, newC);
+    }
+
+    int manhattanDistance() {
+        return Math.abs(r) + Math.abs(c);
     }
 }
 
