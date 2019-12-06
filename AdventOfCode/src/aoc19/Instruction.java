@@ -1,12 +1,8 @@
 package aoc19;
 
-import java.util.List;
-
 class Instruction {
     final OpCode opCode;
-    List<ParamMode> paramModes;
-
-    int[] paramVals;
+    Param[] params;
     int nextPosition;
 
     Instruction(OpCode opCode) {
@@ -16,12 +12,12 @@ class Instruction {
     public static Instruction createInstruction(int[] vals, int position) {
         OpCode opCode = OpCode.getFrom(vals[position]);
         Instruction result = new Instruction(opCode);
-        result.paramVals = new int[opCode.numParams];
-        int[] paramValues = result.paramVals;
-        for (int i = 0; i < paramValues.length; i++) {
-            paramValues[i] = vals[position + i + 1];
+        Param[] params = new Param[opCode.numParams];
+        result.params = params;
+        for (int i = 0; i < params.length; i++) {
+            params[i] = new Param(ParamMode.POSITION, vals[position + 1 + i]);
         }
-        result.nextPosition = position + 1 + paramValues.length;
+        result.nextPosition = position + 1 + params.length;
         return result;
     }
 
@@ -32,17 +28,18 @@ class Instruction {
     public void execute(int[] memoryVals) {
         switch (opCode) {
             case ADD:
-                int a = memoryVals[this.paramVals[0]];
-                int b = memoryVals[this.paramVals[1]];
-                int storeLoc = this.paramVals[2];
+                int a = this.params[0].getVal(memoryVals);
+                int b = this.params[1].getVal(memoryVals);
+                int storeLoc = this.params[2].val;
                 memoryVals[storeLoc] = a + b;
             case EXIT:
                 break;
             case MULTIPLY:
-                a = memoryVals[this.paramVals[0]];
-                b = memoryVals[this.paramVals[1]];
-                storeLoc = this.paramVals[2];
+                a = this.params[0].getVal(memoryVals);
+                b = this.params[1].getVal(memoryVals);
+                storeLoc = this.params[2].val;
                 memoryVals[storeLoc] = a * b;
+
         }
     }
 

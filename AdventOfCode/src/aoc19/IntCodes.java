@@ -11,6 +11,7 @@ public class IntCodes {
         int[] vals = new int[sVals.length];
         for (int i = 0; i < vals.length; i++) {
             vals[i] = Integer.parseInt(sVals[i]);
+        }
 
         int position = 0;
         Instruction instruction = Instruction.createInstruction(vals, 0);
