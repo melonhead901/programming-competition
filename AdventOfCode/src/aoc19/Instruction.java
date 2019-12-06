@@ -1,7 +1,6 @@
 package aoc19;
 
 class Instruction {
-    public static final int INPUT_VAL = 1;
 
     final OpCode opCode;
     Param[] params;
@@ -17,7 +16,6 @@ class Instruction {
         Param[] params = new Param[opCode.numParams];
         result.params = params;
         for (int i = 0; i < params.length; i++) {
-            //params[i] = new Param(ParamMode.POSITION, vals[position + 1 + i]);
             params[i] = new Param(ParamMode.getMode(vals[position] + "", i), vals[position + 1 + i]);
         }
         result.nextPosition = position + 1 + params.length;
@@ -43,10 +41,32 @@ class Instruction {
                 this.params[2].writeVal(memoryVals, a*b);
                 break;
             case INPUT:
-                this.params[0].writeVal(memoryVals, INPUT_VAL);
+                this.params[0].writeVal(memoryVals, IntCodes.INPUT_VAL);
                 break;
             case OUTPUT:
                 System.out.println(this.params[0].getVal(memoryVals));
+                break;
+            case LESS_THAN:
+                a = this.params[0].getVal(memoryVals);
+                b = this.params[1].getVal(memoryVals);
+                this.params[2].writeVal(memoryVals, (a < b) ? 1 : 0);
+                break;
+            case JUMP_IF_TRUE:
+                a = this.params[0].getVal(memoryVals);
+                if (a != 0) {
+                    this.nextPosition = this.params[1].getVal(memoryVals);
+                }
+                break;
+            case JUMP_IF_FALSE:
+                a = this.params[0].getVal(memoryVals);
+                if (a == 0) {
+                    this.nextPosition = this.params[1].getVal(memoryVals);
+                }
+                break;
+            case EQUALS:
+                a = this.params[0].getVal(memoryVals);
+                b = this.params[1].getVal(memoryVals);
+                this.params[2].writeVal(memoryVals, (a == b) ? 1 : 0);
                 break;
             default:
                 throw new IllegalStateException("unexpected opcode: " + opCode);
