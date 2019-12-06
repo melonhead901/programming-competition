@@ -1,8 +1,8 @@
 package aoc19;
 
 public class Param {
-    final ParamMode mode;
-    final int val;
+    private final ParamMode mode;
+    private final int val;
 
     public Param(ParamMode mode, int val) {
         this.mode = mode;
@@ -18,6 +18,10 @@ public class Param {
             default:
                 throw new IllegalStateException("unexpected param mode: " + mode);
         }
+    }
+
+    public void writeVal(int[] memory, int valToWrite) {
+        memory[val] = valToWrite;
     }
 
 }
