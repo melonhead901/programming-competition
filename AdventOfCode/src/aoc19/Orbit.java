@@ -3,6 +3,7 @@ package aoc19;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,28 @@ public class Orbit {
             orbits.put(b, a);
         }
 
+        // this would be more efficient as a hashmap<planet, index> but this works fine for small vals.
+        List<String> myParents = new ArrayList<>();
+        String curr = "YOU";
+        while (curr != null) {
+            myParents.add(curr);
+            curr = orbits.get(curr);
+        }
+
+        curr = "SAN";
+        int i = 0;
+        while (curr != null) {
+            curr = orbits.get(curr);
+            if (myParents.contains(curr)) {
+                System.out.println(i + myParents.indexOf(curr) - 1);
+                return;
+            }
+            i++;
+        }
+
+    }
+
+    private static void part1(Map<String, String> orbits) {
         Map<String, Integer> vals = new HashMap<>();
         vals.put("COM", 0);
         for (String key : orbits.keySet()) {

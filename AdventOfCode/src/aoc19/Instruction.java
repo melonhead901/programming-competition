@@ -1,5 +1,10 @@
 package aoc19;
 
+import com.google.common.collect.ImmutableList;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 class Instruction {
 
     final OpCode opCode;
@@ -26,22 +31,25 @@ class Instruction {
         return 1 + opCode.numParams;
     }
 
-    public void execute(int[] memoryVals) {
+    public void execute(int[] memoryVals, Queue<Integer> inputValues) {
         switch (opCode) {
             case ADD:
                 int a = this.params[0].getVal(memoryVals);
                 int b = this.params[1].getVal(memoryVals);
-                this.params[2].writeVal(memoryVals, a+b);
+                this.params[2].writeVal(memoryVals, a + b);
                 break;
             case EXIT:
                 break;
             case MULTIPLY:
                 a = this.params[0].getVal(memoryVals);
                 b = this.params[1].getVal(memoryVals);
-                this.params[2].writeVal(memoryVals, a*b);
+                this.params[2].writeVal(memoryVals, a * b);
                 break;
             case INPUT:
-                this.params[0].writeVal(memoryVals, IntCodes.INPUT_VAL);
+                if (inputValues.isEmpty()) {
+                    throw new IllegalStateException("Trying to get too many input values");
+                }
+                this.params[0].writeVal(memoryVals, inputValues.poll());
                 break;
             case OUTPUT:
                 System.out.println(this.params[0].getVal(memoryVals));
@@ -70,7 +78,6 @@ class Instruction {
                 break;
             default:
                 throw new IllegalStateException("unexpected opcode: " + opCode);
-
         }
     }
 
