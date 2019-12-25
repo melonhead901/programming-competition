@@ -1,6 +1,10 @@
 package aoc19;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+import javax.annotation.Nonnull;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 
 class Instruction {
 
@@ -28,7 +32,7 @@ class Instruction {
         return 1 + opCode.numParams;
     }
 
-    public void execute(int[] memoryVals, Queue<Integer> inputValues, Queue<Integer> outputValues) {
+    public void execute(int[] memoryVals, @NonNull BlockingQueue<Integer> inputValues, Queue<Integer> outputValues) throws InterruptedException {
         switch (opCode) {
             case ADD:
                 int a = this.params[0].getVal(memoryVals);
@@ -43,10 +47,7 @@ class Instruction {
                 this.params[2].writeVal(memoryVals, a * b);
                 break;
             case INPUT:
-                if (inputValues.isEmpty()) {
-                    throw new IllegalStateException("Trying to get too many input values");
-                }
-                this.params[0].writeVal(memoryVals, inputValues.poll());
+                this.params[0].writeVal(memoryVals, inputValues.take());
                 break;
             case OUTPUT:
                 outputValues.add(this.params[0].getVal(memoryVals));

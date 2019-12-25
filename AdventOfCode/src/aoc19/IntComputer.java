@@ -1,32 +1,34 @@
 package aoc19;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
-public class IntComputer {
-    private static final String input = "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0";
-
+public class IntComputer implements Runnable {
     private final int[] memory;
-    private final Queue<Integer> inputValues;
-    private final Queue<Integer> outputValues;
+    private final BlockingQueue<Integer> inputValues;
+    private final BlockingQueue<Integer> outputValues;
+
+    private int position;
 
     private boolean hasHalted;
 
     public IntComputer(int[] memory) {
-        this(memory, new LinkedList<>());
+        this(memory, new LinkedBlockingDeque<>(), new LinkedBlockingQueue<>());
     }
 
-    public IntComputer(int[] memory, Queue<Integer> inputValues) {
+    public IntComputer(int[] memory, BlockingQueue<Integer> inputValues, BlockingQueue<Integer> outputValues) {
         this.memory = new int[memory.length];
         System.arraycopy(memory, 0, this.memory, 0, memory.length);
         this.inputValues = inputValues;
-        this.outputValues = new LinkedList<>();
+        this.outputValues = outputValues;
         this.hasHalted = false;
+        this.position = 0;
     }
 
-    public IntComputer(String memory, Queue<Integer> inputValues) {
-        this(parseStringToProgram(memory), inputValues);
+    public IntComputer(String memory, BlockingQueue<Integer> inputValues, BlockingQueue<Integer> outputValues) {
+        this(parseStringToProgram(memory), inputValues, outputValues);
     }
 
     private static  int[] parseStringToProgram(String memory) {
@@ -38,36 +40,22 @@ public class IntComputer {
         return vals;
     }
 
-    public void runComputer() {
-        int position = 0;
+    public void runComputer() throws InterruptedException {
         Instruction instruction = Instruction.createInstruction(memory, 0);
         while (!instruction.isExit()) {
             instruction.execute(memory, inputValues, outputValues);
             position = instruction.nextPosition;
             instruction = Instruction.createInstruction(memory, position);
         }
+        this.hasHalted = true;
     }
 
     public void printMemory() {
         System.out.println(Arrays.toString(memory));
     }
 
-    public int getOutput() {
-        if (this.outputValues.isEmpty()) {
-            throw new IllegalStateException("No output values");
-        }
-        return this.outputValues.poll();
-    }
-
-    public static void main(String[] args) {
-        LinkedList<Integer> ll = new LinkedList<>();
-        ll.push(5);
-        IntComputer computer = new IntComputer(input, ll);
-
-        computer.runComputer();
-
-        computer.printOutputValues();
-        computer.printMemory();
+    public int getOutput() throws InterruptedException {
+        return this.outputValues.take();
     }
 
     private void printOutputValues() {
@@ -82,6 +70,15 @@ public class IntComputer {
 
     public boolean isRunning() {
         return !this.hasHalted;
+    }
+
+    @Override
+    public void run() {
+        try {
+            this.runComputer();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 
