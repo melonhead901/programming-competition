@@ -1,8 +1,5 @@
 package aoc19;
 
-import com.google.common.collect.ImmutableList;
-
-import java.util.LinkedList;
 import java.util.Queue;
 
 class Instruction {
@@ -31,7 +28,7 @@ class Instruction {
         return 1 + opCode.numParams;
     }
 
-    public void execute(int[] memoryVals, Queue<Integer> inputValues) {
+    public void execute(int[] memoryVals, Queue<Integer> inputValues, Queue<Integer> outputValues) {
         switch (opCode) {
             case ADD:
                 int a = this.params[0].getVal(memoryVals);
@@ -52,7 +49,7 @@ class Instruction {
                 this.params[0].writeVal(memoryVals, inputValues.poll());
                 break;
             case OUTPUT:
-                System.out.println(this.params[0].getVal(memoryVals));
+                outputValues.add(this.params[0].getVal(memoryVals));
                 break;
             case LESS_THAN:
                 a = this.params[0].getVal(memoryVals);

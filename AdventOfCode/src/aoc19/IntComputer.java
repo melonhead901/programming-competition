@@ -9,6 +9,7 @@ public class IntComputer {
 
     private final int[] memory;
     private final Queue<Integer> inputValues;
+    private final Queue<Integer> outputValues;
 
     public IntComputer(int[] memory) {
         this(memory, new LinkedList<>());
@@ -18,36 +19,59 @@ public class IntComputer {
         this.memory = new int[memory.length];
         System.arraycopy(memory, 0, this.memory, 0, memory.length);
         this.inputValues = inputValues;
+        this.outputValues = new LinkedList<>();
+    }
+
+    public IntComputer(String memory, Queue<Integer> inputValues) {
+        this(parseStringToProgram(memory), inputValues);
+    }
+
+    private static  int[] parseStringToProgram(String memory) {
+        String[] sVals = memory.split(",");
+        int[] vals = new int[sVals.length];
+        for (int i = 0; i < vals.length; i++) {
+            vals[i] = Integer.parseInt(sVals[i]);
+        }
+        return vals;
     }
 
     public void runComputer() {
         int position = 0;
         Instruction instruction = Instruction.createInstruction(memory, 0);
         while (!instruction.isExit()) {
-            instruction.execute(memory, inputValues);
+            instruction.execute(memory, inputValues, outputValues);
             position = instruction.nextPosition;
             instruction = Instruction.createInstruction(memory, position);
         }
     }
 
-    private void printMemory() {
+    public void printMemory() {
         System.out.println(Arrays.toString(memory));
+    }
+
+    public int getOutput() {
+        if (this.outputValues.isEmpty()) {
+            throw new IllegalStateException("No output values");
+        }
+        return this.outputValues.poll();
     }
 
     public static void main(String[] args) {
         //String input = "2,4,4,5,99,0";
-        String[] sVals = input.split(",");
-        int[] vals = new int[sVals.length];
-        for (int i = 0; i < vals.length; i++) {
-            vals[i] = Integer.parseInt(sVals[i]);
-        }
         LinkedList<Integer> ll = new LinkedList<>();
         ll.push(5);
-        IntComputer computer = new IntComputer(vals, ll);
+        IntComputer computer = new IntComputer(input, ll);
 
         computer.runComputer();
 
+        computer.printOutputValues();
         computer.printMemory();
+    }
+
+    private void printOutputValues() {
+        while (!outputValues.isEmpty()) {
+            System.out.println(outputValues.poll());
+        }
     }
 }
 
