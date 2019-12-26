@@ -5,9 +5,9 @@ public class Boost {
 
     public static void main(String[] args) throws InterruptedException {
         String input = "1102,34915192,34915192,7,4,7,99,0";
-        IntComputer ic = new IntComputer(input);
-        ic.run();
+        IntComputer ic = new IntComputer(INPUT);
         ic.addInput(1);
+        ic.run();
         while (ic.hasOutput()) {
             System.out.println(ic.getOutput());
         }

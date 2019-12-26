@@ -27,7 +27,15 @@ public class Param {
     }
 
     public void writeVal(long[] memory, long valToWrite) {
-        memory[(int) val] = valToWrite;
+        switch (mode) {
+            case POSITION:
+                memory[(int) val] = valToWrite;
+                break;
+            case IMMEDIATE:
+                throw new  IllegalStateException("cannot write to a param in immediate mode");
+            case RELATIVE:
+                memory[(int) (val + relativeBaseOffset.getOffset())] = valToWrite;
+        }
     }
 
 }
