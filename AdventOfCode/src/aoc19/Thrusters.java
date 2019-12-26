@@ -32,11 +32,11 @@ public class Thrusters {
         }
     }
 
-    private static int MAX_VAL = Integer.MIN_VALUE;
+    private static long MAX_VAL = Long.MIN_VALUE;
 
     private static void runSimulation(int[] phaseSettings) throws InterruptedException {
         IntComputer[] computers = new IntComputer[phaseSettings.length];
-        BlockingQueue<Integer>[] queues = new BlockingQueue[5];
+        BlockingQueue<Long>[] queues = new BlockingQueue[5];
         for (int i = 0; i < 5; i++) {
             queues[i] = new LinkedBlockingQueue<>();
         }
@@ -50,7 +50,7 @@ public class Thrusters {
         while (anyComputerIsStillRunning(computers)) {
             System.err.println("Loop completed. ");
         }
-        int output = computers[4].getOutput();
+        long output = computers[4].getOutput();
         System.err.println(String.format("Val for %s is %s", Arrays.toString(phaseSettings), output));
         MAX_VAL = Math.max(MAX_VAL, output);
     }

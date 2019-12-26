@@ -18,7 +18,7 @@ class Instruction {
         this.relativeBaseOffset = relativeBaseOffset;
     }
 
-    public static Instruction createInstruction(int[] vals, int position, RelativeBaseOffset offsetSupplier) {
+    public static Instruction createInstruction(long[] vals, int position, RelativeBaseOffset offsetSupplier) {
         OpCode opCode = OpCode.getFrom(vals[position]);
         Param[] params = new Param[opCode.numParams];
         Instruction result = new Instruction(opCode, params, offsetSupplier);
@@ -33,11 +33,11 @@ class Instruction {
         return 1 + opCode.numParams;
     }
 
-    public void execute(int[] memoryVals, @NonNull BlockingQueue<Integer> inputValues, Queue<Integer> outputValues) throws InterruptedException {
+    public void execute(long[] memoryVals, @NonNull BlockingQueue<Long> inputValues, Queue<Long> outputValues) throws InterruptedException {
         switch (opCode) {
             case ADD:
-                int a = this.params[0].getVal(memoryVals);
-                int b = this.params[1].getVal(memoryVals);
+                long a = this.params[0].getVal(memoryVals);
+                long b = this.params[1].getVal(memoryVals);
                 this.params[2].writeVal(memoryVals, a + b);
                 break;
             case EXIT:
@@ -61,13 +61,13 @@ class Instruction {
             case JUMP_IF_TRUE:
                 a = this.params[0].getVal(memoryVals);
                 if (a != 0) {
-                    this.nextPosition = this.params[1].getVal(memoryVals);
+                    this.nextPosition = (int) this.params[1].getVal(memoryVals);
                 }
                 break;
             case JUMP_IF_FALSE:
                 a = this.params[0].getVal(memoryVals);
                 if (a == 0) {
-                    this.nextPosition = this.params[1].getVal(memoryVals);
+                    this.nextPosition = (int) this.params[1].getVal(memoryVals);
                 }
                 break;
             case EQUALS:

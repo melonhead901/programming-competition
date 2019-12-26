@@ -6,22 +6,22 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class IntComputer implements Runnable {
-    private final int[] memory;
-    private final BlockingQueue<Integer> inputValues;
-    private final BlockingQueue<Integer> outputValues;
+    private final long[] memory;
+    private final BlockingQueue<Long> inputValues;
+    private final BlockingQueue<Long> outputValues;
 
-    private RelativeBaseOffset relativeBaseOffset;
+    private final RelativeBaseOffset relativeBaseOffset;
 
     private int position;
 
     private boolean hasHalted;
 
-    public IntComputer(int[] memory) {
+    public IntComputer(long[] memory) {
         this(memory, new LinkedBlockingDeque<>(), new LinkedBlockingQueue<>(), new RelativeBaseOffset());
     }
 
-    public IntComputer(int[] memory, BlockingQueue<Integer> inputValues, BlockingQueue<Integer> outputValues, RelativeBaseOffset relativeBaseOffset) {
-        this.memory = new int[memory.length];
+    public IntComputer(long[] memory, BlockingQueue<Long> inputValues, BlockingQueue<Long> outputValues, RelativeBaseOffset relativeBaseOffset) {
+        this.memory = new long[100000000];
         System.arraycopy(memory, 0, this.memory, 0, memory.length);
         this.inputValues = inputValues;
         this.outputValues = outputValues;
@@ -34,15 +34,15 @@ public class IntComputer implements Runnable {
         this(parseStringToProgram(memory));
     }
 
-    public IntComputer(String memory, BlockingQueue<Integer> inputValues, BlockingQueue<Integer> outputValues) {
+    public IntComputer(String memory, BlockingQueue<Long> inputValues, BlockingQueue<Long> outputValues) {
         this(parseStringToProgram(memory), inputValues, outputValues, new RelativeBaseOffset());
     }
 
-    private static  int[] parseStringToProgram(String memory) {
+    private static long[] parseStringToProgram(String memory) {
         String[] sVals = memory.split(",");
-        int[] vals = new int[sVals.length];
+        long[] vals = new long[sVals.length];
         for (int i = 0; i < vals.length; i++) {
-            vals[i] = Integer.parseInt(sVals[i]);
+            vals[i] = Long.parseLong(sVals[i]);
         }
         return vals;
     }
@@ -65,7 +65,7 @@ public class IntComputer implements Runnable {
         return !this.outputValues.isEmpty();
     }
 
-    public int getOutput() throws InterruptedException {
+    public long getOutput() throws InterruptedException {
         return this.outputValues.take();
     }
 
@@ -75,7 +75,7 @@ public class IntComputer implements Runnable {
         }
     }
 
-    public boolean addInput(int val) {
+    public boolean addInput(long val) {
         return this.inputValues.add(val);
     }
 

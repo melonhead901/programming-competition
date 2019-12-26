@@ -12,15 +12,15 @@ public enum OpCode {
     ADJUST_REL_BASE(9, 1),
     EXIT(99, 0);
 
-    private final int val;
+    private final long val;
     public final int numParams;
 
-    OpCode(int val, int numParams) {
+    OpCode(long val, int numParams) {
         this.val = val;
         this.numParams = numParams;
     }
 
-    public static OpCode getFrom(int nextInt) {
+    public static OpCode getFrom(long nextInt) {
         for (OpCode match : OpCode.values()) {
             if (match.val == (nextInt % 100)) {
                 return match;

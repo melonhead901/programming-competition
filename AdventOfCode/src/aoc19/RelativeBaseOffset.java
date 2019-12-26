@@ -1,17 +1,17 @@
 package aoc19;
 
 public class RelativeBaseOffset {
-    private int relativeBaseOffset;
+    private long relativeBaseOffset;
 
     public RelativeBaseOffset() {
         this.relativeBaseOffset = 0;
     }
 
-    public int getOffset() {
+    public long getOffset() {
        return relativeBaseOffset;
     }
 
-    public void adjustOffset(int adjustment) {
+    public void adjustOffset(long adjustment) {
         this.relativeBaseOffset += adjustment;
     }
 }

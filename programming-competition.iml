@@ -11,5 +11,6 @@
     <orderEntry type="library" name="junit:junit:4.12" level="application" />
     <orderEntry type="library" name="com.google.guava:guava:27.1-jre" level="application" />
     <orderEntry type="library" name="org.apache.commons:commons-lang3:3.9" level="application" />
+    <orderEntry type="library" name="org.assertj:assertj-core:3.12.2" level="application" />
   </component>
 </module>
