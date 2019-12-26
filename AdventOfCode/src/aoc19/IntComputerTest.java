@@ -47,4 +47,16 @@ public class IntComputerTest {
         long result = ic.getOutput();
         assertThat(result).isEqualTo(expected);
     }
+
+    @Test
+    public void day9Part2Test() throws InterruptedException {
+        String input = Boost.INPUT;
+        long expected = 33679;
+        IntComputer ic = new IntComputer(input);
+        ic.addInput(2);
+        ic.run();
+        long result = ic.getOutput();
+        assertThat(result).isEqualTo(expected);
+
+    }
 }
