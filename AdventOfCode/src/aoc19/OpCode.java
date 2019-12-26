@@ -9,6 +9,7 @@ public enum OpCode {
     JUMP_IF_FALSE(6, 2),
     LESS_THAN(7, 3),
     EQUALS(8, 3),
+    ADJUST_REL_BASE(9, 1),
     EXIT(99, 0);
 
     private final int val;

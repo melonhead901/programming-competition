@@ -10,25 +10,32 @@ public class IntComputer implements Runnable {
     private final BlockingQueue<Integer> inputValues;
     private final BlockingQueue<Integer> outputValues;
 
+    private RelativeBaseOffset relativeBaseOffset;
+
     private int position;
 
     private boolean hasHalted;
 
     public IntComputer(int[] memory) {
-        this(memory, new LinkedBlockingDeque<>(), new LinkedBlockingQueue<>());
+        this(memory, new LinkedBlockingDeque<>(), new LinkedBlockingQueue<>(), new RelativeBaseOffset());
     }
 
-    public IntComputer(int[] memory, BlockingQueue<Integer> inputValues, BlockingQueue<Integer> outputValues) {
+    public IntComputer(int[] memory, BlockingQueue<Integer> inputValues, BlockingQueue<Integer> outputValues, RelativeBaseOffset relativeBaseOffset) {
         this.memory = new int[memory.length];
         System.arraycopy(memory, 0, this.memory, 0, memory.length);
         this.inputValues = inputValues;
         this.outputValues = outputValues;
         this.hasHalted = false;
         this.position = 0;
+        this.relativeBaseOffset = relativeBaseOffset;
+    }
+
+    public IntComputer(String memory) {
+        this(parseStringToProgram(memory));
     }
 
     public IntComputer(String memory, BlockingQueue<Integer> inputValues, BlockingQueue<Integer> outputValues) {
-        this(parseStringToProgram(memory), inputValues, outputValues);
+        this(parseStringToProgram(memory), inputValues, outputValues, new RelativeBaseOffset());
     }
 
     private static  int[] parseStringToProgram(String memory) {
@@ -41,17 +48,21 @@ public class IntComputer implements Runnable {
     }
 
     public void runComputer() throws InterruptedException {
-        Instruction instruction = Instruction.createInstruction(memory, 0);
+        Instruction instruction = Instruction.createInstruction(memory, 0, relativeBaseOffset);
         while (!instruction.isExit()) {
             instruction.execute(memory, inputValues, outputValues);
             position = instruction.nextPosition;
-            instruction = Instruction.createInstruction(memory, position);
+            instruction = Instruction.createInstruction(memory, position, relativeBaseOffset);
         }
         this.hasHalted = true;
     }
 
     public void printMemory() {
         System.out.println(Arrays.toString(memory));
+    }
+
+    public boolean hasOutput() {
+        return !this.outputValues.isEmpty();
     }
 
     public int getOutput() throws InterruptedException {

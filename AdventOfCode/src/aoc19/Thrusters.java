@@ -56,11 +56,6 @@ public class Thrusters {
     }
 
     private static boolean anyComputerIsStillRunning(IntComputer[] computers) {
-        for (IntComputer computer : computers) {
-            if (computer.isRunning()) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(computers).anyMatch(IntComputer::isRunning);
     }
 }

@@ -2,27 +2,28 @@ package aoc19;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import javax.annotation.Nonnull;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 
 class Instruction {
 
-    final OpCode opCode;
-    Param[] params;
+    private final OpCode opCode;
+    private final Param[] params;
     int nextPosition;
+    private final RelativeBaseOffset relativeBaseOffset;
 
-    Instruction(OpCode opCode) {
+    private Instruction(OpCode opCode, Param[] params, RelativeBaseOffset relativeBaseOffset) {
         this.opCode = opCode;
+        this.params = params;
+        this.relativeBaseOffset = relativeBaseOffset;
     }
 
-    public static Instruction createInstruction(int[] vals, int position) {
+    public static Instruction createInstruction(int[] vals, int position, RelativeBaseOffset offsetSupplier) {
         OpCode opCode = OpCode.getFrom(vals[position]);
-        Instruction result = new Instruction(opCode);
         Param[] params = new Param[opCode.numParams];
-        result.params = params;
+        Instruction result = new Instruction(opCode, params, offsetSupplier);
         for (int i = 0; i < params.length; i++) {
-            params[i] = new Param(ParamMode.getMode(vals[position] + "", i), vals[position + 1 + i]);
+            params[i] = new Param(ParamMode.getMode(vals[position] + "", i), vals[position + 1 + i], offsetSupplier);
         }
         result.nextPosition = position + 1 + params.length;
         return result;
@@ -73,6 +74,9 @@ class Instruction {
                 a = this.params[0].getVal(memoryVals);
                 b = this.params[1].getVal(memoryVals);
                 this.params[2].writeVal(memoryVals, (a == b) ? 1 : 0);
+                break;
+            case ADJUST_REL_BASE:
+                relativeBaseOffset.adjustOffset(this.params[0].getVal(memoryVals));
                 break;
             default:
                 throw new IllegalStateException("unexpected opcode: " + opCode);
