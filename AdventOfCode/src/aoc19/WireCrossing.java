@@ -195,5 +195,9 @@ class Position {
     int manhattanDistance() {
         return Math.abs(r) + Math.abs(c);
     }
+
+    public int manhattanDistanceAway(Position position) {
+        return Math.abs(position.r - this.r) + Math.abs(position.c - this.c);
+    }
 }
 
