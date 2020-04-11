@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 public class HashingSha {
+    private HashingSha() {}
+    
     public static void main(String[] args) throws NoSuchAlgorithmException {
         Scanner in = new Scanner(System.in);
         String str = in.nextLine();
