@@ -98,7 +98,7 @@ class Priorities {
     }
 }
 
-public class Solution {
+public class SortingStudents {
     private static final Scanner scan = new Scanner(System.in);
     private static final Priorities priorities = new Priorities();
 
