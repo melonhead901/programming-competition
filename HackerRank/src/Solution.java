@@ -1,49 +1,124 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
-public class Solution {
+class Student {
+    static final Comparator<Student> COMPARATOR = Comparator.comparing(Student::getCGPA)
+            .reversed()
+            .thenComparing(Student::getName)
+            .thenComparing(Student::getID);
 
-    // Complete the hourglassSum function below.
-    static int hourglassSum(int[][] arr) {
-        int hourglassMax = Integer.MIN_VALUE;
-        for (int i = 0; i + 2 < arr.length; i++) {
-            for (int j = 0; j + 2 < arr[i].length; j++) {
-                int hourglassVal = arr[i][j] + arr[i][j + 1] + arr[i][j + 2] +
-                        arr[i + 1][j + 1] +
-                        arr[i + 2][j] + arr[i + 2][j + 1] + arr[i + 2][j + 2];
-                hourglassMax = Math.max(hourglassMax, hourglassVal);
-            }
-        }
-        return hourglassMax;
+    final int id;
+    final double gpa;
+    final String name;
+
+    static Student createFromStringArr(String[] stringArr) {
+        //   0    1    2   3
+        // ENTER John 3.75 50
+        return new Student(Integer.parseInt(stringArr[3]), stringArr[1], Double.parseDouble(stringArr[2]));
     }
 
-    private static final Scanner scanner = new Scanner(System.in);
+    public Student(int id, String name, double gpa) {
+        this.id = id;
+        this.gpa = gpa;
+        this.name = name;
+    }
 
-    public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+    public int getID() {
+        return id;
+    }
 
-        int[][] arr = new int[6][6];
+    public double getCGPA() {
+        return gpa;
+    }
 
-        for (int i = 0; i < 6; i++) {
-            String[] arrRowItems = scanner.nextLine().split(" ");
-            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+    public String getName() {
+        return name;
+    }
 
-            for (int j = 0; j < 6; j++) {
-                int arrItem = Integer.parseInt(arrRowItems[j]);
-                arr[i][j] = arrItem;
-            }
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id && Double.compare(student.gpa, gpa) == 0 && Objects.equals(name, student.name);
+    }
 
-        int result = hourglassSum(arr);
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, gpa, name);
+    }
 
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
-
-        bufferedWriter.close();
-
-        scanner.close();
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
 
+class Priorities {
+
+    private final PriorityQueue<Student> studentsToServe;
+
+    public Priorities() {
+        studentsToServe = new PriorityQueue<>(Student.COMPARATOR);
+    }
+
+    public List<Student> getStudents(List<String> events) {
+        for (String event : events) {
+            String[] split = event.split(" ");
+            switch (split[0]) {
+                case "ENTER":
+                    addStudent(split);
+                    break;
+                case "SERVED":
+                    serveTopStudent();
+                    break;
+                default:
+                    throw new IllegalStateException(String.format("Unexpected state %s", split[0]));
+            }
+        }
+        List<Student> remaining = new ArrayList<>();
+        while (!studentsToServe.isEmpty()) {
+            remaining.add(studentsToServe.poll());
+        }
+        return remaining;
+    }
+
+    private void serveTopStudent() {
+        studentsToServe.poll();
+    }
+
+    private void addStudent(String[] event) {
+        studentsToServe.offer(Student.createFromStringArr(event));
+    }
+}
+
+public class Solution {
+    private static final Scanner scan = new Scanner(System.in);
+    private static final Priorities priorities = new Priorities();
+
+    public static void main(String[] args) {
+        int totalEvents = Integer.parseInt(scan.nextLine());
+        List<String> events = new ArrayList<>();
+
+        while (totalEvents-- != 0) {
+            String event = scan.nextLine();
+            events.add(event);
+        }
+
+        List<Student> students = priorities.getStudents(events);
+
+        if (students.isEmpty()) {
+            System.out.println("EMPTY");
+        } else {
+            for (Student st : students) {
+                System.out.println(st.getName());
+            }
+        }
+    }
+}

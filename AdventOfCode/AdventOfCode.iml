@@ -11,15 +11,6 @@
     <orderEntry type="library" name="joda-time:joda-time:2.10.3" level="application" />
     <orderEntry type="library" name="junit:junit:4.12" level="application" />
     <orderEntry type="library" name="org.apache.commons:commons-lang3:3.9" level="application" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/17.0.0/annotations-17.0.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="org.assertj:assertj-core:3.12.2" level="application" />
+    <orderEntry type="library" exported="" name="org.assertj:assertj-core:3.12.2" level="application" />
   </component>
 </module>
