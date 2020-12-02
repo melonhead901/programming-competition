@@ -53,8 +53,11 @@ class State {
             if (c == target) {
                 charCount++;
             }
+            if (charCount > secondNum) {
+                return false;
+            }
         }
-        return (charCount >= firstNum) && (charCount <= secondNum);
+        return charCount >= firstNum;
     }
 
     boolean validatePassword2() {
