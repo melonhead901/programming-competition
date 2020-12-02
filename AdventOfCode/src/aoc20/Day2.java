@@ -12,7 +12,7 @@ public class Day2 {
             if (line.isEmpty()) {
                 break;
             }
-            boolean valid = processCase(line);
+            boolean valid = processCase2(line);
             if (valid) {
                 count++;
             }
@@ -37,5 +37,17 @@ public class Day2 {
         }
         System.out.println(password);
         return (charCount >= min) && (charCount <= max);
+    }
+
+    private static boolean processCase2(String line) {
+        Scanner wordScanner = new Scanner(line);
+        String count = wordScanner.next();
+        String[] countSplits = count.split("-");
+        int firstIndex = Integer.parseInt(countSplits[0]) - 1;
+        int secondIndex = Integer.parseInt(countSplits[1]) - 1;
+        String character = wordScanner.next();
+        char target = character.charAt(0);
+        String password = wordScanner.next();
+        return  (password.charAt(firstIndex) == target) ^ (password.charAt(secondIndex) == target);
     }
 }
