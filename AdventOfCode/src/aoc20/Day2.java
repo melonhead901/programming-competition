@@ -12,7 +12,7 @@ public class Day2 {
             if (line.isEmpty()) {
                 break;
             }
-            boolean valid = processCase2(line);
+            boolean valid = processCase(line);
             if (valid) {
                 count++;
             }
@@ -22,20 +22,7 @@ public class Day2 {
 
     private static boolean processCase(String line) {
         State state = new State(line);
-        int charCount = 0;
-        for (char c : state.password.toCharArray()) {
-            if (c == state.target) {
-                charCount++;
-            }
-        }
-        System.out.println(state.password);
-        return (charCount >= state.firstNum) && (charCount <= state.secondNum);
-    }
-
-    private static boolean processCase2(String line) {
-        State state = new State(line);
-        return (state.password.charAt(state.firstNum - 1) == state.target)
-                ^ (state.password.charAt(state.secondNum - 1) == state.target);
+        return state.validatePassword2();
     }
 }
 
@@ -58,5 +45,20 @@ class State {
     private static String[] getCountSplits(Scanner wordScanner) {
         String count = wordScanner.next();
         return count.split("-");
+    }
+
+    boolean validatePassword() {
+        int charCount = 0;
+        for (char c : password.toCharArray()) {
+            if (c == target) {
+                charCount++;
+            }
+        }
+        return (charCount >= firstNum) && (charCount <= secondNum);
+    }
+
+    boolean validatePassword2() {
+        return (password.charAt(firstNum - 1) == target)
+                ^ (password.charAt(secondNum - 1) == target);
     }
 }
