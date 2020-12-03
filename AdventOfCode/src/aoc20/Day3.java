@@ -8,10 +8,21 @@ public class Day3 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Board b = new Board(in);
+        int[] dcs = {1, 3, 5, 7, 1};
+        int[] drs = {1, 1, 1, 1, 2};
+        long answers = 1;
+        for (int i = 0; i < drs.length; i++) {
+            int numTreesHit = getNumTreesHit(b, drs[i], dcs[i]);
+            answers *= numTreesHit;
+            System.err.println(numTreesHit);
+        }
+        System.out.println(answers);
+
+    }
+
+    private static int getNumTreesHit(Board b, int dr, int dc) {
         int r = 0;
         int c = 0;
-        int dr = 1;
-        int dc = 3;
         int numTreesHit = 0;
         while (!b.pastLastRow(r)) {
             if (b.atTree(r, c)) {
@@ -19,11 +30,8 @@ public class Day3 {
             }
             r += dr;
             c += dc;
-            //System.err.println(String.format("%s,%s", r, c));
         }
-
-        System.out.println(numTreesHit);
-
+        return numTreesHit;
     }
 }
 
