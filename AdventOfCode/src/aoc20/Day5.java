@@ -1,20 +1,29 @@
 package aoc20;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Day5 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int maxSeen = 0;
+        List<Integer> seenNums = new ArrayList<>();
         while (in.hasNextLine()) {
             String line = in.nextLine();
             if (line.isEmpty()) {
                 break;
             }
             int id = getSeatId(line);
-            maxSeen = Math.max(id, maxSeen);
+            seenNums.add(id);
         }
-        System.out.println(maxSeen);
+        int min = seenNums.stream().min(Comparator.naturalOrder()).get();
+        int max = seenNums.stream().max(Comparator.naturalOrder()).get();
+        for (int i = min; i <= max; i++) {
+            if (!seenNums.contains(i)) {
+                System.out.println(i);
+            }
+        }
     }
 
     private static int getSeatId(String line) {
