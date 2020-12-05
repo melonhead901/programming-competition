@@ -1,21 +1,20 @@
 package aoc20;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Day5 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        List<Integer> seenNums = new ArrayList<>();
+        Set<Integer> seenNums = new HashSet<>();
         while (in.hasNextLine()) {
             String line = in.nextLine();
             if (line.isEmpty()) {
                 break;
             }
-            int id = getSeatId(line);
-            seenNums.add(id);
+            seenNums.add(getSeatId(line));
         }
         int min = seenNums.stream().min(Comparator.naturalOrder()).get();
         int max = seenNums.stream().max(Comparator.naturalOrder()).get();
