@@ -1,8 +1,10 @@
 package aoc20;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -19,13 +21,14 @@ public class Day6 {
     }
 
     private static int countAnswers(List<String> response) {
-        Set<Character> chars = new HashSet<>();
+        Map<Character, Integer> charCounts = new HashMap<>();
         for (String str : response) {
             for (char c : str.toCharArray()) {
-                chars.add(c);
+                int count = charCounts.getOrDefault(c, 0);
+                charCounts.put(c, count + 1);
             }
         }
-        return chars.size();
+        return (int) charCounts.values().stream().filter(c -> c == response.size()).count();
     }
 
     private static List<String> gatherResponses(Scanner in) {
