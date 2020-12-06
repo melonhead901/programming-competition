@@ -2,11 +2,9 @@ package aoc20;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Day6 {
     public static void main(String[] args) {
