@@ -9,43 +9,46 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Day7 {
+    private static final Bag TARGET_BAG = new Bag("shiny", "gold");
+    private static Map<Bag, Map<Bag, Integer>> graph;
+    private static Map<Bag, Integer> lookupTable = new HashMap<>();
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Map<Bag, Map<Bag, Integer>> graph = buildGraph(in);
-        Set<Bag> targetBags = graphReverseSearch(graph);
-        int bagCount = getBagCount(graph, new Bag("shiny", "gold"));
+        graph = buildGraph(in);
+        Set<Bag> targetBags = graphReverseSearch();
+        int bagCount = getBagCount(TARGET_BAG);
         System.out.println(bagCount - 1);
     }
 
-    static Map<Bag, Integer> lookupTable = new HashMap<>();
-    private static int getBagCount(Map<Bag, Map<Bag, Integer>> graph, Bag bag) {
+    private static int getBagCount(Bag bag) {
         if (lookupTable.containsKey(bag)) {
             return lookupTable.get(bag);
         }
         // Start with 1 for self
         int bagCount = 1;
         for (Bag child : graph.get(bag).keySet()) {
-            bagCount += (graph.get(bag).get(child) * getBagCount(graph, child));
+            bagCount += (graph.get(bag).get(child) * getBagCount(child));
         }
-        System.err.printf("%s:%s%n",bag, bagCount );
+        System.err.printf("%s:%s%n", bag, bagCount);
         lookupTable.put(bag, bagCount);
         return bagCount;
     }
 
-    private static Set<Bag> graphReverseSearch(Map<Bag, Map<Bag, Integer>> graph) {
+    private static Set<Bag> graphReverseSearch() {
         Set<Bag> seenBags = new HashSet<>();
         Queue<Bag> queue = new LinkedList<>();
-        queue.add(new Bag("shiny", "gold"));
+        queue.add(TARGET_BAG);
         while (!queue.isEmpty()) {
-           Bag b = queue.poll();
-           for (Bag bag : graph.keySet()) {
-              if (graph.get(bag).containsKey(b)) {
-                  if (!seenBags.contains(bag)) {
-                      seenBags.add(bag);
-                      queue.add(bag);
-                  }
-              }
-           }
+            Bag b = queue.poll();
+            for (Bag bag : graph.keySet()) {
+                if (graph.get(bag).containsKey(b)) {
+                    if (!seenBags.contains(bag)) {
+                        seenBags.add(bag);
+                        queue.add(bag);
+                    }
+                }
+            }
         }
         return seenBags;
     }
