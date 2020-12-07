@@ -12,12 +12,27 @@ public class Day7 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Map<Bag, Map<Bag, Integer>> graph = buildGraph(in);
-        Set<Bag> targetBags = bruteForce(graph);
-        System.out.println(targetBags);
-        System.out.println(targetBags.size());
+        Set<Bag> targetBags = graphReverseSearch(graph);
+        int bagCount = getBagCount(graph, new Bag("shiny", "gold"));
+        System.out.println(bagCount - 1);
     }
 
-    private static Set<Bag> bruteForce(Map<Bag, Map<Bag, Integer>> graph) {
+    static Map<Bag, Integer> lookupTable = new HashMap<>();
+    private static int getBagCount(Map<Bag, Map<Bag, Integer>> graph, Bag bag) {
+        if (lookupTable.containsKey(bag)) {
+            return lookupTable.get(bag);
+        }
+        // Start with 1 for self
+        int bagCount = 1;
+        for (Bag child : graph.get(bag).keySet()) {
+            bagCount += (graph.get(bag).get(child) * getBagCount(graph, child));
+        }
+        System.err.printf("%s:%s%n",bag, bagCount );
+        lookupTable.put(bag, bagCount);
+        return bagCount;
+    }
+
+    private static Set<Bag> graphReverseSearch(Map<Bag, Map<Bag, Integer>> graph) {
         Set<Bag> seenBags = new HashSet<>();
         Queue<Bag> queue = new LinkedList<>();
         queue.add(new Bag("shiny", "gold"));
