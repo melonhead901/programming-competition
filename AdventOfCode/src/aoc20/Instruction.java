@@ -3,18 +3,6 @@ package aoc20;
 import java.util.Locale;
 
 class Instruction {
-    public ProgramState process(ProgramState state) {
-        switch (opcode) {
-            case NOP:
-                return new ProgramState(state.accumValue, state.pointer + 1);
-            case JMP:
-                return new ProgramState(state.accumValue, state.pointer + this.value);
-            case ACC:
-                return new ProgramState(state.accumValue + value, state.pointer + 1);
-        }
-        throw new IllegalStateException();
-    }
-
     enum Opcode {
         NOP,
         JMP,
@@ -32,6 +20,30 @@ class Instruction {
     public Instruction(Opcode opcode, int value) {
         this.opcode = opcode;
         this.value = value;
+    }
+
+    public Instruction swapCode() {
+        if (this.opcode == Opcode.ACC) {
+            return this;
+        } else if (this.opcode == Opcode.JMP) {
+            return new Instruction(Opcode.NOP, this.value);
+        } else if (this.opcode == Opcode.NOP) {
+            return new Instruction(Opcode.JMP, this.value);
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    public ProgramState process(ProgramState state) {
+        switch (opcode) {
+            case NOP:
+                return new ProgramState(state.accumValue, state.pointer + 1);
+            case JMP:
+                return new ProgramState(state.accumValue, state.pointer + this.value);
+            case ACC:
+                return new ProgramState(state.accumValue + value, state.pointer + 1);
+        }
+        throw new IllegalStateException();
     }
 
     @Override
@@ -55,17 +67,5 @@ class Instruction {
         int result = opcode.hashCode();
         result = 31 * result + value;
         return result;
-    }
-
-    public Instruction swapCode() {
-        if (this.opcode == Opcode.ACC) {
-            return this;
-        } else if (this.opcode == Opcode.JMP) {
-            return new Instruction(Opcode.NOP, this.value);
-        } else if (this.opcode == Opcode.NOP) {
-            return new Instruction(Opcode.JMP, this.value);
-        } else {
-            throw new IllegalStateException();
-        }
     }
 }
