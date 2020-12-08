@@ -11,7 +11,6 @@ public class Day8 {
         Scanner in = new Scanner(System.in);
         List<Instruction> instructions = new ArrayList<>();
         parseInstructions(in, instructions);
-        ProgramState state = new ProgramState(0, 0);
         for (int i = 0; i < instructions.size(); i++) {
             Instruction instrToChange = instructions.get(i);
             Instruction changed = instrToChange.swapCode();
@@ -20,7 +19,7 @@ public class Day8 {
             }
             List<Instruction> cloned = new ArrayList<>(instructions);
             cloned.set(i, changed);
-            boolean programTerminates = runProgram(cloned, state);
+            boolean programTerminates = runProgram(cloned);
             if (programTerminates) {
                 System.out.println(i + " terminates");
                 break;
@@ -30,7 +29,8 @@ public class Day8 {
         }
     }
 
-    private static boolean runProgram(List<Instruction> instructions, ProgramState state) {
+    private static boolean runProgram(List<Instruction> instructions) {
+        ProgramState state = new ProgramState(0, 0);
         Set<Integer> seenLocations = new HashSet<>();
         int lastInstrPoint = instructions.size() - 1;
         while (!seenLocations.contains(state.pointer)) {

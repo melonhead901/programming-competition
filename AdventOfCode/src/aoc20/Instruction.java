@@ -37,11 +37,11 @@ class Instruction {
     public ProgramState process(ProgramState state) {
         switch (opcode) {
             case NOP:
-                return new ProgramState(state.accumValue, state.pointer + 1);
+                return state.movePointerForwardOne();
             case JMP:
-                return new ProgramState(state.accumValue, state.pointer + this.value);
+                return state.movePointerRelative(this.value);
             case ACC:
-                return new ProgramState(state.accumValue + value, state.pointer + 1);
+                return state.modifyAccumValue(this.value).movePointerForwardOne();
         }
         throw new IllegalStateException();
     }

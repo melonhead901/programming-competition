@@ -1,13 +1,26 @@
 package aoc20;
 
 class ProgramState {
-    int accumValue;
+    private int accumValue;
     int pointer;
 
     public ProgramState(int accumValue, int pointer) {
         this.accumValue = accumValue;
         this.pointer = pointer;
     }
+
+    public ProgramState modifyAccumValue(int value) {
+        return new ProgramState(this.accumValue + value, this.pointer);
+    }
+
+    public ProgramState movePointerForwardOne() {
+        return new ProgramState(this.accumValue, this.pointer + 1);
+    }
+
+    public ProgramState movePointerRelative(int jump) {
+        return new ProgramState(this.accumValue, this.pointer + jump);
+    }
+
 
     @Override
     public String toString() {
