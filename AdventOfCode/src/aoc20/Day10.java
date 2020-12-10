@@ -2,14 +2,19 @@ package aoc20;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Day10 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         List<Integer> ints = new ArrayList<>();
-        while(in.hasNextLine()) {
+        while (in.hasNextLine()) {
             String line = in.nextLine();
             if (line.isEmpty()) {
                 break;
@@ -17,11 +22,45 @@ public class Day10 {
             ints.add(Integer.parseInt(line));
         }
         Collections.sort(ints);
+        // part1(ints);
+        int max = ints.stream().max(Comparator.naturalOrder()).get();
+        ints.add(max + 3);
+        long count = recur(new HashSet<>(ints), 0, max + 3);
+        System.out.println(count);
+    }
+
+    static Map<Integer, Long> memo = new HashMap<>();
+
+    private static long recur(Set<Integer> ints, int soFar, int target) {
+        if (memo.containsKey(soFar)) {
+            return memo.get(soFar);
+        }
+        if (soFar == target) {
+            //System.out.println(used);
+            return 1;
+        }
+        if (soFar > target) {
+            return 0;
+        }
+        long count = 0;
+        if (ints.contains(soFar + 1)) {
+            count += recur(ints, soFar + 1, target);
+        }
+        if (ints.contains(soFar + 2)) {
+            count += recur(ints, soFar + 2, target);
+        }
+        if (ints.contains(soFar + 3)) {
+            count += recur(ints, soFar + 3, target);
+        }
+        memo.put(soFar, count);
+        return count;
+    }
+
+    private static void part1(List<Integer> ints) {
         int oneJumps = 0;
         int threeJumps = 0;
         int curr = 0;
-        for (int i = 0; i < ints.size(); i++) {
-            int next = ints.get(i);
+        for (int next : ints) {
             int diff = next - curr;
             if (diff == 1) {
                 System.out.printf("%s to %s is 1\n", curr, next);
@@ -36,6 +75,6 @@ public class Day10 {
         }
         System.out.println(oneJumps);
         System.out.println(threeJumps);
-        System.out.println(oneJumps * (threeJumps + 1));
+        System.out.println(oneJumps * threeJumps);
     }
 }
