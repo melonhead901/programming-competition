@@ -24,33 +24,32 @@ public class Day10 {
         Collections.sort(ints);
         // part1(ints);
         int max = ints.stream().max(Comparator.naturalOrder()).get();
-        ints.add(max + 3);
-        long count = recur(new HashSet<>(ints), 0, max + 3);
+        ints.add(0);
+        long count = recur(new HashSet<>(ints), max + 3);
         System.out.println(count);
     }
 
     static Map<Integer, Long> memo = new HashMap<>();
 
-    private static long recur(Set<Integer> ints, int soFar, int target) {
+    private static long recur(Set<Integer> ints, int soFar) {
         if (memo.containsKey(soFar)) {
             return memo.get(soFar);
         }
-        if (soFar == target) {
-            //System.out.println(used);
+        if (soFar == 0) {
             return 1;
         }
-        if (soFar > target) {
+        if (soFar < 0) {
             return 0;
         }
         long count = 0;
-        if (ints.contains(soFar + 1)) {
-            count += recur(ints, soFar + 1, target);
+        if (ints.contains(soFar - 1)) {
+            count += recur(ints, soFar - 1);
         }
-        if (ints.contains(soFar + 2)) {
-            count += recur(ints, soFar + 2, target);
+        if (ints.contains(soFar - 2)) {
+            count += recur(ints, soFar - 2);
         }
-        if (ints.contains(soFar + 3)) {
-            count += recur(ints, soFar + 3, target);
+        if (ints.contains(soFar - 3)) {
+            count += recur(ints, soFar - 3);
         }
         memo.put(soFar, count);
         return count;
