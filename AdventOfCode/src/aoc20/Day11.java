@@ -55,12 +55,26 @@ public class Day11 {
                     if ((i == 0) && (j == 0)) {
                         continue;
                     }
-                    if (existsAndOccupuied(r+i, c+j)) {
+                    int dr = i;
+                    int dc = j;
+                    while (existsAndFloor(r + dr, c + dc)) {
+                        dr += i;
+                        dc += j;
+                    }
+                    if (existsAndOccupuied(r + dr, c + dc)) {
                         neighbors++;
                     }
                 }
             }
             return neighbors;
+        }
+
+        private boolean existsAndFloor(int r, int c) {
+            return (r >= 0)
+                    && (r < cells.length)
+                    && (c >= 0)
+                    && (c < cells[r].length)
+                    && (cells[r][c].state == Cell.State.FLOOR);
         }
 
         private boolean existsAndOccupuied(int r, int c) {
@@ -127,7 +141,7 @@ public class Day11 {
         public Cell turn(int numNeighbors) {
             if ((this.state == State.EMPTY) && (numNeighbors == 0)) {
                 return new Cell(State.OCCUPIED);
-            } else if ((this.state == State.OCCUPIED) && (numNeighbors >= 4)) {
+            } else if ((this.state == State.OCCUPIED) && (numNeighbors >= 5)) {
                 return new Cell(State.EMPTY);
             }
             return this;
@@ -143,11 +157,9 @@ public class Day11 {
         public String toString() {
             if (state == State.EMPTY) {
                 return "L";
-            }
-            else if (state == State.OCCUPIED) {
+            } else if (state == State.OCCUPIED) {
                 return "#";
-            }
-            else if (state == State.FLOOR) {
+            } else if (state == State.FLOOR) {
                 return ".";
             }
             throw new IllegalStateException();
