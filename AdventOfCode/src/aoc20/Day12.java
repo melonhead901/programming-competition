@@ -36,10 +36,7 @@ public class Day12 {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int x = 0;
-        int y = 0;
-        Direction direction = new Direction(0);
-        Status status = new Status(x, y, direction);
+        Status status = new Status(0, 0, new Direction(0));
         while (in.hasNext()) {
             String line = in.nextLine();
             if (line.isBlank()) {
