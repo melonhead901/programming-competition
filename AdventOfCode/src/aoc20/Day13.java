@@ -2,8 +2,6 @@ package aoc20;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +14,6 @@ public class Day13 {
         int time = in.nextInt();
         in.nextLine();
         final String[] values = in.nextLine().split(",");
-        List<Integer> numsLine = Arrays.stream(values)
-                .filter(s -> !"x".equals(s))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
         Map<Integer, Integer> schedule = new LinkedHashMap<>();
         for (int i = 0; i < values.length; i++) {
             if (!values[i].equals("x")) {
@@ -30,7 +24,7 @@ public class Day13 {
 
         part2(schedule);
 
-        // part1(time, numsLine);
+        // part1(time, values);
     }
 
     private static void part2(Map<Integer, Integer> schedule) {
@@ -72,7 +66,11 @@ public class Day13 {
         return result;
     }
 
-    private static void part1(int time, List<Integer> numsLine) {
+    private static void part1(int time, String[] values) {
+        List<Integer> numsLine = Arrays.stream(values)
+                .filter(s -> !"x".equals(s))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
         final List<Integer> waits = numsLine.stream().map(n -> n - (time % n)).collect(Collectors.toList());
         int minIndex = 0;
         int minVal = waits.get(0);
