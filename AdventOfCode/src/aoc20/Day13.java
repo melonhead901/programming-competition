@@ -29,6 +29,7 @@ public class Day13 {
 
     private static void part2(Map<Integer, Integer> schedule) {
         List<Integer> ids = new ArrayList<>(schedule.keySet());
+        // Initialize these with 0 and start at i=1 to avoid having to special case desiredMod at i=0.
         long multFactor = ids.get(0);
         long soFar = ids.get(0);
         for (int i = 1; i < ids.size(); i++) {
