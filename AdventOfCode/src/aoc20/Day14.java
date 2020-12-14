@@ -1,7 +1,5 @@
 package aoc20;
 
-import aoc_unknown.BinaryStringRandomizer;
-
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
@@ -20,9 +18,7 @@ public class Day14 {
         in.nextLine();
         System.out.println(mask);
 
-
         ProcessedMask pm = createMasks(mask);
-
 
         Map<Long, BitSet> memory = new HashMap<>();
         while (in.hasNextLine()) {
@@ -106,7 +102,7 @@ public class Day14 {
     private static List<Long> generateList(int addr, ProcessedMask masks) {
         BitSet input = getBits(addr);
         List<Long> result = new ArrayList<>();
-        int cardinality =  masks.floatMask.cardinality();
+        int cardinality = masks.floatMask.cardinality();
         int[] setLocs = new int[cardinality];
         int pos = 0;
         for (int i = 0; i < cardinality; i++) {
@@ -116,12 +112,11 @@ public class Day14 {
         int numCombos = (int) Math.pow(2, cardinality);
         input.or(masks.orMask);
         for (int i = 0; i < numCombos; i++) {
-            BitSet iBits = BitSet.valueOf(new long[]{i});
+            BitSet iBits = BitSet.valueOf(new long[] {i});
             for (int j = 0; j < cardinality; j++) {
                 if (iBits.get(j)) {
                     input.set(setLocs[j]);
-                }
-                else {
+                } else {
                     input.clear(setLocs[j]);
                 }
             }
