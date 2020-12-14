@@ -114,10 +114,11 @@ public class Day14 {
         for (int i = 0; i < numCombos; i++) {
             BitSet iBits = BitSet.valueOf(new long[] {i});
             for (int j = 0; j < cardinality; j++) {
+                final int index = setLocs[j];
                 if (iBits.get(j)) {
-                    input.set(setLocs[j]);
+                    input.set(index);
                 } else {
-                    input.clear(setLocs[j]);
+                    input.clear(index);
                 }
             }
             result.add(convertToLong(input));
