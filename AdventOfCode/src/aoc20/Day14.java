@@ -100,18 +100,12 @@ public class Day14 {
     }
 
     private static List<Long> generateList(int addr, ProcessedMask masks) {
-        BitSet input = getBits(addr);
         List<Long> result = new ArrayList<>();
         int cardinality = masks.floatMask.cardinality();
-        int[] setLocs = new int[cardinality];
-        int pos = 0;
-        for (int i = 0; i < cardinality; i++) {
-            setLocs[i] = masks.floatMask.nextSetBit(pos);
-            pos = setLocs[i] + 1;
-        }
-        int numCombos = (int) Math.pow(2, cardinality);
+        int[] setLocs = buildSetLocs(masks, cardinality);
+        BitSet input = getBits(addr);
         input.or(masks.orMask);
-        for (int i = 0; i < numCombos; i++) {
+        for (int i = 0; i < (int) Math.pow(2, cardinality); i++) {
             BitSet iBits = BitSet.valueOf(new long[] {i});
             for (int j = 0; j < cardinality; j++) {
                 final int index = setLocs[j];
@@ -124,6 +118,16 @@ public class Day14 {
             result.add(convertToLong(input));
         }
         return result;
+    }
+
+    private static int[] buildSetLocs(ProcessedMask masks, int cardinality) {
+        int[] setLocs = new int[cardinality];
+        int pos = 0;
+        for (int i = 0; i < cardinality; i++) {
+            setLocs[i] = masks.floatMask.nextSetBit(pos);
+            pos = setLocs[i] + 1;
+        }
+        return setLocs;
     }
 
     private static BitSet getBits(long value) {
