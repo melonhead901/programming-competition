@@ -24,7 +24,7 @@ public class Day15 {
         long last = -1;
         boolean wasSeen = false;
         long lastTurnSeen = -1;
-        while (turn <= 2020) {
+        while (turn <= 30000000) {
             long num;
             if (!ints.isEmpty()) {
                 num = ints.get(0);
