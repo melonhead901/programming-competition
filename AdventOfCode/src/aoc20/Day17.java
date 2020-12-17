@@ -1,9 +1,7 @@
 package aoc20;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -20,7 +18,7 @@ public class Day17 {
             }
             for (int i = 0; i < line.length(); i++) {
                 if (line.charAt(i) == '#') {
-                    board.activateCell(lineNum, i, 0);
+                    board.activateCell(0, lineNum, i, 0);
                 }
             }
             lineNum++;
@@ -31,9 +29,9 @@ public class Day17 {
             Board newBoard = new Board();
             for (Coord c : allNeighbors) {
                 boolean isActive = board.isCellActive(c);
-                int numNeighbors = board.countActiveNeighbors(c.x, c.y, c.z);
+                int numNeighbors = board.countActiveNeighbors(c);
                 if ((isActive && (numNeighbors == 2)) || (numNeighbors == 3)) {
-                    newBoard.activateCell(c.x, c.y, c.z);
+                    newBoard.activateCell(c);
                 }
             }
             board = newBoard;
@@ -42,84 +40,95 @@ public class Day17 {
     }
 
     static class Board {
-        Map<Integer, Map<Integer, Set<Integer>>> cells;
+        Map<Integer, Map<Integer, Map<Integer, Set<Integer>>>> cells;
 
         Board() {
             this.cells = new HashMap<>();
         }
 
-        public void activateCell(int x, int y, int z) {
-            if (!cells.containsKey(x)) {
-                cells.put(x, new HashMap<>());
-            }
-            Map<Integer, Set<Integer>> row = cells.get(x);
-            if (!row.containsKey(y)) {
-                row.put(y, new HashSet<>());
-            }
-            Set<Integer> col = row.get(y);
-            col.add(z);
+        public void activateCell(Coord c) {
+            activateCell(c.x, c.y, c.z, c.zz);
         }
 
-        public void deActivateCell(int x, int y, int z) {
+        public void activateCell(int x, int y, int z, int zz) {
             if (!cells.containsKey(x)) {
                 cells.put(x, new HashMap<>());
             }
-            Map<Integer, Set<Integer>> row = cells.get(x);
+            Map<Integer, Map<Integer, Set<Integer>>> row = cells.get(x);
             if (!row.containsKey(y)) {
-                row.put(y, new HashSet<>());
+                row.put(y, new HashMap<>());
             }
-            Set<Integer> col = row.get(y);
-            col.remove(z);
+            Map<Integer, Set<Integer>> col = row.get(y);
+            if (!col.containsKey(z)) {
+                col.put(z, new HashSet<>());
+            }
+            col.get(z).add(zz);
         }
+
         public boolean isCellActive(Coord c) {
-            return isCellActive(c.x, c.y, c.z);
+            return isCellActive(c.x, c.y, c.z, c.zz);
         }
 
-        public boolean isCellActive(int x, int y, int z) {
+        public boolean isCellActive(int x, int y, int z, int zz) {
             return cells.containsKey(x)
                     && cells.get(x).containsKey(y)
-                    && cells.get(x).get(y).contains(z);
+                    && cells.get(x).get(y).containsKey(z)
+                    && cells.get(x).get(y).get(z).contains(zz);
         }
 
-        public List<Coord> neighbors(int x, int y, int z) {
-            List<Coord> neighbors = new ArrayList<>();
+        public Set<Coord> neighbors(int x, int y, int z, int zz) {
+            Set<Coord> neighbors = new HashSet<>();
             for (int i = x - 1; i <= (x + 1); i++) {
                 for (int j = y - 1; j <= (y + 1); j++) {
                     for (int k = z - 1; k <= (z + 1); k++) {
-                        if (!((i == x) && (j == y) && (k == z))) {
-                            neighbors.add(new Coord(i, j, k));
+                        for (int l = zz - 1; l <= (zz + 1); l++) {
+                            if (!((i == x) && (j == y) && (k == z) && (l == zz))) {
+                                neighbors.add(new Coord(i, j, k, l));
+                            }
                         }
                     }
                 }
             }
+            if (neighbors.size() != 80) {
+                throw new IllegalStateException();
+            }
             return neighbors;
-
         }
 
-        public int countActiveNeighbors(int x, int y, int z) {
-            return (int) neighbors(x, y, z).stream().filter(c -> isCellActive(c.x, c.y, c.z)).count();
+        public int countActiveNeighbors(Coord c) {
+            return countActiveNeighbors(c.x, c.y, c.z, c.zz);
+        }
+
+        public int countActiveNeighbors(int x, int y, int z, int zz) {
+            return (int)
+                    neighbors(x, y, z, zz).stream().filter(this::isCellActive).count();
         }
 
         public Set<Coord> getAllPossibleNeighborsAndCells() {
             Set<Coord> coords = new HashSet<>();
             for (int row : cells.keySet()) {
                 for (int col : cells.get(row).keySet()) {
-                    for (int z : cells.get(row).get(col)) {
-                        coords.addAll(neighbors(row, col, z));
+                    for (int z : cells.get(row).get(col).keySet()) {
+                        for (int zz : cells.get(row).get(col).get(z)) {
+                            coords.addAll(neighbors(row, col, z, zz));
+                        }
                     }
                 }
             }
             return coords;
-
         }
 
         public long numActiveCells() {
             long result = 0;
             for (int row : cells.keySet()) {
                 for (int col : cells.get(row).keySet()) {
-                    final int size = cells.get(row).get(col).size();
-                    System.out.printf("(r, c, zs) %s %s %s: %s%n", row, col, cells.get(row).get(col), size);
-                    result += size;
+                    for (int z : cells.get(row).get(col).keySet()) {
+                        final int size = cells.get(row).get(col).get(z).size();
+                        //System.out.printf(
+                        //        "(r, c, zs) %s %s %s: %s%n",
+                        //        row, col, cells.get(row).get(col), size);
+                        result += size;
+                    }
                 }
             }
             return result;
@@ -127,11 +136,13 @@ public class Day17 {
     }
 
     static class Coord {
-        final int x, y, z;
+        final int x, y, z, zz;
 
-        @Override
-        public String toString() {
-            return String.format("(%s,%s,%s)", x, y, z);
+        public Coord(int x, int y, int z, int zz) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.zz = zz;
         }
 
         @Override
@@ -143,7 +154,8 @@ public class Day17 {
 
             if (x != coord.x) return false;
             if (y != coord.y) return false;
-            return z == coord.z;
+            if (z != coord.z) return false;
+            return zz == coord.zz;
         }
 
         @Override
@@ -151,13 +163,8 @@ public class Day17 {
             int result = x;
             result = 31 * result + y;
             result = 31 * result + z;
+            result = 31 * result + zz;
             return result;
-        }
-
-        Coord(int x, int y, int z) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
         }
     }
 }
