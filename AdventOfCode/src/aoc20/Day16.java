@@ -73,16 +73,13 @@ public class Day16 {
 
     private static Map<Integer, Field> simplify(Map<Integer, Set<Field>> fieldPossibilities) {
         Map<Integer, Field> simplified = new HashMap<>();
-        boolean didAnything = true;
-        while (didAnything) {
-            didAnything = false;
+        while (simplified.size() < fieldPossibilities.size()) {
             for (int i : fieldPossibilities.keySet()) {
                 Set<Field> vals = fieldPossibilities.get(i);
                 if (vals.size() == 1) {
                     Field val = Iterables.getOnlyElement(vals);
                     simplified.put(i, val);
                     fieldPossibilities.values().forEach(fp -> fp.remove(val));
-                    didAnything = true;
                 }
             }
         }
