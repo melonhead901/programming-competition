@@ -28,7 +28,7 @@ public class Day18 {
             if (Character.isDigit(c)) {
                 values.push(Long.parseLong(c + ""));
             } else if ((c == '+') || (c == '*')) {
-                while (!ops.isEmpty() && (ops.peek() != '(')) {
+                while (!(ops.isEmpty() || ((ops.peek() == '*') && (c == '+')) || (ops.peek() == '('))) {
                     doProcess(values, ops.pop());
                 }
                 ops.push(c);
