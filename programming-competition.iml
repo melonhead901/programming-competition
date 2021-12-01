@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
+  <component name="CheckStyle-IDEA-Module">
+    <option name="configuration">
+      <map />
+    </option>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
@@ -7,10 +12,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="joda-time:joda-time:2.10.3" level="application" />
-    <orderEntry type="library" name="junit:junit:4.12" level="application" />
-    <orderEntry type="library" name="com.google.guava:guava:27.1-jre" level="application" />
-    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.9" level="application" />
-    <orderEntry type="library" name="org.assertj:assertj-core:3.12.2" level="application" />
+    <orderEntry type="library" scope="TEST" name="junit.jupiter.api" level="application" />
+    <orderEntry type="library" name="joda.time" level="application" />
+    <orderEntry type="library" name="com.google.guava:guava:30.1.1-jre" level="application" />
+    <orderEntry type="library" name="assertj.core" level="application" />
   </component>
 </module>
