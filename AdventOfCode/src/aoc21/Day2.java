@@ -5,20 +5,22 @@ import java.util.Scanner;
 public class Day2 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int xPos = 0;
-        int depth = 0;
+        long xPos = 0;
+        long depth = 0;
+        long aim = 0;
         while (in.hasNext()){
             String command = in.next();
             int num = in.nextInt();
             switch (command) {
                 case "forward":
                     xPos += num;
+                    depth += aim*num;
                     break;
                 case "down":
-                    depth += num;
+                    aim += num;
                     break;
                 case "up":
-                    depth -= num;
+                    aim -= num;
                     break;
                 default:
                     throw new IllegalArgumentException(command);
