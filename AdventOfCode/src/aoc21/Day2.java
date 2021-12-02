@@ -5,27 +5,53 @@ import java.util.Scanner;
 public class Day2 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        long xPos = 0;
-        long depth = 0;
-        long aim = 0;
+        Day2State state = new Day2State(0, 0, 0);
         while (in.hasNext()){
             String command = in.next();
             int num = in.nextInt();
             switch (command) {
                 case "forward":
-                    xPos += num;
-                    depth += aim*num;
+                    state = state.forward(num);
                     break;
                 case "down":
-                    aim += num;
+                    state = state.down(num);
                     break;
                 case "up":
-                    aim -= num;
+                    state = state.up(num);
                     break;
                 default:
                     throw new IllegalArgumentException(command);
             }
-            System.out.printf("x: %s depth: %s, times: %s\n", xPos, depth, xPos*depth);
+            state.printResult();
+        }
+    }
+
+    static class Day2State {
+        private final int xPos;
+        private final int depth;
+        private final int aim;
+
+        public Day2State(int xPos, int depth, int aim) {
+            this.xPos = xPos;
+            this.depth = depth;
+            this.aim = aim;
+        }
+
+        public Day2State down(int x) {
+            return new Day2State(xPos, depth, aim + x);
+        }
+
+        public Day2State up(int x) {
+            return new Day2State(xPos, depth, aim - x);
+        }
+
+        public Day2State forward(int x) {
+            return new Day2State(xPos + x, depth + (aim * x), aim);
+        }
+
+        private void printResult() {
+            System.out.println(depth * xPos);
+
         }
     }
 }

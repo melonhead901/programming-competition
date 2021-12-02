@@ -76,7 +76,7 @@
     <version value="1.0" />
   </component>
   <component name="PalantirJavaFormatSettings">
-    <option name="enabled" value="true" />
+    <option name="enabled" value="false" />
   </component>
   <component name="Palette2">
     <group name="Swing">
