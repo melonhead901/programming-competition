@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Day2 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Day2State state = new Day2State(0, 0, 0);
+        Day2State state = new Day2State();
         while (in.hasNext()){
             String command = in.next();
             int num = in.nextInt();
@@ -31,7 +31,11 @@ public class Day2 {
         private final int depth;
         private final int aim;
 
-        public Day2State(int xPos, int depth, int aim) {
+        public Day2State() {
+            this(0, 0, 0);
+        }
+
+        private Day2State(int xPos, int depth, int aim) {
             this.xPos = xPos;
             this.depth = depth;
             this.aim = aim;
