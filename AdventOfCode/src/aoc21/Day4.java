@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Day4 {
     public static void main(String[] args) {
@@ -21,10 +22,10 @@ public class Day4 {
 
         for (int num : numbers) {
             boards.forEach(board -> board.cover(num));
-            Optional<Board> coveredBoard = boards.stream().filter(Board::isBoardCovered).findAny();
-            if (coveredBoard.isPresent()) {
-                System.out.println(coveredBoard.get().sumUncovered() * num);
-                break;
+            List<Board> coveredBoards = boards.stream().filter(Board::isBoardCovered).collect(Collectors.toList());
+            for (Board coveredBoard : coveredBoards) {
+                System.out.println(coveredBoard.sumUncovered() * num);
+                boards.remove(coveredBoard);
             }
         }
 
