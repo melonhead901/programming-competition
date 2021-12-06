@@ -18,8 +18,6 @@ public class Day6 {
         Map<Integer, Long> freqs = convertToMap(values);
         for (int i = 1; i <= 256; i++) {
             freqs = createNewValues(freqs);
-            // System.out.printf("%s: %s %s \n", i, values.size(), values);
-
             System.out.printf("%s: %s \n", i, freqs.values().stream().reduce(0L, Long::sum));
         }
     }
@@ -27,11 +25,7 @@ public class Day6 {
     private static Map<Integer, Long> createNewValues(Map<Integer, Long> values) {
         Map<Integer, Long> newFreqs = new HashMap<>();
         for (int key : values.keySet()) {
-            if (key == 0) {
-                newFreqs.put(8, values.get(0));
-            } else {
-                newFreqs.put(key - 1, values.get(key));
-            }
+            newFreqs.put((key == 0) ? 8 : (key - 1), values.get(key));
         }
         newFreqs.put(6, newFreqs.getOrDefault(6, 0L) + newFreqs.getOrDefault(8, 0L));
         return newFreqs;
@@ -40,11 +34,7 @@ public class Day6 {
     private static Map<Integer, Long> convertToMap(List<Integer> values) {
         Map<Integer, Long> result = new HashMap<>();
         for (int val : values) {
-            if (result.containsKey(val)) {
-                result.put(val, result.get(val) + 1);
-            } else {
-                result.put(val, 1L);
-            }
+            result.put(val, result.getOrDefault(val, 0L) + 1L);
         }
         return result;
     }
