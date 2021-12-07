@@ -30,6 +30,6 @@ public class Day7 {
     }
 
     private static int distanceToPosition(int i, List<Integer> nums) {
-        return nums.stream().map(n -> Math.abs(n -i)).reduce(0, Integer::sum);
+        return nums.stream().map(n ->Math.abs(n-i)*(Math.abs(n-i)+1)/2).reduce(0, Integer::sum);
     }
 }
