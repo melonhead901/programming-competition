@@ -3,7 +3,6 @@ package aoc21;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Day7 {
@@ -30,6 +29,9 @@ public class Day7 {
     }
 
     private static int distanceToPosition(int i, List<Integer> nums) {
-        return nums.stream().map(n ->Math.abs(n-i)*(Math.abs(n-i)+1)/2).reduce(0, Integer::sum);
+        return nums.stream().map(n -> {
+            int distance = Math.abs(n - i);
+            return (distance * (distance + 1)) / 2;
+        }).reduce(0, Integer::sum);
     }
 }
