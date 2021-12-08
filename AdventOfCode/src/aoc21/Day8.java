@@ -1,7 +1,5 @@
 package aoc21;
 
-import com.google.common.collect.Iterables;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -52,31 +50,8 @@ public class Day8 {
                     '}';
         }
 
-        public String rightSideDigits() {
-            return all.stream().filter(s -> s.length() == 2).findAny().get();
-        }
-
-        public String seven() {
-            return all.stream().filter(s -> s.length() == 7).findAny().get();
-        }
-
         public String getN(int n) {
             return all.stream().filter(s -> s.length() == n).findAny().get();
-        }
-
-        public String topDigit() {
-            String one = rightSideDigits();
-            String seven = seven();
-            Set<Character> ones = new HashSet<>();
-            for (char c : one.toCharArray()) {
-                ones.add(c);
-            }
-            Set<Character> sevens = new HashSet<>();
-            for (char c : seven.toCharArray()) {
-                sevens.add(c);
-            }
-            sevens.removeAll(ones);
-            return Iterables.getOnlyElement(sevens) + "";
         }
 
         public Optional<Integer> decodeDigit(int pos) {
@@ -88,7 +63,7 @@ public class Day8 {
             } else if (digit.length() == 4) {
                 return Optional.of(4);
             } else if (digit.length() == 5) {
-                if (stringContains(digit, this.rightSideDigits())) {
+                if (stringContains(digit, getN(2))) {
                     return Optional.of(3);
                 }
                 String four = getN(4);
@@ -100,10 +75,9 @@ public class Day8 {
                 }
                 return Optional.empty();
             } else if (digit.length() == 6) {
-                if (!stringContains(digit, this.rightSideDigits())) {
+                if (!stringContains(digit, getN(2))) {
                     return Optional.of(6);
                 }
-                // 0, 9
                 String four = getN(4);
                 int digitsInCommon = digitsInCommon(digit, four);
                 if (digitsInCommon == 4) {
@@ -133,18 +107,8 @@ public class Day8 {
             return set;
         }
 
-        private boolean stringContains(String digit, String rightSideDigits) {
-            Set<Character> digitsSet = new HashSet<>();
-            char[] digits = digit.toCharArray();
-            for (char c : digits) {
-                digitsSet.add(c);
-            }
-            for (char c : rightSideDigits.toCharArray()) {
-                if (!digitsSet.contains(c)) {
-                    return false;
-                }
-            }
-            return true;
+        private boolean stringContains(String digit, String smallerSide) {
+            return digitsInCommon(digit, smallerSide) == smallerSide.length();
         }
 
         public long countUniqueDigits() {
