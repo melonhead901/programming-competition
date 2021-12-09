@@ -31,6 +31,10 @@ public class Point {
         return points;
     }
 
+    boolean isInGrid(int[][] grid) {
+        return (c >= 0) && (r >= 0) && (r < grid.length) && (c < grid[r].length);
+    }
+
     @Override
     public String toString() {
         return "{" + r + "," + c + '}';
