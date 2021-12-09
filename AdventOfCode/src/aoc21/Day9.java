@@ -48,14 +48,14 @@ public class Day9 {
             Point p = points.poll();
             if (!pointSet.contains(p) && isPointInGrid(p, grid) && (grid[p.r][p.c] != 9)) {
                 pointSet.add(p);
-                points.addAll(getNeighbors(p.r, p.c));
+                points.addAll(p.getPointNeighbors());
             }
         }
         return pointSet.size();
     }
 
     private static boolean isLowPoint(int[][] grid, int r, int c) {
-        List<Point> neighbors = getNeighbors(r, c);
+        List<Point> neighbors = Point.getNeighbors(r, c);
         neighbors = neighbors.stream().filter(p -> isPointInGrid(p, grid)).collect(Collectors.toList());
         for (Point p : neighbors) {
             if (grid[p.r][p.c] <= grid[r][c]) {
@@ -69,12 +69,4 @@ public class Day9 {
         return (p.c >= 0) && (p.r >= 0) && (p.r < grid.length) && (p.c < grid[p.r].length);
     }
 
-    private static List<Point> getNeighbors(int r, int c) {
-        List<Point> points = new ArrayList<>();
-        points.add(new Point(r - 1, c));
-        points.add(new Point(r + 1, c));
-        points.add(new Point(r, c - 1));
-        points.add(new Point(r, c + 1));
-        return points;
-    }
 }
