@@ -7,10 +7,17 @@ import java.util.Objects;
 public class Point {
     final int r;
     final int c;
+    int value;
+    boolean flashedThisRound;
 
     public Point(int r, int c) {
-        this.r = r;
-        this.c = c;
+        this(r, c, 0);
+    }
+
+    public Point(int row, int col, int val) {
+        this.r = row;
+        this.c = col;
+        this.value = val;
     }
 
     List<Point> getPointNeighbors() {
@@ -51,5 +58,13 @@ public class Point {
     @Override
     public int hashCode() {
         return Objects.hash(r, c);
+    }
+
+    public void increment() {
+        this.value++;
+    }
+
+    public void reset() {
+        this.value = 0;
     }
 }
