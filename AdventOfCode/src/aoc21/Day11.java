@@ -15,13 +15,18 @@ public class Day11 {
         Board board = Board.createBoard(in);
         int numSteps = 100;
         int flashes = 0;
+        int count = 1;
         System.out.println(board);
-        for (int i = 0; i < numSteps; i++) {
+        while (true) {
             board.executeStep();
+            if (board.didAllFlash()) {
+                break;
+            }
             flashes += board.countFlashesAndContinue();
             System.out.println(board);
+            count++;
         }
-        System.out.println(flashes);
+        System.out.println(count);
     }
 
     static class Board {
@@ -110,6 +115,10 @@ public class Day11 {
 
         public int getPointValue(int finalR, int finalC) {
             return findPoint(finalR, finalC).get().value;
+        }
+
+        public boolean didAllFlash() {
+            return this.flashedThisRound.size() == this.points.size();
         }
     }
 }
