@@ -59,12 +59,4 @@ public class Point {
     public int hashCode() {
         return Objects.hash(r, c);
     }
-
-    public void increment() {
-        this.value++;
-    }
-
-    public void reset() {
-        this.value = 0;
-    }
 }
