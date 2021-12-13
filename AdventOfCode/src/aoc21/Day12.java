@@ -21,7 +21,6 @@ public class Day12 {
         List<Route> routes = getRoutes(in);
         Map<String, List<String>> processedRoutes = processRoutes(routes);
         List<Path> paths = findAllValidPaths(processedRoutes);
-        System.out.println(paths);
         System.out.println(paths.size());
     }
 
@@ -35,6 +34,7 @@ public class Day12 {
             Path p = paths.remove();
             if (p.isFinished()) {
                 successPaths.add(p);
+                System.out.println(p);
             }
             List<Path> nextSteps = p.validNextSteps(processedRoutes);
             paths.addAll(nextSteps);
@@ -78,7 +78,7 @@ public class Day12 {
     private static class Path {
         List<String> roomsVisited;
         Set<String> smallCaves;
-        boolean usedExtraVisit = false;
+        boolean usedExtraVisit;
 
         public Path() {
             this.roomsVisited = new ArrayList<>();
