@@ -18,33 +18,39 @@ public class Day14 {
             String line = in.nextLine();
             rules.put(line.substring(0, 2), line.charAt(line.length() - 1));
         }
-        CharCounter counter = new CharCounter();
+        // key: two consecutive character patterns. value: frequency of tha pattern.
         Map<String, Long> patternCounts = new HashMap<>();
         for (int i = 0; (i + 1) < pattern.length(); i++) {
             String key = pattern.substring(i, i + 2);
             increment(patternCounts, key, 1);
         }
-        int iterations = 40;
+        final int iterations = 40;
         for (int i = 0; i < iterations; i++) {
             Map<String, Long> newCounts = new HashMap<>();
             for (Map.Entry<String, Long> entry : patternCounts.entrySet()) {
                 char newChar = rules.get(entry.getKey());
-                String useFirst = String.format("%s%s", entry.getKey().charAt(0), newChar);
-                increment(newCounts, useFirst, entry.getValue());
-                String useSecond = String.format("%s%s", newChar, entry.getKey().charAt(1));
-                increment(newCounts, useSecond, entry.getValue());
+                increment(newCounts, String.format("%s%s", entry.getKey().charAt(0), newChar), entry.getValue());
+                increment(newCounts, String.format("%s%s", newChar, entry.getKey().charAt(1)), entry.getValue());
             }
             patternCounts = newCounts;
             System.out.println(patternCounts);
         }
-        patternCounts.forEach((k, v) -> counter.increment(k.charAt(0), v));
-        patternCounts.forEach((k, v) -> counter.increment(k.charAt(1), v));
-        counter.divideBy2();
-        counter.increment(pattern.charAt(0));
-        counter.increment(pattern.charAt(pattern.length() - 1));
+        CharCounter counter = countCharacters(pattern, patternCounts);
         System.out.println(counter);
         System.out.println(counter.difference());
 
+    }
+
+    private static CharCounter countCharacters(String pattern, Map<String, Long> patternCounts) {
+        CharCounter counter = new CharCounter();
+        patternCounts.forEach((k, v) -> counter.increment(k.charAt(0), v));
+        patternCounts.forEach((k, v) -> counter.increment(k.charAt(1), v));
+        // just counting the patterns each character is double counted.
+        counter.divideBy2();
+        // except the first and last character are not double counted.
+        counter.increment(pattern.charAt(0));
+        counter.increment(pattern.charAt(pattern.length() - 1));
+        return counter;
     }
 
     static <K> void increment(Map<K, Long> counts, K key, long incrementAmount) {
