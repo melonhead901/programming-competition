@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Point {
+public class Point implements Comparable<Point> {
     final int r;
     final int c;
     int value;
@@ -58,5 +58,10 @@ public class Point {
     @Override
     public int hashCode() {
         return Objects.hash(r, c);
+    }
+
+    @Override
+    public int compareTo(Point o) {
+        return Double.compare(this.value, o.value);
     }
 }
