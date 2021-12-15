@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Day15 {
     static Map<Point, Integer> board;
@@ -51,16 +51,19 @@ public class Day15 {
         }
         goalPoint = new Point((rows * 5) - 1, (cols * 5) - 1);
         Map<Point, Integer> dist = new HashMap<>();
-        Set<Point> points = new HashSet<>();
+        PriorityQueue<Point> points = new PriorityQueue<>(Comparator.comparingInt(dist::get));
+        Point source = new Point(0, 0);
         for (Point p : board.keySet()) {
-            dist.put(p, Integer.MAX_VALUE);
-            points.add(p);
+            if (!p.equals(source)) {
+                dist.put(p, Integer.MAX_VALUE);
+                points.add(p);
+            }
         }
-        dist.put(new Point(0, 0), 0);
+        dist.put(source, 0);
+        points.add(source);
 
         while (!points.isEmpty()) {
-            Point p = getMinPoint(dist, points);
-            points.remove(p);
+            Point p = points.remove();
             if (p.equals(goalPoint)) {
                 break;
             }
@@ -72,12 +75,14 @@ public class Day15 {
                     }
                     if (alt < dist.get(neighbor)) {
                         dist.put(neighbor, alt);
+                        points.remove(neighbor);
+                        points.add(neighbor);
                     }
                 }
             }
-            if ((points.size() % 100) == 0) {
+            if ((points.size() % 1000) == 0) {
                 System.out.printf("%s: %s\n", points.size(), dist.get(p));
-                printProgress(points, rows, cols);
+                //printProgress(points, rows, cols);
             }
         }
 
