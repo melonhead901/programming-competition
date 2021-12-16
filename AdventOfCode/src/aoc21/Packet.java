@@ -1,22 +1,69 @@
 package aoc21;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Packet {
     int version;
     int packetId;
     long value;
+    private final BitString bs;
+    private final List<Packet> subpackets;
 
-    public Packet() {
+    public Packet(BitString bs) {
+        this.bs = bs;
+        this.subpackets = new ArrayList<>();
     }
 
-    void parseVersion(BitString bs) {
+    void parseVersion() {
         this.version = bs.consume(3);
     }
 
-    void parsePacketId(BitString bs) {
+    void parsePacketId() {
         this.packetId = bs.consume(3);
     }
 
-    public long parseConstant(BitString bs) {
+    public void parse() {
+        parseVersion();
+        parsePacketId();
+        switch (packetId) {
+            case 4 -> parseConstant();
+            default -> parseOperator();
+        }
+    }
+
+    private void parseOperator() {
+        int lengthTypeId = bs.consume(1);
+        switch (lengthTypeId) {
+            case 0:
+                int length = packetsLength();
+                BitString substring = new BitString(bs.consumeStr(length));
+                while (substring.hasNext()) {
+                    Packet packet = new Packet(substring);
+                    packet.parse();
+                    this.subpackets.add(packet);
+                }
+                break;
+            case 1:
+                int packetsCounts = packetsCount();
+                for (int i = 0; i < packetsCounts; i++) {
+                    Packet p = new Packet(bs);
+                    p.parse();
+                    this.subpackets.add(p);
+                }
+                break;
+        }
+    }
+
+    private int packetsLength() {
+        return bs.consume(15);
+    }
+
+    private int packetsCount() {
+        return bs.consume(11);
+    }
+
+    public long parseConstant() {
         StringBuilder bits = new StringBuilder();
         boolean shouldContinue = true;
         while (shouldContinue) {
@@ -26,5 +73,19 @@ public class Packet {
         }
         value = Long.valueOf(bits.toString(), 2);
         return value;
+    }
+
+    public long packetCountSum() {
+        if (this.version == 4) {
+            return this.value;
+        }
+        return this.subpackets.stream().map(Packet::packetCountSum).reduce(0L, Long::sum);
+    }
+
+    public long versionSum() {
+        if (this.packetId == 4) {
+            return this.version;
+        }
+        return this.version + this.subpackets.stream().map(Packet::versionSum).reduce(0L, Long::sum);
     }
 }

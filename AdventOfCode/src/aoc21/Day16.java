@@ -1,8 +1,8 @@
 package aoc21;
 
-import java.util.LinkedList;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Locale;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Day16 {
@@ -10,25 +10,21 @@ public class Day16 {
         Scanner in = new Scanner(System.in);
         String bits = buildBits(in);
         BitString bs = new BitString(bits);
-        Packet packet = new Packet();
-        packet.parseVersion(bs);
-        packet.parsePacketId(bs);
-        packet.parseConstant(bs);
-        System.out.println(packet.value);
+        Packet packet = new Packet(bs);
+        packet.parse();
+        System.out.println(packet.versionSum());
     }
 
     private static String buildBits(Scanner in) {
         String line = in.nextLine().toLowerCase(Locale.ROOT);
-        Scanner lineScanner = new Scanner(line);
-        Queue<Integer> hexNumbers = new LinkedList<>();
-        while (lineScanner.hasNextInt(16)) {
-            hexNumbers.add(lineScanner.nextInt(16));
-        }
         StringBuilder builder = new StringBuilder();
-        while (!hexNumbers.isEmpty()) {
-            builder.append(Integer.toString(hexNumbers.remove(), 2));
+        for (char c : line.toCharArray()) {
+            int hex = Integer.parseInt(c + "", 16);
+            String binary = Integer.toBinaryString(hex);
+            String padded = StringUtils.leftPad(binary, 4, "0");
+            builder.append(padded);
         }
+        System.out.println(builder);
         return builder.toString();
     }
-
 }
