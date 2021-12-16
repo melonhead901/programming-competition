@@ -15,8 +15,9 @@ public class Packet {
         LT,
         EQ,
     }
-    int version;
-    PacketId packetId;
+
+    final int version;
+    final PacketId packetId;
     long value;
     private final BitString bs;
     private final List<Packet> subpackets;
@@ -24,38 +25,35 @@ public class Packet {
     public Packet(BitString bs) {
         this.bs = bs;
         this.subpackets = new ArrayList<>();
+        this.version = this.bs.consume(3);
+        this.packetId = parsePacketId();
+        this.parse();
     }
 
-    void parseVersion() {
-        this.version = bs.consume(3);
-    }
-
-    void parsePacketId() {
+    private PacketId parsePacketId() {
         int val = bs.consume(3);
         if (val == 4) {
-            packetId = PacketId.CONSTANT;
+            return PacketId.CONSTANT;
         } else if (val == 0) {
-            packetId = PacketId.SUM;
+            return PacketId.SUM;
         } else if (val == 1) {
-            packetId = PacketId.MULT;
+            return PacketId.MULT;
         } else if (val == 2) {
-            packetId = PacketId.MIN;
+            return PacketId.MIN;
         } else if (val == 3) {
-            packetId = PacketId.MAX;
+            return PacketId.MAX;
         } else if (val == 5) {
-            packetId = PacketId.GT;
+            return PacketId.GT;
         } else if (val == 6) {
-            packetId = PacketId.LT;
+            return PacketId.LT;
         } else if (val == 7) {
-            packetId = PacketId.EQ;
+            return PacketId.EQ;
         } else {
-            packetId = PacketId.OPERATOR;
+            return PacketId.OPERATOR;
         }
     }
 
     public void parse() {
-        parseVersion();
-        parsePacketId();
         switch (packetId) {
             case CONSTANT -> parseConstant();
             default -> parseOperator();
@@ -70,7 +68,6 @@ public class Packet {
                 BitString substring = new BitString(bs.consumeStr(length));
                 while (substring.hasNext()) {
                     Packet packet = new Packet(substring);
-                    packet.parse();
                     this.subpackets.add(packet);
                 }
             }
@@ -78,7 +75,6 @@ public class Packet {
                 int packetsCounts = packetsCount();
                 for (int i = 0; i < packetsCounts; i++) {
                     Packet p = new Packet(bs);
-                    p.parse();
                     this.subpackets.add(p);
                 }
             }
