@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Packet {
+    enum PacketId {
+        CONSTANT,
+        OPERATOR
+    }
     int version;
-    int packetId;
+    PacketId packetId;
     long value;
     private final BitString bs;
     private final List<Packet> subpackets;
@@ -20,14 +24,19 @@ public class Packet {
     }
 
     void parsePacketId() {
-        this.packetId = bs.consume(3);
+        int val = bs.consume(3);
+        if (val == 4) {
+            packetId = PacketId.CONSTANT;
+        } else {
+            packetId = PacketId.OPERATOR;
+        }
     }
 
     public void parse() {
         parseVersion();
         parsePacketId();
         switch (packetId) {
-            case 4 -> parseConstant();
+            case CONSTANT -> parseConstant();
             default -> parseOperator();
         }
     }
@@ -83,7 +92,7 @@ public class Packet {
     }
 
     public long versionSum() {
-        if (this.packetId == 4) {
+        if (packetId == PacketId.CONSTANT) {
             return this.version;
         }
         return this.version + this.subpackets.stream().map(Packet::versionSum).reduce(0L, Long::sum);
