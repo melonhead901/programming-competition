@@ -12,7 +12,7 @@ public class Day16 {
         BitString bs = new BitString(bits);
         Packet packet = new Packet(bs);
         packet.parse();
-        System.out.println(packet.versionSum());
+        System.out.println(packet.compute());
     }
 
     private static String buildBits(Scanner in) {

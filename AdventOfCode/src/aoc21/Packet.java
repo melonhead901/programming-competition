@@ -6,7 +6,14 @@ import java.util.List;
 public class Packet {
     enum PacketId {
         CONSTANT,
-        OPERATOR
+        OPERATOR,
+        SUM,
+        MULT,
+        MIN,
+        MAX,
+        GT,
+        LT,
+        EQ,
     }
     int version;
     PacketId packetId;
@@ -27,6 +34,20 @@ public class Packet {
         int val = bs.consume(3);
         if (val == 4) {
             packetId = PacketId.CONSTANT;
+        } else if (val == 0) {
+            packetId = PacketId.SUM;
+        } else if (val == 1) {
+            packetId = PacketId.MULT;
+        } else if (val == 2) {
+            packetId = PacketId.MIN;
+        } else if (val == 3) {
+            packetId = PacketId.MAX;
+        } else if (val == 5) {
+            packetId = PacketId.GT;
+        } else if (val == 6) {
+            packetId = PacketId.LT;
+        } else if (val == 7) {
+            packetId = PacketId.EQ;
         } else {
             packetId = PacketId.OPERATOR;
         }
@@ -44,7 +65,7 @@ public class Packet {
     private void parseOperator() {
         int lengthTypeId = bs.consume(1);
         switch (lengthTypeId) {
-            case 0:
+            case 0 -> {
                 int length = packetsLength();
                 BitString substring = new BitString(bs.consumeStr(length));
                 while (substring.hasNext()) {
@@ -52,15 +73,15 @@ public class Packet {
                     packet.parse();
                     this.subpackets.add(packet);
                 }
-                break;
-            case 1:
+            }
+            case 1 -> {
                 int packetsCounts = packetsCount();
                 for (int i = 0; i < packetsCounts; i++) {
                     Packet p = new Packet(bs);
                     p.parse();
                     this.subpackets.add(p);
                 }
-                break;
+            }
         }
     }
 
@@ -89,6 +110,46 @@ public class Packet {
             return this.value;
         }
         return this.subpackets.stream().map(Packet::packetCountSum).reduce(0L, Long::sum);
+    }
+
+    public long compute() {
+        switch (packetId) {
+            case CONSTANT -> {
+                return this.value;
+            }
+            case OPERATOR -> throw new RuntimeException();
+            case SUM -> {
+                return this.subpackets.stream().map(Packet::compute).reduce(0L, Long::sum);
+            }
+            case MULT -> {
+                return this.subpackets.stream().map(Packet::compute).reduce(1L, (a,b) -> a*b);
+            }
+            case MIN -> {
+                return this.subpackets.stream().map(Packet::compute).reduce(Long.MAX_VALUE, Long::min);
+            }
+            case MAX -> {
+                return this.subpackets.stream().map(Packet::compute).reduce(Long.MIN_VALUE, Long::max);
+            }
+            case GT -> {
+                if (subpackets.size() != 2) {
+                    throw new IllegalStateException();
+                }
+                return (this.subpackets.get(0).compute() > this.subpackets.get(1).compute()) ? 1 : 0;
+            }
+            case LT -> {
+                if (subpackets.size() != 2) {
+                    throw new IllegalStateException();
+                }
+                return (this.subpackets.get(0).compute() < this.subpackets.get(1).compute()) ? 1 : 0;
+            }
+            case EQ -> {
+                if (subpackets.size() != 2) {
+                    throw new IllegalStateException();
+                }
+                return (this.subpackets.get(0).compute() == this.subpackets.get(1).compute()) ? 1 : 0;
+            }
+            default -> throw new IllegalStateException();
+        }
     }
 
     public long versionSum() {
