@@ -16,8 +16,8 @@ public class Packet {
         EQ,
     }
 
-    final int version;
-    final PacketId packetId;
+    private final int version;
+    private final PacketId packetId;
     long value;
     private final BitString bs;
     private final List<Packet> subpackets;
