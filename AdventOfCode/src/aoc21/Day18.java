@@ -20,6 +20,7 @@ public class Day18 {
         if (nextLine.charAt(0) == '[') {
 
         }
+        return null;
     }
 
     static class Pair {
