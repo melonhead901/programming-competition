@@ -29,7 +29,7 @@ public class Day2 {
         B(PAPER),
         C(SCISSORS);
 
-        private String item;
+        private final String item;
 
         Move(String item) {
             this.item = item;
@@ -58,7 +58,7 @@ public class Day2 {
         Y(3),
         Z(6);
 
-        private int points;
+        private final int points;
 
         Result(int pointsOfResult) {
             this.points = pointsOfResult;
