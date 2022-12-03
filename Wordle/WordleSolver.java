@@ -2,6 +2,8 @@ package Wordle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Scanner;
@@ -40,9 +42,19 @@ public class WordleSolver {
     }
 
     private static void printState(Set<String> words) {
-        System.out.print(words.size() + " words. Sample guesses: " );
-        words.stream().limit(10).forEach(w -> System.out.print(w + " "));
+        System.out.print(words.size() + " words. Sample guesses: ");
+        Set<String> unique = words.stream().filter(w -> distinctLetters(w).size() == 5).limit(10).collect(Collectors.toSet());
+        unique.forEach(w -> System.out.print(w + " "));
+        words.stream().limit(10 - unique.size()).forEach(w -> System.out.print(w + " "));
         System.out.println();
+    }
+
+    private static Collection<Character> distinctLetters(String w) {
+        Set<Character> characters = new HashSet<>();
+        for (char c : w.toCharArray()) {
+            characters.add(c);
+        }
+        return characters;
     }
 
     abstract static class Constraint {
