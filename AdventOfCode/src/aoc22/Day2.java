@@ -54,15 +54,16 @@ public class Day2 {
     }
 
     enum Result {
-        X,
-        Y,
-        Z
+        X(0),
+        Y(3),
+        Z(6);
 
-        Result (int pointsOfResult) {
-            
+        private int points;
+
+        Result(int pointsOfResult) {
+            this.points = pointsOfResult;
         }
     }
-
 
     static class Line {
         final Move theirMove;
@@ -70,17 +71,30 @@ public class Day2 {
 
         public Line(String str) {
             theirMove = Move.valueOf(str.charAt(0) + "");
-            myMove = Move.valueOf(str.charAt(2) + "");
+            myMove = determineDesiredResult(theirMove, Result.valueOf(str.charAt(2) + ""));
         }
 
-        static Move determineDesiredResult(Move theirMove) {
-
-
+        static Move determineDesiredResult(Move theirMove, Result result) {
+            for (Move possibleMove : Move.values()) {
+                int score = getResultScore(theirMove, possibleMove);
+                if (result.points == score) {
+                    return possibleMove;
+                }
+            }
+            throw new IllegalStateException("cannot get desired result " + result);
         }
 
         public int scoreLine() {
             int moveScore = myMove.movePoints();
 
+            int resultScore = getResultScore(theirMove, myMove);
+
+            int total = moveScore + resultScore;
+            System.out.printf("%s move score, %s result score = %s total\n", moveScore, resultScore, total);
+            return total;
+        }
+
+        private static int getResultScore(Move theirMove, Move myMove) {
             int resultScore;
             if (myMove.beatsOther(theirMove)) {
                 resultScore = 6;
@@ -89,10 +103,7 @@ public class Day2 {
             } else {
                 resultScore = 3;
             }
-
-            int total = moveScore + resultScore;
-            System.out.printf("%s move score, %s result score = %s total\n", moveScore, resultScore, total);
-            return total;
+            return resultScore;
         }
     }
 }
