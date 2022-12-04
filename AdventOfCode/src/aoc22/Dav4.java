@@ -16,9 +16,9 @@ public class Dav4 {
             String[] secondPair = pairs[1].split("-");
             int pair1Start = Integer.parseInt(secondPair[0]);
             int pair1End = Integer.parseInt(secondPair[1]);
-            if (pair0Start <= pair1Start && pair0End >= pair1End) {
+            if (pair0Start <= pair1Start && pair0End >= pair1Start) {
                 containedCount++;
-            } else if (pair1Start <= pair0Start && pair1End >= pair0End) {
+            } else if (pair1Start <= pair0Start && pair1End >= pair0Start) {
                 containedCount++;
             }
         }
