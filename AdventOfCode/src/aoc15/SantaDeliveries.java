@@ -1,4 +1,4 @@
-package adventofcode_2015;
+package aoc15;
 
 import java.util.HashSet;
 import java.util.Scanner;
