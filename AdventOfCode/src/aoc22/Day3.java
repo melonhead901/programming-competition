@@ -9,17 +9,25 @@ public class Day3 {
         Scanner in = new Scanner(System.in);
         int sum = 0;
         while (in.hasNextLine()) {
-            String line = in.nextLine();
-            Set<Character> firstHalf = new HashSet<>();
-            Set<Character> secondHalf = new HashSet<>();
-            for (int i = 0; i < line.length() / 2; i++) {
-                firstHalf.add(line.charAt(i));
+            String line1 = in.nextLine();
+            String line2 = in.nextLine();
+            String line3 = in.nextLine();
+
+            Set<Character> bag1 = new HashSet<>();
+            for (char c : line1.toCharArray()) {
+                bag1.add(c);
             }
-            for (int i = line.length() / 2; i < line.length(); i++) {
-                secondHalf.add(line.charAt(i));
+            Set<Character> bag2 = new HashSet<>();
+            for (char c : line2.toCharArray()) {
+                bag2.add(c);
             }
-            firstHalf.retainAll(secondHalf);
-            char intersection = firstHalf.stream().findFirst().get();
+            Set<Character> bag3 = new HashSet<>();
+            for (char c : line3.toCharArray()) {
+                bag3.add(c);
+            }
+            bag1.retainAll(bag2);
+            bag1.retainAll(bag3);
+            char intersection = bag1.stream().findFirst().get();
             int val = (int) intersection - 'a' + 1;
             if (Character.isUpperCase(intersection)) {
                 val += 58;
