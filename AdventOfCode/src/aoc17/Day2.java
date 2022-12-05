@@ -17,9 +17,9 @@ public class Day2 {
                 linInts.add(n);
             }
             for (int i = 0; i < linInts.size(); i++) {
-                for (int j = 0; j < linInts.size(); j++) {
+                for (Integer linInt : linInts) {
                     int ii = linInts.get(i);
-                    int jj = linInts.get(j);
+                    int jj = linInt;
                     if (ii > jj) {
                         if (ii % jj == 0) {
                             checksum += ii / jj;

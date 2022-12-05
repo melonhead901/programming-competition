@@ -2,7 +2,7 @@ package aoc22;
 
 import java.util.Scanner;
 
-public class Dav4 {
+public class Day4 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int containedCount = 0;
