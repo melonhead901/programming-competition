@@ -7,16 +7,15 @@ import java.util.Scanner;
 public class Day7 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Directory root = new Directory(null);
+        final Directory root = new Directory(null);
         Directory currentDirectory = root;
-        String next = in.next();
+        // Burn $
+        in.next();
         while (in.hasNext()) {
             String command = in.next();
             switch (command) {
-                case "ls":
-                    processLs(currentDirectory, in);
-                    break;
-                case "cd":
+                case "ls" -> processLs(currentDirectory, in);
+                case "cd" -> {
                     String newDir = in.next();
                     if (newDir.equals("/")) {
                         currentDirectory = root;
@@ -25,10 +24,10 @@ public class Day7 {
                     } else {
                         currentDirectory = currentDirectory.navigateTo(newDir);
                     }
+                    // Burn $
                     in.next();
-                    break;
-                default:
-                    throw new IllegalStateException("unknown command");
+                }
+                default -> throw new IllegalStateException("unknown command");
             }
         }
         int currentUsed = root.calculateSize();
@@ -45,6 +44,7 @@ public class Day7 {
             } else if (next.equals("dir")) {
                 currentDirectory.addDirectory(in.next());
             } else {
+                // We just burned a $
                 break;
             }
         }
@@ -86,9 +86,9 @@ public class Day7 {
         }
 
         public int sumIfSizeLessThan(int max) {
-            int sum = 0;
-            if (this.calculateSize() < max) {
-                sum += this.calculateSize();
+            int sum = this.calculateSize();
+            if (sum >= max) {
+                sum = 0;
             }
             for (Directory d : this.directories.values()) {
                 sum += d.sumIfSizeLessThan(max);
@@ -98,9 +98,11 @@ public class Day7 {
 
         public int findSmallestLargerThan(int num) {
             int mySize = calculateSize();
-            int min = Integer.MAX_VALUE;
+            int min;
             if (mySize > num) {
                 min = mySize;
+            } else {
+                min = Integer.MAX_VALUE;
             }
             for (Directory d : this.directories.values()) {
                 min = Math.min(min, d.findSmallestLargerThan(num));
