@@ -22,7 +22,6 @@ public class Day6 {
                     break;
                 }
             }
-            System.out.println(line);
         }
     }
 }
