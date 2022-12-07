@@ -31,7 +31,10 @@ public class Day7 {
                     throw new IllegalStateException("unknown command");
             }
         }
-        System.out.println(root.sumIfSizeLessThan(100000));
+        int currentUsed = root.calculateSize();
+        int freeSpace = 70000000 - currentUsed;
+        int neededToFree = 30000000 - freeSpace;
+        System.out.println(root.findSmallestLargerThan(neededToFree));
     }
 
     private static void processLs(Directory currentDirectory, Scanner in) {
@@ -91,6 +94,18 @@ public class Day7 {
                 sum += d.sumIfSizeLessThan(max);
             }
             return sum;
+        }
+
+        public int findSmallestLargerThan(int num) {
+            int mySize = calculateSize();
+            int min = Integer.MAX_VALUE;
+            if (mySize > num) {
+                min = mySize;
+            }
+            for (Directory d : this.directories.values()) {
+                min = Math.min(min, d.findSmallestLargerThan(num));
+            }
+            return min;
         }
     }
 }
