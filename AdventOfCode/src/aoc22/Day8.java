@@ -17,47 +17,46 @@ public class Day8 {
             }
             board.add(row);
         }
-        int count = 0;
+        int max = 0;
         for (int r = 0; r < board.size(); r++) {
             for (int c = 0; c < board.get(r).size(); c++) {
-                if (isTreeVisible(board, r, c)) {
-                    count++;
-                }
+                int visible = isTreeVisible(board, r, c);
+                max = Math.max(max, visible);
             }
         }
-        System.out.println(count);
+        System.out.println(max);
     }
 
-    private static boolean isTreeVisible(List<List<Integer>> board, int r, int c) {
+    private static int isTreeVisible(List<List<Integer>> board, int r, int c) {
         int height = board.get(r).get(c);
-        boolean visibleToLeft = true;
+        int countUP = 0;
         for (int xr = r - 1; xr >= 0; xr--) {
+            countUP++;
             if (board.get(xr).get(c) >= height) {
-                visibleToLeft = false;
                 break;
             }
         }
-        boolean visibleToRight = true;
+        int countDOWN = 0;
         for (int xr = r + 1; xr < board.size(); xr++) {
+            countDOWN++;
             if (board.get(xr).get(c) >= height) {
-                visibleToRight = false;
                 break;
             }
         }
-        boolean visibleToTop = true;
+        int countLEFT = 0;
         for (int xc = c - 1; xc >= 0; xc--) {
+            countLEFT++;
             if (board.get(r).get(xc) >= height) {
-                visibleToTop = false;
                 break;
             }
         }
-        boolean visibleToBtm = true;
+        int countRIGHT = 0;
         for (int xc = c + 1; xc < board.get(r).size(); xc++) {
+            countRIGHT++;
             if (board.get(r).get(xc) >= height) {
-                visibleToBtm = false;
                 break;
             }
         }
-        return visibleToLeft || visibleToRight || visibleToTop || visibleToBtm;
+        return countUP * countDOWN * countLEFT * countRIGHT;
     }
 }
