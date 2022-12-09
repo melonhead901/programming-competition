@@ -32,12 +32,12 @@ public class Day5 {
         int num = Integer.parseInt(matcher.group(1));
         int src = Integer.parseInt(matcher.group(2)) - 1;
         int dst = Integer.parseInt(matcher.group(3)) - 1;
-        Queue<Character> moved = new LinkedList<>();
+        Stack<Character> moved = new Stack<>();
         for (int i = 0; i < num; i++) {
-            moved.offer(stacks.get(src).pop());
+            moved.push(stacks.get(src).pop());
         }
         for (int i = 0; i < num; i++) {
-            stacks.get(dst).push(moved.poll());
+            stacks.get(dst).push(moved.pop());
         }
     }
 
