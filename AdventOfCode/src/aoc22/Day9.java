@@ -1,19 +1,23 @@
 package aoc22;
 
+import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Scanner;
 
 public class Day9 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Coord head = new Coord(0,0);
-        Coord tail = new Coord(0,0);
         HashSet<Coord> tailPositions = new HashSet<>();
-        tailPositions.add(tail);
+        tailPositions.add(new Coord(0,0));
+        Coord[] knots = new Coord[10];
+        for (int i = 0; i < knots.length; i++) {
+            knots[i] = new Coord(0, 0);
+        }
         while (in.hasNext()) {
             String direction = in.next();
             int magnitude = in.nextInt();
             for (int i = 0; i < magnitude; i++) {
+                Coord head = knots[0];
                 Coord newHead;
                 switch (direction) {
                     case "U" -> newHead = head.up();
@@ -22,18 +26,78 @@ public class Day9 {
                     case "R" -> newHead = head.right();
                     default -> throw new IllegalStateException();
                 }
-                tail = updateTailPosition(newHead, head, tail);
-                head = newHead;
-                tailPositions.add(tail);
-                System.out.printf("Head at %s, tail at %s\n", head, tail);
+                Coord[] newKnots = new Coord[10];
+                newKnots[0] = newHead;
+
+                for (int t = 1; t < 10; t++) {
+                    newKnots[t] = updateTailPosition(newKnots[t-1], knots[t-1], knots[t]);
+                }
+                knots = newKnots;
+                printBoard(knots);
+
+                tailPositions.add(knots[9]);
             }
         }
         System.out.println(tailPositions.size());
     }
 
-    private static Coord updateTailPosition(Coord newHead, Coord head, Coord tail) {
+    private static void printBoard(Coord[] knots) {
+        int SIZE = 10;
+        int[][] board = new int[SIZE][];
+        for (int i = 0; i < SIZE; i++) {
+            int[] row = new int[SIZE];
+            for (int j = 0; j < SIZE; j++) {
+                row[j] = -1;
+            }
+            board[i] = row;
+        }
+        for (int c = 0; c < knots.length; c++) {
+            int row = SIZE/2-knots[c].y-1;
+            int col = knots[c].x + SIZE/2;
+            if (board[row][col] == -1) {
+                board[row][col] = c;
+            }
+        }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                int val = board[i][j];
+                if (val == -1) {
+                    if (i == SIZE/2 && j == SIZE/2) {
+                        System.out.print("s");
+                    } else {
+                        System.out.print(".");
+                    }
+                } else {
+                    System.out.print(val);
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("--------------------------------");
+
+    }
+
+    private static void oldPrintBoard(Coord[] knots) {
+        for (int i = 0; i < 10; i++) {
+            System.out.printf("%s: %s ", i, knots[i]);
+        }
+        System.out.println();
+    }
+
+    private static Coord updateTailPosition(@Nonnull Coord newHead, Coord head, Coord tail) {
         int xDiff = Math.abs(newHead.x - tail.x);
         int yDiff = Math.abs(newHead.y - tail.y);
+        if (xDiff + yDiff == 3) {
+            int newX, newY;
+            if (xDiff == 2) {
+                newX = (int) (0.5*(newHead.x+tail.x));
+                newY = newHead.y;
+            } else {
+                newX = newHead.x;
+                newY = (int) (0.5*(newHead.y+tail.y));
+            }
+            return new Coord(newX, newY);
+        }
         if (xDiff == 2 || yDiff == 2) {
             return head;
         }
