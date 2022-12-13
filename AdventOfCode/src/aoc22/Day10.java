@@ -1,10 +1,14 @@
 package aoc22;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Day10 {
+    static Set<Integer> setBits = new HashSet<>();
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int regVal = 1;
@@ -31,6 +35,19 @@ public class Day10 {
             total += val;
         }
         System.out.println(total);
+
+        for (int r = 0; r < 6; r++) {
+            for (int c = 0; c < 40; c++) {
+                int roundNum = r * 40 + 1 + c;
+                int valAtRound = historicalRegVals.get(roundNum);
+                if (Math.abs(c - valAtRound) <= 1) {
+                    System.out.print('#');
+                } else {
+                    System.out.print('.');
+                }
+            }
+            System.out.println();
+        }
     }
 
     private static void printAndStoreCycle(int regVal, int cycle, Map<Integer, Integer> historicalRegVals) {
