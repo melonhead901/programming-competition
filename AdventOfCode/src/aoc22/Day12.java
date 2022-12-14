@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Day12 {
     static class PointComparator implements Comparator<List<Point>> {
@@ -30,9 +32,9 @@ public class Day12 {
             if (diff != 0) {
                 return diff;
             }
-            int d1 = board.distToNext[p1.r][p1.c];
-            int d2 = board.distToNext[p2.r][p2.c];
-            return d2 - d1;
+            int d1 = board.distToJump[p1.r][p1.c];
+            int d2 = board.distToJump[p2.r][p2.c];
+            return d1 - d2;
         }
     }
 
@@ -40,31 +42,49 @@ public class Day12 {
         Scanner in = new Scanner(System.in);
         Board board = Board.createBoard(in);
 
-        Queue<List<Point>> paths = new PriorityQueue<>(new PointComparator(board));
+        Queue<List<Point>> paths = new LinkedList<>();
+        Set<Point> visited = new HashSet<>();
         paths.add(Collections.singletonList(board.start));
         int pathsSeen = 0;
         while (!paths.isEmpty()) {
             List<Point> path = paths.remove();
             Point last = path.get(path.size() - 1);
+            visited.add(last);
+            /*
+            paths = paths.stream()
+                    .filter(p -> !p.get(p.size() - 1).equals(last))
+                    .collect(Collectors.toCollection(LinkedList::new));
+             */
             pathsSeen++;
             if (pathsSeen % 100000 == 0) {
                 System.out.println(pathsSeen);
                 System.out.println(last);
-                System.out.println(board.grid[last.r][last.c]);
-                System.out.println(board.distToNext[last.r][last.c]);
+                printBoard(board, visited);
             }
             if (last.equals(board.end)) {
                 System.out.println(path.size() - 1);
                 break;
             }
             for (Point next : board.possibleNeighbors(last)) {
-                if (path.contains(next)) {
-                    continue;
+                if (!visited.contains(next)) {
+                    List<Point> newPath = new ArrayList<>(path);
+                    newPath.add(next);
+                    paths.add(newPath);
                 }
-                List<Point> newPath = new ArrayList<>(path);
-                newPath.add(next);
-                paths.add(newPath);
             }
+        }
+    }
+
+    private static void printBoard(Board board, Set<Point> visited) {
+        for (int r = 0; r < board.grid.length; r++) {
+            for (int c = 0; c < board.grid[0].length; c++) {
+                if (visited.contains(new Point(r, c))) {
+                    System.out.print("X");
+                } else {
+                    System.out.print(board.grid[r][c]);
+                }
+            }
+            System.out.println();
         }
     }
 
@@ -73,6 +93,7 @@ public class Day12 {
         final Point start;
         final Point end;
         final int[][] distToNext;
+        final int[][] distToJump;
 
         private Board(char[][] grid) {
             Point end1;
@@ -99,8 +120,10 @@ public class Day12 {
             Map<Character, List<Point>> charMap = new HashMap<>();
             char start = 'a';
             char end = 'z';
+            Map<Character, List<Point>> jumpSquares = new HashMap<>();
             for (int i = (int) start; i <= (int) end; i++) {
                 charMap.put((char) i, new ArrayList<>());
+                jumpSquares.put((char) i, new ArrayList<>());
             }
             for (int r = 0; r < grid.length; r++) {
                 for (int c = 0; c < grid[0].length; c++) {
@@ -108,18 +131,37 @@ public class Day12 {
                 }
             }
             distToNext = new int[grid.length][];
+            distToJump = new int[grid.length][];
             for (int r = 0; r < grid.length; r++) {
                 distToNext[r] = new int[grid[0].length];
+                distToJump[r] = new int[grid[0].length];
             }
             for (int r = 0; r < grid.length; r++) {
                 for (int c = 0; c < grid[0].length; c++) {
                     char target = (char) ((int) grid[r][c] + 1);
                     int minDist = Integer.MAX_VALUE;
+                    Point minPoint = null;
                     for (Point p : charMap.getOrDefault(target, new ArrayList<>())) {
                         int dist = Math.abs(p.r - r) + Math.abs(p.c - c);
                         minDist = Math.min(dist, minDist);
+                        if (dist == minDist) {
+                            minPoint = p;
+                        }
                     }
                     distToNext[r][c] = minDist;
+                    if (minDist == 1) {
+                        jumpSquares.get(grid[r][c]).add(minPoint);
+                    }
+                }
+            }
+            for (int r = 0; r < grid.length; r++) {
+                for (int c = 0; c < grid[0].length; c++) {
+                    int minDist = Integer.MAX_VALUE;
+                    for (Point p : jumpSquares.get(grid[r][c])) {
+                        int dist = Math.abs(p.r - r) + Math.abs(p.c - c);
+                        minDist = Math.min(dist, minDist);
+                    }
+                    distToJump[r][c] = minDist;
                 }
             }
         }
