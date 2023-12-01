@@ -27,5 +27,7 @@
     <orderEntry type="library" name="joda.time" level="application" />
     <orderEntry type="library" name="com.google.guava:guava:30.1.1-jre" level="application" />
     <orderEntry type="library" name="apache.commons.lang3" level="project" />
+    <orderEntry type="library" name="com.google.guava:guava:30.1.1-jre" level="project" />
+    <orderEntry type="library" name="junit4" level="project" />
   </component>
 </module>
