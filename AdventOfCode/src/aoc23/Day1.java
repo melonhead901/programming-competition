@@ -36,8 +36,6 @@ public class Day1 {
     }
 
     static String wordProcess(String line) {
-        return line;
-        /*
         String words[] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"};
         String digits[] = {"o1e", "t2o", "t3e", "f4r", "f5r", "s6x", "s7n", "e8t", "n9e", "z0o"};
         String oldline = "";
@@ -48,6 +46,5 @@ public class Day1 {
             oldline = line;
         }
         return line;
-         */
     }
 }
